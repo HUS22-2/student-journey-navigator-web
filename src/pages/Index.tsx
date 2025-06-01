@@ -14,7 +14,7 @@ const Index = () => {
       flag: '🇹🇷',
       color: 'from-red-500 to-red-600',
       description: 'Modern universities, rich culture, affordable education',
-      image: 'bg-gradient-to-r from-red-100 to-red-200 dark:from-red-900/20 dark:to-red-800/20'
+      image: 'https://images.unsplash.com/photo-1466442929976-97f336a657be?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
     },
     {
       name: t('france'),
@@ -22,7 +22,7 @@ const Index = () => {
       flag: '🇫🇷',
       color: 'from-blue-500 to-blue-600',
       description: 'World-class education, cultural heritage, EU benefits',
-      image: 'bg-gradient-to-r from-blue-100 to-blue-200 dark:from-blue-900/20 dark:to-blue-800/20'
+      image: 'https://images.unsplash.com/photo-1433086966358-54859d0ed716?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
     },
     {
       name: t('tunisia'),
@@ -30,7 +30,7 @@ const Index = () => {
       flag: '🇹🇳',
       color: 'from-green-500 to-green-600',
       description: 'Bilingual education, Mediterranean lifestyle, low costs',
-      image: 'bg-gradient-to-r from-green-100 to-green-200 dark:from-green-900/20 dark:to-green-800/20'
+      image: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
     },
     {
       name: t('canada'),
@@ -38,7 +38,7 @@ const Index = () => {
       flag: '🇨🇦',
       color: 'from-red-600 to-red-700',
       description: 'Top universities, immigration opportunities, quality life',
-      image: 'bg-gradient-to-r from-red-100 to-red-200 dark:from-red-900/20 dark:to-red-800/20'
+      image: 'https://images.unsplash.com/photo-1482938289607-e9573fc25ebb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
     },
     {
       name: t('morocco'),
@@ -46,7 +46,7 @@ const Index = () => {
       flag: '🇲🇦',
       color: 'from-orange-500 to-orange-600',
       description: 'French-Arabic education, diverse culture, strategic location',
-      image: 'bg-gradient-to-r from-orange-100 to-orange-200 dark:from-orange-900/20 dark:to-orange-800/20'
+      image: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
     }
   ];
 
@@ -93,24 +93,34 @@ const Index = () => {
                 className="group block"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
-                <div className="country-card group-hover:scale-105 transition-all duration-500">
-                  <div className={`${country.image} h-32 rounded-lg mb-6 flex items-center justify-center`}>
-                    <span className="text-6xl filter drop-shadow-lg">{country.flag}</span>
+                <div className="country-card group-hover:scale-105 transition-all duration-500 bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden">
+                  <div className="relative h-48 overflow-hidden">
+                    <img 
+                      src={country.image} 
+                      alt={country.name}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                    <div className="absolute top-4 right-4">
+                      <span className="text-4xl filter drop-shadow-lg">{country.flag}</span>
+                    </div>
                   </div>
                   
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-edu-blue-600 transition-colors">
-                    {country.name}
-                  </h3>
-                  
-                  <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
-                    {country.description}
-                  </p>
-                  
-                  <Button 
-                    className={`w-full bg-gradient-to-r ${country.color} hover:shadow-lg transition-all duration-300 transform group-hover:scale-105`}
-                  >
-                    {t('startJourney')}
-                  </Button>
+                  <div className="p-6">
+                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-edu-blue-600 transition-colors">
+                      {country.name}
+                    </h3>
+                    
+                    <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
+                      {country.description}
+                    </p>
+                    
+                    <Button 
+                      className={`w-full bg-gradient-to-r ${country.color} hover:shadow-lg transition-all duration-300 transform group-hover:scale-105`}
+                    >
+                      {t('startJourney')}
+                    </Button>
+                  </div>
                 </div>
               </Link>
             ))}
