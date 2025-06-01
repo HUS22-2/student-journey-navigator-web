@@ -12,11 +12,13 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="col-span-1 md:col-span-2">
-            <div className="flex items-center space-x-2 mb-4">
-              <div className="w-8 h-8 bg-gradient-to-r from-edu-blue-500 to-edu-purple-500 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">EC</span>
-              </div>
-              <span className="text-xl font-bold">EduConsult</span>
+            <div className="flex items-center space-x-3 mb-4">
+              <img 
+                src="/lovable-uploads/c5c07b39-805a-4d37-a779-799573449d9e.png" 
+                alt="EDUPASS Logo" 
+                className="h-8 w-auto filter brightness-0 invert"
+              />
+              <span className="text-xl font-bold">EDUPASS</span>
             </div>
             <p className="text-gray-300 mb-4 max-w-md">
               {t('aboutDescription')}
@@ -24,7 +26,7 @@ const Footer = () => {
             <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-2">
                 <Mail className="h-4 w-4 text-edu-blue-400" />
-                <span className="text-sm">info@educonsult.com</span>
+                <span className="text-sm">info@edupass.com</span>
               </div>
               <div className="flex items-center space-x-2">
                 <MapPin className="h-4 w-4 text-edu-blue-400" />
@@ -66,7 +68,7 @@ const Footer = () => {
 
         <div className="border-t border-gray-700 mt-8 pt-8 text-center">
           <p className="text-gray-300">
-            © 2024 EduConsult. All rights reserved.
+            © 2024 EDUPASS. All rights reserved.
           </p>
         </div>
       </div>

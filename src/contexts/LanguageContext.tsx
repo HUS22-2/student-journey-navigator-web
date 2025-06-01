@@ -50,7 +50,7 @@ const translations = {
     submit: "Submit Application",
     
     // About
-    aboutTitle: "About EduConsult",
+    aboutTitle: "About EDUPASS",
     aboutDescription: "With over 10 years of experience, we have successfully helped thousands of students achieve their dreams of studying abroad. Our expert team provides personalized guidance throughout your educational journey.",
     
     // Contact
@@ -101,7 +101,7 @@ const translations = {
     submit: "إرسال الطلب",
     
     // About
-    aboutTitle: "حول إيدو كونسلت",
+    aboutTitle: "حول إيدو باس",
     aboutDescription: "مع أكثر من 10 سنوات من الخبرة، ساعدنا بنجاح آلاف الطلاب على تحقيق أحلامهم في الدراسة بالخارج. فريقنا المتخصص يقدم إرشادًا مخصصًا طوال رحلتك التعليمية.",
     
     // Contact
@@ -152,7 +152,7 @@ const translations = {
     submit: "Soumettre la Candidature",
     
     // About
-    aboutTitle: "À propos d'EduConsult",
+    aboutTitle: "À propos d'EDUPASS",
     aboutDescription: "Avec plus de 10 ans d'expérience, nous avons aidé avec succès des milliers d'étudiants à réaliser leurs rêves d'étudier à l'étranger. Notre équipe d'experts fournit des conseils personnalisés tout au long de votre parcours éducatif.",
     
     // Contact

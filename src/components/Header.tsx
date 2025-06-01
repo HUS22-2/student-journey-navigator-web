@@ -37,11 +37,13 @@ const Header = () => {
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-to-r from-edu-blue-500 to-edu-purple-500 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">EC</span>
-            </div>
-            <span className="text-xl font-bold text-gradient">EduConsult</span>
+          <Link to="/" className="flex items-center space-x-3">
+            <img 
+              src="/lovable-uploads/c5c07b39-805a-4d37-a779-799573449d9e.png" 
+              alt="EDUPASS Logo" 
+              className="h-10 w-auto"
+            />
+            <span className="text-xl font-bold text-gradient">EDUPASS</span>
           </Link>
 
           {/* Desktop Navigation */}
