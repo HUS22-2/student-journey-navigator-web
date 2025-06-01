@@ -13,7 +13,7 @@ const Index = () => {
       slug: 'turkey',
       flag: '🇹🇷',
       color: 'from-red-500 to-red-600',
-      description: 'Modern universities, rich culture, affordable education',
+      description: 'جامعات حديثة، ثقافة غنية، تعليم بأسعار معقولة',
       image: 'https://images.unsplash.com/photo-1466442929976-97f336a657be?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
     },
     {
@@ -21,7 +21,7 @@ const Index = () => {
       slug: 'france',
       flag: '🇫🇷',
       color: 'from-blue-500 to-blue-600',
-      description: 'World-class education, cultural heritage, EU benefits',
+      description: 'تعليم عالمي المستوى، تراث ثقافي، مزايا الاتحاد الأوروبي',
       image: 'https://images.unsplash.com/photo-1433086966358-54859d0ed716?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
     },
     {
@@ -29,7 +29,7 @@ const Index = () => {
       slug: 'tunisia',
       flag: '🇹🇳',
       color: 'from-green-500 to-green-600',
-      description: 'Bilingual education, Mediterranean lifestyle, low costs',
+      description: 'تعليم ثنائي اللغة، أسلوب حياة متوسطي، تكاليف منخفضة',
       image: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
     },
     {
@@ -37,7 +37,7 @@ const Index = () => {
       slug: 'canada',
       flag: '🇨🇦',
       color: 'from-red-600 to-red-700',
-      description: 'Top universities, immigration opportunities, quality life',
+      description: 'جامعات متميزة، فرص هجرة، جودة حياة عالية',
       image: 'https://images.unsplash.com/photo-1482938289607-e9573fc25ebb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
     },
     {
@@ -45,7 +45,7 @@ const Index = () => {
       slug: 'morocco',
       flag: '🇲🇦',
       color: 'from-orange-500 to-orange-600',
-      description: 'French-Arabic education, diverse culture, strategic location',
+      description: 'تعليم فرنسي-عربي، ثقافة متنوعة، موقع استراتيجي',
       image: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
     }
   ];
