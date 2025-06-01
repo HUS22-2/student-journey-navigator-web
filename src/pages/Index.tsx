@@ -1,4 +1,3 @@
-
 import { Link } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Button } from '@/components/ui/button';
@@ -47,6 +46,14 @@ const Index = () => {
       color: 'from-orange-500 to-orange-600',
       description: 'تعليم فرنسي-عربي، ثقافة متنوعة، موقع استراتيجي',
       image: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
+    },
+    {
+      name: t('russia'),
+      slug: 'russia',
+      flag: '🇷🇺',
+      color: 'from-purple-500 to-purple-600',
+      description: 'جامعات عريقة، تعليم هندسي متميز، تكاليف منخفضة',
+      image: 'https://images.unsplash.com/photo-1513326738677-b964603b136d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
     }
   ];
 

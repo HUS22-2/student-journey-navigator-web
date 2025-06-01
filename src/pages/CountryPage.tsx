@@ -8,7 +8,8 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { ArrowLeft, MapPin, DollarSign, GraduationCap, Users } from 'lucide-react';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { ArrowLeft, MapPin, DollarSign, GraduationCap, Users, Calendar, ExternalLink } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
 
 const CountryPage = () => {
@@ -31,22 +32,51 @@ const CountryPage = () => {
       language: 'Turkish',
       currency: 'Turkish Lira',
       universities: [
-        { name: 'Istanbul University', ranking: '#500-550', tuition: '$2,000-$4,000' },
-        { name: 'Middle East Technical University', ranking: '#400-450', tuition: '$3,000-$5,000' },
-        { name: 'Bogazici University', ranking: '#300-350', tuition: '$4,000-$6,000' },
-        { name: 'Hacettepe University', ranking: '#450-500', tuition: '$2,500-$4,500' }
+        { name: 'Istanbul University', ranking: '#500-550', tuition: '$2,000-$4,000', deadline: '2024-07-15', status: 'Open' },
+        { name: 'Middle East Technical University', ranking: '#400-450', tuition: '$3,000-$5,000', deadline: '2024-06-30', status: 'Open' },
+        { name: 'Bogazici University', ranking: '#300-350', tuition: '$4,000-$6,000', deadline: '2024-06-15', status: 'Open' },
+        { name: 'Hacettepe University', ranking: '#450-500', tuition: '$2,500-$4,500', deadline: '2024-07-01', status: 'Open' },
+        { name: 'Sabanci University', ranking: '#400-450', tuition: '$15,000-$20,000', deadline: '2024-07-20', status: 'Open' },
+        { name: 'Bilkent University', ranking: '#350-400', tuition: '$12,000-$18,000', deadline: '2024-06-25', status: 'Open' }
       ],
       requirements: [
         'High school diploma with minimum 70% average',
         'English proficiency test (TOEFL/IELTS)',
         'Passport copy',
         'Motivation letter',
-        'Academic transcripts'
+        'Academic transcripts',
+        'Health insurance',
+        'Proof of financial support'
       ],
       scholarships: [
-        'Turkish Government Scholarship (Türkiye Bursları)',
-        'University-specific scholarships',
-        'Private foundation scholarships'
+        {
+          name: 'Turkish Government Scholarship (Türkiye Bursları)',
+          description: 'Full scholarship covering tuition, accommodation, and monthly stipend',
+          coverage: '100% tuition + $400/month stipend',
+          deadline: '2024-02-20',
+          requirements: 'GPA ≥ 70%, TOEFL ≥ 79'
+        },
+        {
+          name: 'YTB Scholarship',
+          description: 'Partial scholarship for undergraduate and graduate students',
+          coverage: 'Tuition + accommodation',
+          deadline: '2024-03-15',
+          requirements: 'Academic excellence, leadership skills'
+        },
+        {
+          name: 'University Merit Scholarships',
+          description: 'Institution-specific scholarships based on academic merit',
+          coverage: '25%-75% tuition reduction',
+          deadline: 'Varies by university',
+          requirements: 'High academic performance'
+        },
+        {
+          name: 'Ibn Khaldun Scholarship',
+          description: 'Special scholarship for students from developing countries',
+          coverage: 'Full tuition + living expenses',
+          deadline: '2024-04-01',
+          requirements: 'Financial need, academic merit'
+        }
       ],
       cost: '$8,000-$12,000 per year (including accommodation)'
     },
@@ -57,10 +87,10 @@ const CountryPage = () => {
       language: 'French',
       currency: 'Euro',
       universities: [
-        { name: 'Sorbonne University', ranking: '#72', tuition: '€170-€3,770' },
-        { name: 'École Normale Supérieure', ranking: '#45', tuition: '€170-€3,770' },
-        { name: 'Sciences Po', ranking: '#150', tuition: '€13,000-€15,000' },
-        { name: 'HEC Paris', ranking: '#12 (Business)', tuition: '€39,000-€42,000' }
+        { name: 'Sorbonne University', ranking: '#72', tuition: '€170-€3,770', deadline: '2024-03-15', status: 'Open' },
+        { name: 'École Normale Supérieure', ranking: '#45', tuition: '€170-€3,770', deadline: '2024-01-31', status: 'Closed' },
+        { name: 'Sciences Po', ranking: '#150', tuition: '€13,000-€15,000', deadline: '2024-02-28', status: 'Open' },
+        { name: 'HEC Paris', ranking: '#12 (Business)', tuition: '€39,000-€42,000', deadline: '2024-04-15', status: 'Open' }
       ],
       requirements: [
         'Baccalauréat or equivalent',
@@ -70,14 +100,46 @@ const CountryPage = () => {
         'Academic transcripts'
       ],
       scholarships: [
-        'Eiffel Excellence Scholarship',
-        'Charpak Scholarship',
-        'Regional scholarships',
-        'Campus France scholarships'
+        {
+          name: 'Eiffel Excellence Scholarship',
+          description: 'Prestigious scholarship for international students',
+          coverage: '€1,181/month + tuition',
+          deadline: '2024-01-09',
+          requirements: 'Excellence in academics, under 30 years old'
+        }
       ],
       cost: '€15,000-€25,000 per year (including accommodation)'
     },
-    // Add other countries...
+    russia: {
+      name: 'Russia',
+      flag: '🇷🇺',
+      capital: 'Moscow',
+      language: 'Russian',
+      currency: 'Russian Ruble',
+      universities: [
+        { name: 'Moscow State University', ranking: '#78', tuition: '$3,000-$6,000', deadline: '2024-07-01', status: 'Open' },
+        { name: 'Saint Petersburg State University', ranking: '#250', tuition: '$2,500-$5,000', deadline: '2024-06-15', status: 'Open' },
+        { name: 'Bauman Moscow State Technical University', ranking: '#350', tuition: '$3,500-$7,000', deadline: '2024-07-15', status: 'Open' },
+        { name: 'ITMO University', ranking: '#300', tuition: '$4,000-$8,000', deadline: '2024-06-30', status: 'Open' }
+      ],
+      requirements: [
+        'Secondary education certificate',
+        'Russian language proficiency or English for English programs',
+        'Medical certificate',
+        'Passport and visa documents',
+        'Academic transcripts with apostille'
+      ],
+      scholarships: [
+        {
+          name: 'Russian Government Scholarship',
+          description: 'Full scholarship for international students',
+          coverage: 'Full tuition + monthly stipend',
+          deadline: '2024-02-15',
+          requirements: 'Academic excellence, age under 35'
+        }
+      ],
+      cost: '$4,000-$8,000 per year (including accommodation)'
+    }
   };
 
   const currentCountry = countryData[countryName as keyof typeof countryData];
@@ -135,32 +197,117 @@ const CountryPage = () => {
             <Tabs defaultValue="universities" className="w-full">
               <TabsList className="grid w-full grid-cols-4 mb-8">
                 <TabsTrigger value="universities">Universities</TabsTrigger>
-                <TabsTrigger value="requirements">Requirements</TabsTrigger>
                 <TabsTrigger value="scholarships">Scholarships</TabsTrigger>
+                <TabsTrigger value="requirements">Requirements</TabsTrigger>
                 <TabsTrigger value="faq">FAQ</TabsTrigger>
               </TabsList>
 
               <TabsContent value="universities" className="space-y-6">
-                <div className="grid gap-6">
-                  {currentCountry.universities.map((university, index) => (
-                    <Card key={index} className="hover:shadow-lg transition-shadow">
-                      <CardHeader>
-                        <CardTitle className="flex items-center justify-between">
-                          {university.name}
-                          <span className="text-sm font-normal text-gray-500">
-                            {university.ranking}
-                          </span>
-                        </CardTitle>
-                        <CardDescription className="flex items-center space-x-4">
-                          <span className="flex items-center space-x-1">
-                            <DollarSign className="h-4 w-4" />
-                            <span>{university.tuition}</span>
-                          </span>
-                        </CardDescription>
-                      </CardHeader>
-                    </Card>
-                  ))}
-                </div>
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center space-x-2">
+                      <GraduationCap className="h-5 w-5" />
+                      <span>Open Universities for Application</span>
+                    </CardTitle>
+                    <CardDescription>
+                      Current application deadlines and status for {currentCountry.name} universities
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead>University</TableHead>
+                          <TableHead>Ranking</TableHead>
+                          <TableHead>Tuition</TableHead>
+                          <TableHead>Deadline</TableHead>
+                          <TableHead>Status</TableHead>
+                          <TableHead>Action</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {currentCountry.universities.map((university, index) => (
+                          <TableRow key={index}>
+                            <TableCell className="font-medium">{university.name}</TableCell>
+                            <TableCell>{university.ranking}</TableCell>
+                            <TableCell>{university.tuition}</TableCell>
+                            <TableCell className="flex items-center space-x-1">
+                              <Calendar className="h-4 w-4" />
+                              <span>{university.deadline}</span>
+                            </TableCell>
+                            <TableCell>
+                              <span className={`px-2 py-1 rounded-full text-xs font-semibold ${
+                                university.status === 'Open' 
+                                  ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100'
+                                  : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-100'
+                              }`}>
+                                {university.status}
+                              </span>
+                            </TableCell>
+                            <TableCell>
+                              <Button 
+                                size="sm" 
+                                variant={university.status === 'Open' ? 'default' : 'secondary'}
+                                disabled={university.status === 'Closed'}
+                                className="flex items-center space-x-1"
+                              >
+                                <ExternalLink className="h-3 w-3" />
+                                <span>Apply</span>
+                              </Button>
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </CardContent>
+                </Card>
+              </TabsContent>
+
+              <TabsContent value="scholarships" className="space-y-6">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center space-x-2">
+                      <DollarSign className="h-5 w-5" />
+                      <span>Available Scholarships</span>
+                    </CardTitle>
+                    <CardDescription>
+                      Funding opportunities for international students in {currentCountry.name}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-6">
+                      {currentCountry.scholarships.map((scholarship, index) => (
+                        <div key={index} className="border border-gray-200 dark:border-gray-700 rounded-lg p-6 hover:shadow-md transition-shadow">
+                          <div className="flex justify-between items-start mb-4">
+                            <h4 className="text-lg font-semibold text-edu-blue-900 dark:text-edu-blue-100">
+                              {scholarship.name}
+                            </h4>
+                            <span className="text-sm text-gray-500 flex items-center space-x-1">
+                              <Calendar className="h-4 w-4" />
+                              <span>{scholarship.deadline}</span>
+                            </span>
+                          </div>
+                          <p className="text-gray-600 dark:text-gray-300 mb-3">
+                            {scholarship.description}
+                          </p>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                              <span className="font-medium text-green-600 dark:text-green-400">Coverage: </span>
+                              <span className="text-gray-700 dark:text-gray-300">{scholarship.coverage}</span>
+                            </div>
+                            <div>
+                              <span className="font-medium text-blue-600 dark:text-blue-400">Requirements: </span>
+                              <span className="text-gray-700 dark:text-gray-300">{scholarship.requirements}</span>
+                            </div>
+                          </div>
+                          <Button className="mt-4 w-full md:w-auto">
+                            Apply for Scholarship
+                          </Button>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
               </TabsContent>
 
               <TabsContent value="requirements" className="space-y-6">
@@ -177,25 +324,6 @@ const CountryPage = () => {
                         </li>
                       ))}
                     </ul>
-                  </CardContent>
-                </Card>
-              </TabsContent>
-
-              <TabsContent value="scholarships" className="space-y-6">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Available Scholarships</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
-                      {currentCountry.scholarships.map((scholarship, index) => (
-                        <div key={index} className="p-4 bg-edu-blue-50 dark:bg-edu-blue-900/20 rounded-lg">
-                          <h4 className="font-semibold text-edu-blue-900 dark:text-edu-blue-100">
-                            {scholarship}
-                          </h4>
-                        </div>
-                      ))}
-                    </div>
                   </CardContent>
                 </Card>
               </TabsContent>
@@ -217,6 +345,12 @@ const CountryPage = () => {
                         <h4 className="font-semibold mb-2">Do I need to speak the local language?</h4>
                         <p className="text-gray-600 dark:text-gray-300">
                           Many programs are offered in English, but learning {currentCountry.language} is beneficial for daily life and integration.
+                        </p>
+                      </div>
+                      <div>
+                        <h4 className="font-semibold mb-2">When should I apply?</h4>
+                        <p className="text-gray-600 dark:text-gray-300">
+                          Application deadlines vary by university and program. Check the universities table for specific deadlines.
                         </p>
                       </div>
                     </div>

@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 export type Language = 'en' | 'ar' | 'fr';
@@ -32,6 +31,7 @@ const translations = {
     tunisia: "Tunisia",
     canada: "Canada",
     morocco: "Morocco",
+    russia: "Russia",
     
     // Services
     universityAdmission: "University Admission",
@@ -83,6 +83,7 @@ const translations = {
     tunisia: "تونس",
     canada: "كندا",
     morocco: "المغرب",
+    russia: "روسيا",
     
     // Services
     universityAdmission: "قبول جامعي",
@@ -134,6 +135,7 @@ const translations = {
     tunisia: "Tunisie",
     canada: "Canada",
     morocco: "Maroc",
+    russia: "Russie",
     
     // Services
     universityAdmission: "Admission Universitaire",
