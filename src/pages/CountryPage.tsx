@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -11,6 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { ArrowLeft, MapPin, DollarSign, GraduationCap, Users, Calendar, ExternalLink } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
 
 const CountryPage = () => {
   const { countryName } = useParams();
@@ -23,6 +23,7 @@ const CountryPage = () => {
     studyField: '',
     languageOfInstruction: ''
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const countryData = {
     turkey: {
@@ -157,13 +158,72 @@ const CountryPage = () => {
     );
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    toast({
-      title: "Application Submitted!",
-      description: "We'll contact you within 24 hours via WhatsApp.",
-    });
+    
+    // Basic form validation
+    if (!formData.fullName || !formData.nationality || !formData.whatsapp || 
+        !formData.educationLevel || !formData.studyField || !formData.languageOfInstruction) {
+      toast({
+        title: "Missing Information",
+        description: "Please fill in all required fields.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+    console.log('Submitting application:', { ...formData, country: currentCountry.name });
+
+    try {
+      const { data, error } = await supabase
+        .from('applications')
+        .insert([
+          {
+            full_name: formData.fullName,
+            nationality: formData.nationality,
+            whatsapp: formData.whatsapp,
+            education_level: formData.educationLevel,
+            study_field: formData.studyField,
+            language_of_instruction: formData.languageOfInstruction,
+            country: currentCountry.name
+          }
+        ]);
+
+      if (error) {
+        console.error('Error submitting application:', error);
+        toast({
+          title: "Submission Failed",
+          description: "There was an error submitting your application. Please try again.",
+          variant: "destructive"
+        });
+      } else {
+        console.log('Application submitted successfully:', data);
+        toast({
+          title: "Application Submitted!",
+          description: "We'll contact you within 24 hours via WhatsApp.",
+        });
+        
+        // Reset the form
+        setFormData({
+          fullName: '',
+          nationality: '',
+          whatsapp: '',
+          educationLevel: '',
+          studyField: '',
+          languageOfInstruction: ''
+        });
+      }
+    } catch (error) {
+      console.error('Unexpected error:', error);
+      toast({
+        title: "Submission Failed",
+        description: "An unexpected error occurred. Please try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleInputChange = (field: string, value: string) => {
@@ -404,7 +464,7 @@ const CountryPage = () => {
 
                   <div>
                     <Label htmlFor="educationLevel">{t('educationLevel')}</Label>
-                    <Select onValueChange={(value) => handleInputChange('educationLevel', value)}>
+                    <Select value={formData.educationLevel} onValueChange={(value) => handleInputChange('educationLevel', value)}>
                       <SelectTrigger>
                         <SelectValue placeholder="Select education level" />
                       </SelectTrigger>
@@ -429,7 +489,7 @@ const CountryPage = () => {
 
                   <div>
                     <Label htmlFor="languageOfInstruction">{t('languageOfInstruction')}</Label>
-                    <Select onValueChange={(value) => handleInputChange('languageOfInstruction', value)}>
+                    <Select value={formData.languageOfInstruction} onValueChange={(value) => handleInputChange('languageOfInstruction', value)}>
                       <SelectTrigger>
                         <SelectValue placeholder="Select language" />
                       </SelectTrigger>
@@ -442,8 +502,12 @@ const CountryPage = () => {
                     </Select>
                   </div>
 
-                  <Button type="submit" className="w-full bg-gradient-to-r from-edu-blue-500 to-edu-purple-500 hover:from-edu-blue-600 hover:to-edu-purple-600">
-                    {t('submit')}
+                  <Button 
+                    type="submit" 
+                    className="w-full bg-gradient-to-r from-edu-blue-500 to-edu-purple-500 hover:from-edu-blue-600 hover:to-edu-purple-600"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? 'Submitting...' : t('submit')}
                   </Button>
                 </form>
               </CardContent>
