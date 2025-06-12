@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Button } from '@/components/ui/button';
@@ -26,6 +26,7 @@ interface University {
 const CountryPage = () => {
   const { countryName } = useParams();
   const { t, language } = useLanguage();
+  const applicationFormRef = useRef<HTMLDivElement>(null);
   const [formData, setFormData] = useState({
     fullName: '',
     nationality: '',
@@ -159,6 +160,7 @@ const CountryPage = () => {
             description: "Failed to load universities. Please try again later.",
             variant: "destructive"
           });
+          setUniversities([]);
         } else {
           console.log('Universities fetched:', data);
           setUniversities(data || []);
@@ -170,6 +172,7 @@ const CountryPage = () => {
           description: "An unexpected error occurred while loading universities.",
           variant: "destructive"
         });
+        setUniversities([]);
       } finally {
         setIsLoadingUniversities(false);
       }
@@ -177,6 +180,15 @@ const CountryPage = () => {
 
     fetchUniversities();
   }, [currentCountry]);
+
+  const scrollToApplicationForm = () => {
+    if (applicationFormRef.current) {
+      applicationFormRef.current.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
 
   if (!currentCountry) {
     return (
@@ -263,6 +275,16 @@ const CountryPage = () => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
+  const formatDeadline = (deadline: string | null) => {
+    if (!deadline) return 'N/A';
+    try {
+      return new Date(deadline).toLocaleDateString();
+    } catch (error) {
+      console.error('Error formatting date:', error);
+      return 'N/A';
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Header */}
@@ -321,51 +343,54 @@ const CountryPage = () => {
                         </p>
                       </div>
                     ) : (
-                      <Table>
-                        <TableHeader>
-                          <TableRow>
-                            <TableHead>University</TableHead>
-                            <TableHead>Ranking</TableHead>
-                            <TableHead>Tuition</TableHead>
-                            <TableHead>Deadline</TableHead>
-                            <TableHead>Status</TableHead>
-                            <TableHead>Action</TableHead>
-                          </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                          {universities.map((university) => (
-                            <TableRow key={university.id}>
-                              <TableCell className="font-medium">{university.name}</TableCell>
-                              <TableCell>{university.ranking || 'N/A'}</TableCell>
-                              <TableCell>{university.tuition || 'N/A'}</TableCell>
-                              <TableCell className="flex items-center space-x-1">
-                                <Calendar className="h-4 w-4" />
-                                <span>{university.deadline ? new Date(university.deadline).toLocaleDateString() : 'N/A'}</span>
-                              </TableCell>
-                              <TableCell>
-                                <span className={`px-2 py-1 rounded-full text-xs font-semibold ${
-                                  university.status === 'Open' 
-                                    ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100'
-                                    : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-100'
-                                }`}>
-                                  {university.status}
-                                </span>
-                              </TableCell>
-                              <TableCell>
-                                <Button 
-                                  size="sm" 
-                                  variant={university.status === 'Open' ? 'default' : 'secondary'}
-                                  disabled={university.status === 'Closed'}
-                                  className="flex items-center space-x-1"
-                                >
-                                  <ExternalLink className="h-3 w-3" />
-                                  <span>Apply</span>
-                                </Button>
-                              </TableCell>
+                      <div className="overflow-x-auto">
+                        <Table>
+                          <TableHeader>
+                            <TableRow>
+                              <TableHead>University</TableHead>
+                              <TableHead>Ranking</TableHead>
+                              <TableHead>Tuition</TableHead>
+                              <TableHead>Deadline</TableHead>
+                              <TableHead>Status</TableHead>
+                              <TableHead>Action</TableHead>
                             </TableRow>
-                          ))}
-                        </TableBody>
-                      </Table>
+                          </TableHeader>
+                          <TableBody>
+                            {universities.map((university) => (
+                              <TableRow key={university.id}>
+                                <TableCell className="font-medium">{university.name}</TableCell>
+                                <TableCell>{university.ranking || 'N/A'}</TableCell>
+                                <TableCell>{university.tuition || 'N/A'}</TableCell>
+                                <TableCell className="flex items-center space-x-1">
+                                  <Calendar className="h-4 w-4" />
+                                  <span>{formatDeadline(university.deadline)}</span>
+                                </TableCell>
+                                <TableCell>
+                                  <span className={`px-2 py-1 rounded-full text-xs font-semibold ${
+                                    university.status === 'Open' 
+                                      ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100'
+                                      : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-100'
+                                  }`}>
+                                    {university.status}
+                                  </span>
+                                </TableCell>
+                                <TableCell>
+                                  <Button 
+                                    size="sm" 
+                                    variant={university.status === 'Open' ? 'default' : 'secondary'}
+                                    disabled={university.status === 'Closed'}
+                                    className="flex items-center space-x-1"
+                                    onClick={university.status === 'Open' ? scrollToApplicationForm : undefined}
+                                  >
+                                    <ExternalLink className="h-3 w-3" />
+                                    <span>Apply</span>
+                                  </Button>
+                                </TableCell>
+                              </TableRow>
+                            ))}
+                          </TableBody>
+                        </Table>
+                      </div>
                     )}
                   </CardContent>
                 </Card>
@@ -470,7 +495,7 @@ const CountryPage = () => {
 
           {/* Application Form */}
           <div className="lg:col-span-1">
-            <Card className="sticky top-24">
+            <Card className="sticky top-24" ref={applicationFormRef}>
               <CardHeader>
                 <CardTitle className="text-center">{t('startApplication')}</CardTitle>
                 <CardDescription className="text-center">
