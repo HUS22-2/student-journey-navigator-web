@@ -48,6 +48,42 @@ export type Database = {
         }
         Relationships: []
       }
+      universities: {
+        Row: {
+          country: string
+          created_at: string
+          deadline: string | null
+          id: string
+          name: string
+          ranking: string | null
+          status: string
+          tuition: string | null
+          updated_at: string
+        }
+        Insert: {
+          country: string
+          created_at?: string
+          deadline?: string | null
+          id?: string
+          name: string
+          ranking?: string | null
+          status?: string
+          tuition?: string | null
+          updated_at?: string
+        }
+        Update: {
+          country?: string
+          created_at?: string
+          deadline?: string | null
+          id?: string
+          name?: string
+          ranking?: string | null
+          status?: string
+          tuition?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

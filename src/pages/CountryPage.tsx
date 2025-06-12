@@ -1,4 +1,5 @@
-import { useState } from 'react';
+
+import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Button } from '@/components/ui/button';
@@ -12,6 +13,16 @@ import { ArrowLeft, MapPin, DollarSign, GraduationCap, Users, Calendar, External
 import { toast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 
+interface University {
+  id: string;
+  name: string;
+  country: string;
+  ranking: string | null;
+  tuition: string | null;
+  deadline: string | null;
+  status: string;
+}
+
 const CountryPage = () => {
   const { countryName } = useParams();
   const { t, language } = useLanguage();
@@ -24,6 +35,8 @@ const CountryPage = () => {
     languageOfInstruction: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [universities, setUniversities] = useState<University[]>([]);
+  const [isLoadingUniversities, setIsLoadingUniversities] = useState(true);
 
   const countryData = {
     turkey: {
@@ -32,14 +45,6 @@ const CountryPage = () => {
       capital: 'Ankara',
       language: 'Turkish',
       currency: 'Turkish Lira',
-      universities: [
-        { name: 'Istanbul University', ranking: '#500-550', tuition: '$2,000-$4,000', deadline: '2024-07-15', status: 'Open' },
-        { name: 'Middle East Technical University', ranking: '#400-450', tuition: '$3,000-$5,000', deadline: '2024-06-30', status: 'Open' },
-        { name: 'Bogazici University', ranking: '#300-350', tuition: '$4,000-$6,000', deadline: '2024-06-15', status: 'Open' },
-        { name: 'Hacettepe University', ranking: '#450-500', tuition: '$2,500-$4,500', deadline: '2024-07-01', status: 'Open' },
-        { name: 'Sabanci University', ranking: '#400-450', tuition: '$15,000-$20,000', deadline: '2024-07-20', status: 'Open' },
-        { name: 'Bilkent University', ranking: '#350-400', tuition: '$12,000-$18,000', deadline: '2024-06-25', status: 'Open' }
-      ],
       requirements: [
         'High school diploma with minimum 70% average',
         'English proficiency test (TOEFL/IELTS)',
@@ -87,12 +92,6 @@ const CountryPage = () => {
       capital: 'Paris',
       language: 'French',
       currency: 'Euro',
-      universities: [
-        { name: 'Sorbonne University', ranking: '#72', tuition: '€170-€3,770', deadline: '2024-03-15', status: 'Open' },
-        { name: 'École Normale Supérieure', ranking: '#45', tuition: '€170-€3,770', deadline: '2024-01-31', status: 'Closed' },
-        { name: 'Sciences Po', ranking: '#150', tuition: '€13,000-€15,000', deadline: '2024-02-28', status: 'Open' },
-        { name: 'HEC Paris', ranking: '#12 (Business)', tuition: '€39,000-€42,000', deadline: '2024-04-15', status: 'Open' }
-      ],
       requirements: [
         'Baccalauréat or equivalent',
         'French proficiency (DELF/DALF) or English (TOEFL/IELTS)',
@@ -117,12 +116,6 @@ const CountryPage = () => {
       capital: 'Moscow',
       language: 'Russian',
       currency: 'Russian Ruble',
-      universities: [
-        { name: 'Moscow State University', ranking: '#78', tuition: '$3,000-$6,000', deadline: '2024-07-01', status: 'Open' },
-        { name: 'Saint Petersburg State University', ranking: '#250', tuition: '$2,500-$5,000', deadline: '2024-06-15', status: 'Open' },
-        { name: 'Bauman Moscow State Technical University', ranking: '#350', tuition: '$3,500-$7,000', deadline: '2024-07-15', status: 'Open' },
-        { name: 'ITMO University', ranking: '#300', tuition: '$4,000-$8,000', deadline: '2024-06-30', status: 'Open' }
-      ],
       requirements: [
         'Secondary education certificate',
         'Russian language proficiency or English for English programs',
@@ -144,6 +137,46 @@ const CountryPage = () => {
   };
 
   const currentCountry = countryData[countryName as keyof typeof countryData];
+
+  useEffect(() => {
+    const fetchUniversities = async () => {
+      if (!currentCountry) return;
+      
+      setIsLoadingUniversities(true);
+      console.log('Fetching universities for:', currentCountry.name);
+      
+      try {
+        const { data, error } = await supabase
+          .from('universities')
+          .select('*')
+          .eq('country', currentCountry.name)
+          .order('name');
+
+        if (error) {
+          console.error('Error fetching universities:', error);
+          toast({
+            title: "Error",
+            description: "Failed to load universities. Please try again later.",
+            variant: "destructive"
+          });
+        } else {
+          console.log('Universities fetched:', data);
+          setUniversities(data || []);
+        }
+      } catch (error) {
+        console.error('Unexpected error fetching universities:', error);
+        toast({
+          title: "Error",
+          description: "An unexpected error occurred while loading universities.",
+          variant: "destructive"
+        });
+      } finally {
+        setIsLoadingUniversities(false);
+      }
+    };
+
+    fetchUniversities();
+  }, [currentCountry]);
 
   if (!currentCountry) {
     return (
@@ -274,51 +307,66 @@ const CountryPage = () => {
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <Table>
-                      <TableHeader>
-                        <TableRow>
-                          <TableHead>University</TableHead>
-                          <TableHead>Ranking</TableHead>
-                          <TableHead>Tuition</TableHead>
-                          <TableHead>Deadline</TableHead>
-                          <TableHead>Status</TableHead>
-                          <TableHead>Action</TableHead>
-                        </TableRow>
-                      </TableHeader>
-                      <TableBody>
-                        {currentCountry.universities.map((university, index) => (
-                          <TableRow key={index}>
-                            <TableCell className="font-medium">{university.name}</TableCell>
-                            <TableCell>{university.ranking}</TableCell>
-                            <TableCell>{university.tuition}</TableCell>
-                            <TableCell className="flex items-center space-x-1">
-                              <Calendar className="h-4 w-4" />
-                              <span>{university.deadline}</span>
-                            </TableCell>
-                            <TableCell>
-                              <span className={`px-2 py-1 rounded-full text-xs font-semibold ${
-                                university.status === 'Open' 
-                                  ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100'
-                                  : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-100'
-                              }`}>
-                                {university.status}
-                              </span>
-                            </TableCell>
-                            <TableCell>
-                              <Button 
-                                size="sm" 
-                                variant={university.status === 'Open' ? 'default' : 'secondary'}
-                                disabled={university.status === 'Closed'}
-                                className="flex items-center space-x-1"
-                              >
-                                <ExternalLink className="h-3 w-3" />
-                                <span>Apply</span>
-                              </Button>
-                            </TableCell>
+                    {isLoadingUniversities ? (
+                      <div className="flex items-center justify-center py-8">
+                        <div className="text-center">
+                          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-edu-blue-600 mx-auto mb-2"></div>
+                          <p>Loading universities...</p>
+                        </div>
+                      </div>
+                    ) : universities.length === 0 ? (
+                      <div className="text-center py-8">
+                        <p className="text-gray-500 dark:text-gray-400">
+                          No universities found for {currentCountry.name}
+                        </p>
+                      </div>
+                    ) : (
+                      <Table>
+                        <TableHeader>
+                          <TableRow>
+                            <TableHead>University</TableHead>
+                            <TableHead>Ranking</TableHead>
+                            <TableHead>Tuition</TableHead>
+                            <TableHead>Deadline</TableHead>
+                            <TableHead>Status</TableHead>
+                            <TableHead>Action</TableHead>
                           </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
+                        </TableHeader>
+                        <TableBody>
+                          {universities.map((university) => (
+                            <TableRow key={university.id}>
+                              <TableCell className="font-medium">{university.name}</TableCell>
+                              <TableCell>{university.ranking || 'N/A'}</TableCell>
+                              <TableCell>{university.tuition || 'N/A'}</TableCell>
+                              <TableCell className="flex items-center space-x-1">
+                                <Calendar className="h-4 w-4" />
+                                <span>{university.deadline ? new Date(university.deadline).toLocaleDateString() : 'N/A'}</span>
+                              </TableCell>
+                              <TableCell>
+                                <span className={`px-2 py-1 rounded-full text-xs font-semibold ${
+                                  university.status === 'Open' 
+                                    ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100'
+                                    : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-100'
+                                }`}>
+                                  {university.status}
+                                </span>
+                              </TableCell>
+                              <TableCell>
+                                <Button 
+                                  size="sm" 
+                                  variant={university.status === 'Open' ? 'default' : 'secondary'}
+                                  disabled={university.status === 'Closed'}
+                                  className="flex items-center space-x-1"
+                                >
+                                  <ExternalLink className="h-3 w-3" />
+                                  <span>Apply</span>
+                                </Button>
+                              </TableCell>
+                            </TableRow>
+                          ))}
+                        </TableBody>
+                      </Table>
+                    )}
                   </CardContent>
                 </Card>
               </TabsContent>
