@@ -10,6 +10,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Index from "./pages/Index";
 import CountryPage from "./pages/CountryPage";
+import ApplicationForm from "./pages/ApplicationForm";
 import About from "./pages/About";
 import Services from "./pages/Services";
 import Contact from "./pages/Contact";
@@ -32,6 +33,7 @@ const App = () => (
                 <Routes>
                   <Route path="/" element={<Index />} />
                   <Route path="/country/:countryName" element={<CountryPage />} />
+                  <Route path="/apply/:countryName" element={<ApplicationForm />} />
                   <Route path="/about" element={<About />} />
                   <Route path="/services" element={<Services />} />
                   <Route path="/contact" element={<Contact />} />

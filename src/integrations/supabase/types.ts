@@ -11,37 +11,76 @@ export type Database = {
     Tables: {
       applications: {
         Row: {
+          academic_gpa: number | null
+          academic_level: string | null
           country: string
           created_at: string
+          documents_urls: Json | null
           education_level: string
+          emergency_contact_name: string | null
+          emergency_contact_phone: string | null
+          english_proficiency: string | null
+          financial_support_needed: boolean | null
           full_name: string
           id: string
           language_of_instruction: string
+          motivation_letter: string | null
           nationality: string
+          preferred_start_date: string | null
+          previous_degree: string | null
+          profile_picture_url: string | null
+          scholarship_interest: boolean | null
+          status: string | null
           study_field: string
           updated_at: string
           whatsapp: string
         }
         Insert: {
+          academic_gpa?: number | null
+          academic_level?: string | null
           country: string
           created_at?: string
+          documents_urls?: Json | null
           education_level: string
+          emergency_contact_name?: string | null
+          emergency_contact_phone?: string | null
+          english_proficiency?: string | null
+          financial_support_needed?: boolean | null
           full_name: string
           id?: string
           language_of_instruction: string
+          motivation_letter?: string | null
           nationality: string
+          preferred_start_date?: string | null
+          previous_degree?: string | null
+          profile_picture_url?: string | null
+          scholarship_interest?: boolean | null
+          status?: string | null
           study_field: string
           updated_at?: string
           whatsapp: string
         }
         Update: {
+          academic_gpa?: number | null
+          academic_level?: string | null
           country?: string
           created_at?: string
+          documents_urls?: Json | null
           education_level?: string
+          emergency_contact_name?: string | null
+          emergency_contact_phone?: string | null
+          english_proficiency?: string | null
+          financial_support_needed?: boolean | null
           full_name?: string
           id?: string
           language_of_instruction?: string
+          motivation_letter?: string | null
           nationality?: string
+          preferred_start_date?: string | null
+          previous_degree?: string | null
+          profile_picture_url?: string | null
+          scholarship_interest?: boolean | null
+          status?: string | null
           study_field?: string
           updated_at?: string
           whatsapp?: string

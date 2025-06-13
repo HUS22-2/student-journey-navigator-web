@@ -13,13 +13,14 @@ import { toast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 
 interface University {
-  id: string;
   name: string;
   country: string;
   ranking: string | null;
   tuition: string | null;
   deadline: string | null;
   status: string;
+  created_at: string;
+  updated_at: string;
 }
 
 const CountryPage = () => {
@@ -184,7 +185,7 @@ const CountryPage = () => {
     };
 
     fetchUniversities();
-  }, [currentCountry?.name]); // Add dependency to prevent multiple calls
+  }, [currentCountry?.name]);
 
   const scrollToApplicationForm = () => {
     if (applicationFormRef.current) {
@@ -380,8 +381,8 @@ const CountryPage = () => {
                             </TableRow>
                           </TableHeader>
                           <TableBody>
-                            {universities.map((university) => (
-                              <TableRow key={university.id} className="hover:bg-gray-50 dark:hover:bg-gray-800">
+                            {universities.map((university, index) => (
+                              <TableRow key={`${university.name}-${index}`} className="hover:bg-gray-50 dark:hover:bg-gray-800">
                                 <TableCell className="font-medium">
                                   {university.name}
                                 </TableCell>
@@ -413,16 +414,17 @@ const CountryPage = () => {
                                   </span>
                                 </TableCell>
                                 <TableCell>
-                                  <Button 
-                                    size="sm" 
-                                    variant={university.status === 'Open' ? 'default' : 'secondary'}
-                                    disabled={university.status === 'Closed'}
-                                    className="flex items-center space-x-1 w-full"
-                                    onClick={university.status === 'Open' ? scrollToApplicationForm : undefined}
-                                  >
-                                    <ExternalLink className="h-3 w-3" />
-                                    <span>{university.status === 'Open' ? 'Apply' : 'Closed'}</span>
-                                  </Button>
+                                  <Link to={`/apply/${countryName}`}>
+                                    <Button 
+                                      size="sm" 
+                                      variant={university.status === 'Open' ? 'default' : 'secondary'}
+                                      disabled={university.status === 'Closed'}
+                                      className="flex items-center space-x-1 w-full"
+                                    >
+                                      <ExternalLink className="h-3 w-3" />
+                                      <span>{university.status === 'Open' ? 'Apply' : 'Closed'}</span>
+                                    </Button>
+                                  </Link>
                                 </TableCell>
                               </TableRow>
                             ))}
