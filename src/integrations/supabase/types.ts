@@ -53,7 +53,6 @@ export type Database = {
           country: string
           created_at: string
           deadline: string | null
-          id: string
           name: string
           ranking: string | null
           status: string
@@ -64,7 +63,6 @@ export type Database = {
           country: string
           created_at?: string
           deadline?: string | null
-          id?: string
           name: string
           ranking?: string | null
           status?: string
@@ -75,7 +73,6 @@ export type Database = {
           country?: string
           created_at?: string
           deadline?: string | null
-          id?: string
           name?: string
           ranking?: string | null
           status?: string

@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -163,7 +162,13 @@ const CountryPage = () => {
           setUniversities([]);
         } else {
           console.log('Universities fetched:', data);
-          setUniversities(data || []);
+          // Clean up the data by removing newline characters
+          const cleanedData = data?.map(university => ({
+            ...university,
+            name: university.name?.replace(/\n/g, '').trim() || university.name,
+            ranking: university.ranking?.replace(/\n/g, '').trim() || university.ranking
+          })) || [];
+          setUniversities(cleanedData);
         }
       } catch (error) {
         console.error('Unexpected error fetching universities:', error);
@@ -179,7 +184,7 @@ const CountryPage = () => {
     };
 
     fetchUniversities();
-  }, [currentCountry]);
+  }, [currentCountry?.name]); // Add dependency to prevent multiple calls
 
   const scrollToApplicationForm = () => {
     if (applicationFormRef.current) {
@@ -187,6 +192,17 @@ const CountryPage = () => {
         behavior: 'smooth',
         block: 'start'
       });
+      // Add a small delay and highlight the form
+      setTimeout(() => {
+        if (applicationFormRef.current) {
+          applicationFormRef.current.style.border = '2px solid #3b82f6';
+          setTimeout(() => {
+            if (applicationFormRef.current) {
+              applicationFormRef.current.style.border = '';
+            }
+          }, 2000);
+        }
+      }, 500);
     }
   };
 
@@ -278,7 +294,11 @@ const CountryPage = () => {
   const formatDeadline = (deadline: string | null) => {
     if (!deadline) return 'N/A';
     try {
-      return new Date(deadline).toLocaleDateString();
+      return new Date(deadline).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+      });
     } catch (error) {
       console.error('Error formatting date:', error);
       return 'N/A';
@@ -330,16 +350,20 @@ const CountryPage = () => {
                   </CardHeader>
                   <CardContent>
                     {isLoadingUniversities ? (
-                      <div className="flex items-center justify-center py-8">
+                      <div className="flex items-center justify-center py-12">
                         <div className="text-center">
-                          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-edu-blue-600 mx-auto mb-2"></div>
-                          <p>Loading universities...</p>
+                          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-edu-blue-600 mx-auto mb-4"></div>
+                          <p className="text-gray-600 dark:text-gray-400">Loading universities...</p>
                         </div>
                       </div>
                     ) : universities.length === 0 ? (
-                      <div className="text-center py-8">
-                        <p className="text-gray-500 dark:text-gray-400">
+                      <div className="text-center py-12">
+                        <GraduationCap className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                        <p className="text-gray-500 dark:text-gray-400 text-lg">
                           No universities found for {currentCountry.name}
+                        </p>
+                        <p className="text-gray-400 dark:text-gray-500 text-sm mt-2">
+                          Please check back later or contact support.
                         </p>
                       </div>
                     ) : (
@@ -347,23 +371,37 @@ const CountryPage = () => {
                         <Table>
                           <TableHeader>
                             <TableRow>
-                              <TableHead>University</TableHead>
-                              <TableHead>Ranking</TableHead>
-                              <TableHead>Tuition</TableHead>
-                              <TableHead>Deadline</TableHead>
-                              <TableHead>Status</TableHead>
-                              <TableHead>Action</TableHead>
+                              <TableHead className="min-w-[200px]">University</TableHead>
+                              <TableHead className="min-w-[100px]">Ranking</TableHead>
+                              <TableHead className="min-w-[120px]">Tuition</TableHead>
+                              <TableHead className="min-w-[120px]">Deadline</TableHead>
+                              <TableHead className="min-w-[80px]">Status</TableHead>
+                              <TableHead className="min-w-[100px]">Action</TableHead>
                             </TableRow>
                           </TableHeader>
                           <TableBody>
                             {universities.map((university) => (
-                              <TableRow key={university.id}>
-                                <TableCell className="font-medium">{university.name}</TableCell>
-                                <TableCell>{university.ranking || 'N/A'}</TableCell>
-                                <TableCell>{university.tuition || 'N/A'}</TableCell>
-                                <TableCell className="flex items-center space-x-1">
-                                  <Calendar className="h-4 w-4" />
-                                  <span>{formatDeadline(university.deadline)}</span>
+                              <TableRow key={university.id} className="hover:bg-gray-50 dark:hover:bg-gray-800">
+                                <TableCell className="font-medium">
+                                  {university.name}
+                                </TableCell>
+                                <TableCell>
+                                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                                    {university.ranking || 'N/A'}
+                                  </span>
+                                </TableCell>
+                                <TableCell>
+                                  <span className="text-sm font-medium text-green-600 dark:text-green-400">
+                                    {university.tuition || 'N/A'}
+                                  </span>
+                                </TableCell>
+                                <TableCell>
+                                  <div className="flex items-center space-x-1">
+                                    <Calendar className="h-4 w-4 text-gray-400" />
+                                    <span className="text-sm">
+                                      {formatDeadline(university.deadline)}
+                                    </span>
+                                  </div>
                                 </TableCell>
                                 <TableCell>
                                   <span className={`px-2 py-1 rounded-full text-xs font-semibold ${
@@ -379,11 +417,11 @@ const CountryPage = () => {
                                     size="sm" 
                                     variant={university.status === 'Open' ? 'default' : 'secondary'}
                                     disabled={university.status === 'Closed'}
-                                    className="flex items-center space-x-1"
+                                    className="flex items-center space-x-1 w-full"
                                     onClick={university.status === 'Open' ? scrollToApplicationForm : undefined}
                                   >
                                     <ExternalLink className="h-3 w-3" />
-                                    <span>Apply</span>
+                                    <span>{university.status === 'Open' ? 'Apply' : 'Closed'}</span>
                                   </Button>
                                 </TableCell>
                               </TableRow>
