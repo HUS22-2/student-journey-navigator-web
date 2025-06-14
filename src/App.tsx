@@ -15,6 +15,10 @@ import About from "./pages/About";
 import Services from "./pages/Services";
 import Contact from "./pages/Contact";
 import Testimonials from "./pages/Testimonials";
+import Universities from "./pages/Universities";
+import Scholarships from "./pages/Scholarships";
+import Cities from "./pages/Cities";
+import Economy from "./pages/Economy";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -32,6 +36,10 @@ const App = () => (
               <main className="flex-1">
                 <Routes>
                   <Route path="/" element={<Index />} />
+                  <Route path="/universities" element={<Universities />} />
+                  <Route path="/scholarships" element={<Scholarships />} />
+                  <Route path="/cities" element={<Cities />} />
+                  <Route path="/economy" element={<Economy />} />
                   <Route path="/country/:countryName" element={<CountryPage />} />
                   <Route path="/apply/:countryName" element={<ApplicationForm />} />
                   <Route path="/about" element={<About />} />
