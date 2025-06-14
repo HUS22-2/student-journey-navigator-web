@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -65,12 +66,18 @@ const Universities = () => {
         console.log('Fetched universities:', data);
         setUniversities(data || []);
         
-        if (!data || data.length === 0) {
+        if (data && data.length > 0) {
+          toast({
+            title: "Başarılı",
+            description: `${data.length} üniversite yüklendi.`,
+            variant: "default"
+          });
+        } else {
           toast({
             title: "Bilgi",
             description: "Henüz üniversite verisi bulunmuyor.",
             variant: "default"
-        });
+          });
         }
       }
     } catch (error) {
@@ -176,7 +183,7 @@ const Universities = () => {
         </div>
 
         {/* Connection Status */}
-        <Card className="mb-8 border-l-4 border-l-blue-500">
+        <Card className="mb-8 border-l-4 border-l-green-500">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
