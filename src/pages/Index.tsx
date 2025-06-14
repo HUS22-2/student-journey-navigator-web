@@ -1,12 +1,15 @@
 import { Link } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { GraduationCap, MapPin, DollarSign, Users, Building, Plane, Heart, Globe } from 'lucide-react';
+
 const Index = () => {
   const {
     t
   } = useLanguage();
+  const { user } = useAuth();
   const turkeyFeatures = [{
     title: 'Türkiye\'de Üniversiteler',
     description: 'Dünya standartlarında eğitim veren 200+ üniversite',
@@ -49,7 +52,8 @@ const Index = () => {
     title: 'Ulaşım',
     description: 'Dünyaya açılan kapı, kolay ulaşım imkanları'
   }];
-  return <div className="min-h-screen">
+  return (
+    <div className="min-h-screen">
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-red-50 via-white to-red-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 overflow-hidden">
         <div className="absolute inset-0 overflow-hidden">
@@ -75,7 +79,7 @@ const Index = () => {
             Zengin kültür, modern üniversiteler ve benzersiz fırsatlarla dolu bir yolculuk.
           </p>
 
-          <div className="animate-fade-in" style={{
+          <div className="animate-fade-in flex flex-col sm:flex-row gap-4 justify-center" style={{
           animationDelay: '0.4s'
         }}>
             <Link to="/country/turkey">
@@ -83,6 +87,13 @@ const Index = () => {
                 Eğitim Yolculuğunu Başlat
               </Button>
             </Link>
+            {!user && (
+              <Link to="/auth">
+                <Button size="lg" variant="outline" className="border-red-500 text-red-600 hover:bg-red-50 dark:hover:bg-red-950 px-8 py-4 text-lg">
+                  Hesap Oluştur
+                </Button>
+              </Link>
+            )}
           </div>
         </div>
       </section>
@@ -195,6 +206,8 @@ const Index = () => {
           </div>
         </div>
       </section>
-    </div>;
+    </div>
+  );
 };
+
 export default Index;

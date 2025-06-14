@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { useLanguage, Language } from '@/contexts/LanguageContext';
 import { useTheme } from '@/contexts/ThemeContext';
 import { Menu, X, Moon, Sun, Globe } from 'lucide-react';
+import UserMenu from './UserMenu';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -65,6 +66,9 @@ const Header = () => {
 
           {/* Controls */}
           <div className="flex items-center space-x-4">
+            {/* User Menu */}
+            <UserMenu />
+
             {/* Language Selector */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>

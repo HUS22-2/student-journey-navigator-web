@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import { AuthProvider } from "./contexts/AuthContext";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Index from "./pages/Index";
@@ -19,6 +20,8 @@ import Universities from "./pages/Universities";
 import Scholarships from "./pages/Scholarships";
 import Cities from "./pages/Cities";
 import Economy from "./pages/Economy";
+import Auth from "./pages/Auth";
+import Account from "./pages/Account";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -28,30 +31,34 @@ const App = () => (
     <TooltipProvider>
       <ThemeProvider>
         <LanguageProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-            <div className="min-h-screen flex flex-col">
-              <Header />
-              <main className="flex-1">
-                <Routes>
-                  <Route path="/" element={<Index />} />
-                  <Route path="/universities" element={<Universities />} />
-                  <Route path="/scholarships" element={<Scholarships />} />
-                  <Route path="/cities" element={<Cities />} />
-                  <Route path="/economy" element={<Economy />} />
-                  <Route path="/country/:countryName" element={<CountryPage />} />
-                  <Route path="/apply/:countryName" element={<ApplicationForm />} />
-                  <Route path="/about" element={<About />} />
-                  <Route path="/services" element={<Services />} />
-                  <Route path="/contact" element={<Contact />} />
-                  <Route path="/testimonials" element={<Testimonials />} />
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
-              </main>
-              <Footer />
-            </div>
-          </BrowserRouter>
+          <AuthProvider>
+            <Toaster />
+            <Sonner />
+            <BrowserRouter>
+              <div className="min-h-screen flex flex-col">
+                <Header />
+                <main className="flex-1">
+                  <Routes>
+                    <Route path="/" element={<Index />} />
+                    <Route path="/universities" element={<Universities />} />
+                    <Route path="/scholarships" element={<Scholarships />} />
+                    <Route path="/cities" element={<Cities />} />
+                    <Route path="/economy" element={<Economy />} />
+                    <Route path="/country/:countryName" element={<CountryPage />} />
+                    <Route path="/apply/:countryName" element={<ApplicationForm />} />
+                    <Route path="/about" element={<About />} />
+                    <Route path="/services" element={<Services />} />
+                    <Route path="/contact" element={<Contact />} />
+                    <Route path="/testimonials" element={<Testimonials />} />
+                    <Route path="/auth" element={<Auth />} />
+                    <Route path="/account" element={<Account />} />
+                    <Route path="*" element={<NotFound />} />
+                  </Routes>
+                </main>
+                <Footer />
+              </div>
+            </BrowserRouter>
+          </AuthProvider>
         </LanguageProvider>
       </ThemeProvider>
     </TooltipProvider>
