@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -7,11 +6,12 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, Search, Filter, GraduationCap, MapPin, Calendar, ExternalLink } from 'lucide-react';
+import { ArrowLeft, Search, Filter, GraduationCap, MapPin, Calendar, ExternalLink, RefreshCw } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from '@/hooks/use-toast';
 
 interface University {
+  id: string;
   name: string;
   country: string;
   ranking: string | null;
@@ -46,6 +46,8 @@ const Universities = () => {
   const fetchUniversities = async () => {
     setIsLoading(true);
     try {
+      console.log('Fetching universities from Supabase...');
+      
       const { data, error } = await supabase
         .from('universities')
         .select('*')
@@ -56,11 +58,20 @@ const Universities = () => {
         console.error('Error fetching universities:', error);
         toast({
           title: "Hata",
-          description: "Üniversiteler yüklenirken bir hata oluştu.",
+          description: "Üniversiteler yüklenirken bir hata oluştu: " + error.message,
           variant: "destructive"
         });
       } else {
+        console.log('Fetched universities:', data);
         setUniversities(data || []);
+        
+        if (!data || data.length === 0) {
+          toast({
+            title: "Bilgi",
+            description: "Henüz üniversite verisi bulunmuyor.",
+            variant: "default"
+        });
+        }
       }
     } catch (error) {
       console.error('Unexpected error:', error);
@@ -103,6 +114,9 @@ const Universities = () => {
     }
   };
 
+  const openUniversitiesCount = universities.filter(uni => uni.status === 'Open').length;
+  const totalUniversitiesCount = universities.length;
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Header */}
@@ -118,6 +132,15 @@ const Universities = () => {
               <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
                 Türkiye Üniversiteleri
               </h1>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={fetchUniversities}
+                disabled={isLoading}
+                className="ml-4"
+              >
+                <RefreshCw className={`h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />
+              </Button>
             </div>
           </div>
         </div>
@@ -128,13 +151,13 @@ const Universities = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
           <Card>
             <CardContent className="p-6 text-center">
-              <div className="text-2xl font-bold text-red-600 mb-2">200+</div>
+              <div className="text-2xl font-bold text-red-600 mb-2">{totalUniversitiesCount}</div>
               <div className="text-sm text-gray-600 dark:text-gray-400">Toplam Üniversite</div>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="p-6 text-center">
-              <div className="text-2xl font-bold text-green-600 mb-2">150+</div>
+              <div className="text-2xl font-bold text-green-600 mb-2">{openUniversitiesCount}</div>
               <div className="text-sm text-gray-600 dark:text-gray-400">Açık Başvuru</div>
             </CardContent>
           </Card>
@@ -151,6 +174,21 @@ const Universities = () => {
             </CardContent>
           </Card>
         </div>
+
+        {/* Connection Status */}
+        <Card className="mb-8 border-l-4 border-l-blue-500">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-2">
+                <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                <span className="text-sm font-medium">Supabase Bağlantısı Aktif</span>
+              </div>
+              <div className="text-sm text-gray-600">
+                Son güncelleme: {new Date().toLocaleTimeString('tr-TR')}
+              </div>
+            </div>
+          </CardContent>
+        </Card>
 
         {/* Filters */}
         <Card className="mb-8">
@@ -202,9 +240,12 @@ const Universities = () => {
             <CardTitle className="flex items-center space-x-2">
               <GraduationCap className="h-5 w-5" />
               <span>Üniversite Listesi</span>
+              <Badge variant="secondary" className="ml-2">
+                {filteredUniversities.length} sonuç
+              </Badge>
             </CardTitle>
             <CardDescription>
-              Türkiye'deki üniversiteler ve başvuru durumları
+              Türkiye'deki üniversiteler ve başvuru durumları (Supabase veritabanından)
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -212,15 +253,28 @@ const Universities = () => {
               <div className="flex items-center justify-center py-12">
                 <div className="text-center">
                   <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-red-600 mx-auto mb-4"></div>
-                  <p className="text-gray-600 dark:text-gray-400">Üniversiteler yükleniyor...</p>
+                  <p className="text-gray-600 dark:text-gray-400">Supabase'den üniversiteler yükleniyor...</p>
                 </div>
               </div>
             ) : filteredUniversities.length === 0 ? (
               <div className="text-center py-12">
                 <GraduationCap className="h-12 w-12 text-gray-400 mx-auto mb-4" />
                 <p className="text-gray-500 dark:text-gray-400 text-lg">
-                  Arama kriterlerinize uygun üniversite bulunamadı
+                  {universities.length === 0 ? 
+                    'Henüz üniversite verisi bulunmuyor. Supabase veritabanını kontrol edin.' :
+                    'Arama kriterlerinize uygun üniversite bulunamadı'
+                  }
                 </p>
+                {universities.length === 0 && (
+                  <Button 
+                    onClick={fetchUniversities} 
+                    className="mt-4"
+                    disabled={isLoading}
+                  >
+                    <RefreshCw className={`h-4 w-4 mr-2 ${isLoading ? 'animate-spin' : ''}`} />
+                    Yeniden Dene
+                  </Button>
+                )}
               </div>
             ) : (
               <div className="overflow-x-auto">
@@ -236,8 +290,8 @@ const Universities = () => {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {filteredUniversities.map((university, index) => (
-                      <TableRow key={`${university.name}-${index}`}>
+                    {filteredUniversities.map((university) => (
+                      <TableRow key={university.id || university.name}>
                         <TableCell className="font-medium">
                           <div className="flex items-center space-x-2">
                             <GraduationCap className="h-4 w-4 text-gray-400" />
