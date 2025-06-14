@@ -11,7 +11,7 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
-import { User, LogOut, Camera, GraduationCap, Clock, CheckCircle, XCircle, ExternalLink } from 'lucide-react';
+import { User, LogOut, Camera, GraduationCap, Clock, CheckCircle, XCircle, ExternalLink, BarChart3, TrendingUp, Award } from 'lucide-react';
 
 interface Profile {
   id: string;
@@ -164,11 +164,11 @@ const Account = () => {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'pending':
-        return <Badge variant="secondary" className="bg-yellow-100 text-yellow-800"><Clock className="h-3 w-3 mr-1" />Beklemede</Badge>;
+        return <Badge variant="secondary" className="bg-amber-50 text-amber-700 border-amber-200 hover:bg-amber-100"><Clock className="h-3 w-3 mr-1" />Beklemede</Badge>;
       case 'approved':
-        return <Badge variant="default" className="bg-green-100 text-green-800"><CheckCircle className="h-3 w-3 mr-1" />Onaylandı</Badge>;
+        return <Badge variant="default" className="bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100"><CheckCircle className="h-3 w-3 mr-1" />Onaylandı</Badge>;
       case 'rejected':
-        return <Badge variant="destructive" className="bg-red-100 text-red-800"><XCircle className="h-3 w-3 mr-1" />Reddedildi</Badge>;
+        return <Badge variant="destructive" className="bg-rose-50 text-rose-700 border-rose-200 hover:bg-rose-100"><XCircle className="h-3 w-3 mr-1" />Reddedildi</Badge>;
       default:
         return <Badge variant="secondary">{status}</Badge>;
     }
@@ -176,8 +176,11 @@ const Account = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-lg">Yükleniyor...</div>
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-purple-50">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-edu-blue-600 mx-auto mb-4"></div>
+          <div className="text-lg font-medium text-gray-700">Yükleniyor...</div>
+        </div>
       </div>
     );
   }
@@ -187,116 +190,172 @@ const Account = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-12">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Hesap Yönetimi</h1>
-          <p className="text-gray-600 dark:text-gray-300">Profilinizi yönetin ve başvurularınızı takip edin</p>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+      {/* Header Section */}
+      <div className="bg-white border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="flex items-center space-x-6">
+            <Avatar className="h-20 w-20 ring-4 ring-edu-blue-100">
+              <AvatarImage src={profile?.profile_picture_url || undefined} />
+              <AvatarFallback className="text-xl bg-gradient-to-br from-edu-blue-500 to-edu-purple-500 text-white">
+                {fullName ? fullName.charAt(0).toUpperCase() : 'U'}
+              </AvatarFallback>
+            </Avatar>
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900">{fullName || 'Kullanıcı'}</h1>
+              <p className="text-gray-600 mt-1">{user.email}</p>
+              <div className="flex items-center mt-2 space-x-4">
+                <Badge variant="outline" className="bg-edu-blue-50 text-edu-blue-700 border-edu-blue-200">
+                  {nationality || 'Uyruk belirtilmemiş'}
+                </Badge>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
 
-        <Tabs defaultValue="dashboard" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-4">
-            <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
-            <TabsTrigger value="profile">Profil</TabsTrigger>
-            <TabsTrigger value="universities">Açık Üniversiteler</TabsTrigger>
-            <TabsTrigger value="applications">Başvurularım</TabsTrigger>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <Tabs defaultValue="dashboard" className="space-y-8">
+          <TabsList className="grid w-full grid-cols-4 bg-white shadow-sm border">
+            <TabsTrigger value="dashboard" className="data-[state=active]:bg-edu-blue-50 data-[state=active]:text-edu-blue-700">
+              <BarChart3 className="h-4 w-4 mr-2" />
+              Dashboard
+            </TabsTrigger>
+            <TabsTrigger value="profile" className="data-[state=active]:bg-edu-blue-50 data-[state=active]:text-edu-blue-700">
+              <User className="h-4 w-4 mr-2" />
+              Profil
+            </TabsTrigger>
+            <TabsTrigger value="universities" className="data-[state=active]:bg-edu-blue-50 data-[state=active]:text-edu-blue-700">
+              <GraduationCap className="h-4 w-4 mr-2" />
+              Üniversiteler
+            </TabsTrigger>
+            <TabsTrigger value="applications" className="data-[state=active]:bg-edu-blue-50 data-[state=active]:text-edu-blue-700">
+              <Award className="h-4 w-4 mr-2" />
+              Başvurularım
+            </TabsTrigger>
           </TabsList>
 
-          <TabsContent value="dashboard" className="space-y-6">
+          <TabsContent value="dashboard" className="space-y-8">
+            {/* Stats Cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <Card>
-                <CardContent className="p-6 text-center">
-                  <div className="text-2xl font-bold text-blue-600 mb-2">{universities.length}</div>
-                  <div className="text-sm text-gray-600 dark:text-gray-400">Açık Üniversite</div>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardContent className="p-6 text-center">
-                  <div className="text-2xl font-bold text-green-600 mb-2">{applications.length}</div>
-                  <div className="text-sm text-gray-600 dark:text-gray-400">Toplam Başvuru</div>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardContent className="p-6 text-center">
-                  <div className="text-2xl font-bold text-purple-600 mb-2">
-                    {applications.filter(app => app.status === 'approved').length}
+              <Card className="bg-gradient-to-r from-edu-blue-500 to-edu-blue-600 text-white border-0 shadow-lg">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-blue-100 text-sm font-medium">Açık Üniversite</p>
+                      <p className="text-3xl font-bold">{universities.length}</p>
+                    </div>
+                    <GraduationCap className="h-8 w-8 text-blue-200" />
                   </div>
-                  <div className="text-sm text-gray-600 dark:text-gray-400">Onaylanan</div>
+                </CardContent>
+              </Card>
+              
+              <Card className="bg-gradient-to-r from-emerald-500 to-emerald-600 text-white border-0 shadow-lg">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-emerald-100 text-sm font-medium">Toplam Başvuru</p>
+                      <p className="text-3xl font-bold">{applications.length}</p>
+                    </div>
+                    <TrendingUp className="h-8 w-8 text-emerald-200" />
+                  </div>
+                </CardContent>
+              </Card>
+              
+              <Card className="bg-gradient-to-r from-purple-500 to-purple-600 text-white border-0 shadow-lg">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-purple-100 text-sm font-medium">Onaylanan</p>
+                      <p className="text-3xl font-bold">
+                        {applications.filter(app => app.status === 'approved').length}
+                      </p>
+                    </div>
+                    <Award className="h-8 w-8 text-purple-200" />
+                  </div>
                 </CardContent>
               </Card>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <GraduationCap className="h-5 w-5" />
+            {/* Recent Activity */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <Card className="shadow-lg border-0 bg-white">
+                <CardHeader className="bg-gradient-to-r from-gray-50 to-gray-100 rounded-t-lg">
+                  <CardTitle className="flex items-center gap-2 text-gray-800">
+                    <Clock className="h-5 w-5 text-edu-blue-600" />
                     Son Başvurular
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
-                  {applications.slice(0, 3).map((application) => (
-                    <div key={application.id} className="flex items-center justify-between py-3 border-b last:border-b-0">
-                      <div>
-                        <p className="font-medium">{application.country}</p>
-                        <p className="text-sm text-gray-500">{formatDate(application.created_at)}</p>
+                <CardContent className="p-6">
+                  <div className="space-y-4">
+                    {applications.slice(0, 3).map((application) => (
+                      <div key={application.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                        <div>
+                          <p className="font-semibold text-gray-900">{application.country}</p>
+                          <p className="text-sm text-gray-500">{formatDate(application.created_at)}</p>
+                        </div>
+                        {getStatusBadge(application.status)}
                       </div>
-                      {getStatusBadge(application.status)}
-                    </div>
-                  ))}
-                  {applications.length === 0 && (
-                    <p className="text-gray-500 text-center py-4">Henüz başvuru yok</p>
-                  )}
+                    ))}
+                    {applications.length === 0 && (
+                      <div className="text-center py-8">
+                        <GraduationCap className="h-12 w-12 text-gray-300 mx-auto mb-3" />
+                        <p className="text-gray-500">Henüz başvuru yok</p>
+                      </div>
+                    )}
+                  </div>
                 </CardContent>
               </Card>
 
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <GraduationCap className="h-5 w-5" />
+              <Card className="shadow-lg border-0 bg-white">
+                <CardHeader className="bg-gradient-to-r from-gray-50 to-gray-100 rounded-t-lg">
+                  <CardTitle className="flex items-center gap-2 text-gray-800">
+                    <GraduationCap className="h-5 w-5 text-edu-blue-600" />
                     Öne Çıkan Üniversiteler
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
-                  {universities.slice(0, 3).map((university, index) => (
-                    <div key={`${university.name}-${index}`} className="flex items-center justify-between py-3 border-b last:border-b-0">
-                      <div>
-                        <p className="font-medium">{university.name}</p>
-                        <p className="text-sm text-gray-500">{university.country}</p>
+                <CardContent className="p-6">
+                  <div className="space-y-4">
+                    {universities.slice(0, 3).map((university, index) => (
+                      <div key={`${university.name}-${index}`} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                        <div>
+                          <p className="font-semibold text-gray-900">{university.name}</p>
+                          <p className="text-sm text-gray-500">🇹🇷 {university.country}</p>
+                        </div>
+                        <Link to={`/apply/${university.country.toLowerCase()}`}>
+                          <Button size="sm" className="bg-edu-blue-600 hover:bg-edu-blue-700">
+                            Başvur
+                          </Button>
+                        </Link>
                       </div>
-                      <Link to={`/apply/${university.country.toLowerCase()}`}>
-                        <Button size="sm" variant="outline">
-                          Başvur
-                        </Button>
-                      </Link>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </CardContent>
               </Card>
             </div>
           </TabsContent>
 
           <TabsContent value="profile">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <User className="h-5 w-5" />
+            <Card className="shadow-lg border-0 bg-white">
+              <CardHeader className="bg-gradient-to-r from-gray-50 to-gray-100 rounded-t-lg">
+                <CardTitle className="flex items-center gap-2 text-gray-800">
+                  <User className="h-5 w-5 text-edu-blue-600" />
                   Profil Bilgileri
                 </CardTitle>
-                <CardDescription>
+                <CardDescription className="text-gray-600">
                   Kişisel bilgilerinizi güncelleyin
                 </CardDescription>
               </CardHeader>
-              <CardContent>
-                <form onSubmit={updateProfile} className="space-y-6">
+              <CardContent className="p-8">
+                <form onSubmit={updateProfile} className="space-y-8">
                   <div className="flex items-center space-x-6">
-                    <Avatar className="h-24 w-24">
+                    <Avatar className="h-24 w-24 ring-4 ring-edu-blue-100">
                       <AvatarImage src={profile?.profile_picture_url || undefined} />
-                      <AvatarFallback className="text-lg">
+                      <AvatarFallback className="text-lg bg-gradient-to-br from-edu-blue-500 to-edu-purple-500 text-white">
                         {fullName ? fullName.charAt(0).toUpperCase() : 'U'}
                       </AvatarFallback>
                     </Avatar>
-                    <Button variant="outline" className="flex items-center gap-2">
+                    <Button variant="outline" className="flex items-center gap-2 border-edu-blue-200 text-edu-blue-700 hover:bg-edu-blue-50">
                       <Camera className="h-4 w-4" />
                       Fotoğraf Değiştir
                     </Button>
@@ -304,54 +363,57 @@ const Account = () => {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <Label htmlFor="email">E-posta</Label>
+                      <Label htmlFor="email" className="text-gray-700 font-medium">E-posta</Label>
                       <Input
                         id="email"
                         type="email"
                         value={user.email || ''}
                         disabled
-                        className="bg-gray-100 dark:bg-gray-800"
+                        className="bg-gray-50 border-gray-200"
                       />
                       <p className="text-sm text-gray-500">E-posta değiştirilemez</p>
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="fullName">Ad Soyad</Label>
+                      <Label htmlFor="fullName" className="text-gray-700 font-medium">Ad Soyad</Label>
                       <Input
                         id="fullName"
                         type="text"
                         value={fullName}
                         onChange={(e) => setFullName(e.target.value)}
                         placeholder="Adınızı ve soyadınızı girin"
+                        className="border-gray-200 focus:border-edu-blue-500 focus:ring-edu-blue-500"
                       />
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="nationality">Uyruk</Label>
+                      <Label htmlFor="nationality" className="text-gray-700 font-medium">Uyruk</Label>
                       <Input
                         id="nationality"
                         type="text"
                         value={nationality}
                         onChange={(e) => setNationality(e.target.value)}
                         placeholder="Uyruğunuzu girin"
+                        className="border-gray-200 focus:border-edu-blue-500 focus:ring-edu-blue-500"
                       />
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="phone">Telefon Numarası</Label>
+                      <Label htmlFor="phone" className="text-gray-700 font-medium">Telefon Numarası</Label>
                       <Input
                         id="phone"
                         type="tel"
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
                         placeholder="Telefon numaranızı girin"
+                        className="border-gray-200 focus:border-edu-blue-500 focus:ring-edu-blue-500"
                       />
                     </div>
                   </div>
 
                   <Button 
                     type="submit" 
-                    className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700"
+                    className="bg-gradient-to-r from-edu-blue-600 to-edu-purple-600 hover:from-edu-blue-700 hover:to-edu-purple-700 text-white px-8"
                     disabled={updating}
                   >
                     {updating ? 'Güncelleniyor...' : 'Profili Güncelle'}
@@ -362,38 +424,55 @@ const Account = () => {
           </TabsContent>
 
           <TabsContent value="universities">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <GraduationCap className="h-5 w-5" />
+            <Card className="shadow-lg border-0 bg-white">
+              <CardHeader className="bg-gradient-to-r from-gray-50 to-gray-100 rounded-t-lg">
+                <CardTitle className="flex items-center gap-2 text-gray-800">
+                  <GraduationCap className="h-5 w-5 text-edu-blue-600" />
                   Açık Üniversiteler
                 </CardTitle>
-                <CardDescription>
+                <CardDescription className="text-gray-600">
                   Başvuru yapabileceğiniz üniversiteler
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-8">
                 {loadingData ? (
-                  <div className="text-center py-8">
-                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-red-600 mx-auto mb-4"></div>
-                    <p>Üniversiteler yükleniyor...</p>
+                  <div className="text-center py-12">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-edu-blue-600 mx-auto mb-4"></div>
+                    <p className="text-gray-600">Üniversiteler yükleniyor...</p>
                   </div>
                 ) : (
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {universities.map((university, index) => (
-                      <Card key={`${university.name}-${index}`} className="hover:shadow-md transition-shadow">
-                        <CardContent className="p-4">
-                          <h3 className="font-semibold text-lg mb-2">{university.name}</h3>
-                          <p className="text-sm text-gray-600 mb-1">🇹🇷 {university.country}</p>
+                      <Card key={`${university.name}-${index}`} className="group hover:shadow-xl transition-all duration-300 border border-gray-200 hover:border-edu-blue-300">
+                        <CardContent className="p-6">
+                          <div className="flex items-start justify-between mb-4">
+                            <div className="w-12 h-12 bg-gradient-to-br from-edu-blue-500 to-edu-purple-500 rounded-lg flex items-center justify-center">
+                              <GraduationCap className="h-6 w-6 text-white" />
+                            </div>
+                            <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
+                              Açık
+                            </Badge>
+                          </div>
+                          <h3 className="font-bold text-lg mb-2 text-gray-900 group-hover:text-edu-blue-700 transition-colors">
+                            {university.name}
+                          </h3>
+                          <p className="text-sm text-gray-600 mb-1 flex items-center">
+                            <span className="mr-2">🇹🇷</span>
+                            {university.country}
+                          </p>
                           {university.ranking && (
-                            <p className="text-sm text-gray-600 mb-1">Sıralama: {university.ranking}</p>
+                            <p className="text-sm text-gray-600 mb-2">
+                              <span className="font-medium">Sıralama:</span> {university.ranking}
+                            </p>
                           )}
                           {university.tuition && (
-                            <p className="text-sm text-green-600 mb-3">Ücret: {university.tuition}</p>
+                            <p className="text-sm text-emerald-600 mb-4 font-medium">
+                              {university.tuition}
+                            </p>
                           )}
-                          <Link to={`/apply/${university.country.toLowerCase()}`}>
-                            <Button className="w-full" size="sm">
-                              <ExternalLink className="h-4 w-4 mr-1" />
+                          <Link to={`/apply/${university.country.toLowerCase()}`} className="block">
+                            <Button className="w-full bg-gradient-to-r from-edu-blue-600 to-edu-purple-600 hover:from-edu-blue-700 hover:to-edu-purple-700 text-white group-hover:shadow-lg transition-all duration-300">
+                              <ExternalLink className="h-4 w-4 mr-2" />
                               Başvur
                             </Button>
                           </Link>
@@ -407,42 +486,64 @@ const Account = () => {
           </TabsContent>
 
           <TabsContent value="applications">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <GraduationCap className="h-5 w-5" />
+            <Card className="shadow-lg border-0 bg-white">
+              <CardHeader className="bg-gradient-to-r from-gray-50 to-gray-100 rounded-t-lg">
+                <CardTitle className="flex items-center gap-2 text-gray-800">
+                  <Award className="h-5 w-5 text-edu-blue-600" />
                   Başvurularım
                 </CardTitle>
-                <CardDescription>
+                <CardDescription className="text-gray-600">
                   Yaptığınız başvuruları takip edin
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-8">
                 {applications.length === 0 ? (
-                  <div className="text-center py-8">
-                    <GraduationCap className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                  <div className="text-center py-12">
+                    <div className="w-20 h-20 bg-gradient-to-br from-edu-blue-100 to-edu-purple-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                      <GraduationCap className="h-10 w-10 text-edu-blue-600" />
+                    </div>
                     <p className="text-gray-500 text-lg mb-4">Henüz başvuru yapmadınız</p>
+                    <p className="text-gray-400 mb-6">Üniversiteleri inceleyerek başvuru sürecinizi başlatabilirsiniz</p>
                     <Link to="/universities">
-                      <Button>Üniversiteleri İncele</Button>
+                      <Button className="bg-gradient-to-r from-edu-blue-600 to-edu-purple-600 hover:from-edu-blue-700 hover:to-edu-purple-700 text-white px-8">
+                        Üniversiteleri İncele
+                      </Button>
                     </Link>
                   </div>
                 ) : (
-                  <div className="space-y-4">
+                  <div className="space-y-6">
                     {applications.map((application) => (
-                      <Card key={application.id} className="border-l-4 border-l-red-500">
-                        <CardContent className="p-4">
-                          <div className="flex items-center justify-between mb-3">
-                            <h3 className="font-semibold text-lg">{application.country} Başvurusu</h3>
+                      <Card key={application.id} className="border-l-4 border-l-edu-blue-500 hover:shadow-lg transition-shadow">
+                        <CardContent className="p-6">
+                          <div className="flex items-center justify-between mb-4">
+                            <div className="flex items-center space-x-3">
+                              <div className="w-10 h-10 bg-gradient-to-br from-edu-blue-500 to-edu-purple-500 rounded-lg flex items-center justify-center">
+                                <GraduationCap className="h-5 w-5 text-white" />
+                              </div>
+                              <h3 className="font-bold text-lg text-gray-900">{application.country} Başvurusu</h3>
+                            </div>
                             {getStatusBadge(application.status)}
                           </div>
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                            <div>
-                              <p><strong>Eğitim Seviyesi:</strong> {application.education_level}</p>
-                              <p><strong>Çalışma Alanı:</strong> {application.study_field}</p>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+                            <div className="space-y-2">
+                              <div className="flex items-center">
+                                <span className="font-semibold text-gray-700 w-32">Eğitim Seviyesi:</span>
+                                <span className="text-gray-600">{application.education_level}</span>
+                              </div>
+                              <div className="flex items-center">
+                                <span className="font-semibold text-gray-700 w-32">Çalışma Alanı:</span>
+                                <span className="text-gray-600">{application.study_field}</span>
+                              </div>
                             </div>
-                            <div>
-                              <p><strong>Öğretim Dili:</strong> {application.language_of_instruction}</p>
-                              <p><strong>Başvuru Tarihi:</strong> {formatDate(application.created_at)}</p>
+                            <div className="space-y-2">
+                              <div className="flex items-center">
+                                <span className="font-semibold text-gray-700 w-32">Öğretim Dili:</span>
+                                <span className="text-gray-600">{application.language_of_instruction}</span>
+                              </div>
+                              <div className="flex items-center">
+                                <span className="font-semibold text-gray-700 w-32">Başvuru Tarihi:</span>
+                                <span className="text-gray-600">{formatDate(application.created_at)}</span>
+                              </div>
                             </div>
                           </div>
                         </CardContent>
@@ -456,18 +557,18 @@ const Account = () => {
         </Tabs>
 
         {/* Account Actions */}
-        <Card className="mt-6">
-          <CardHeader>
-            <CardTitle>Hesap İşlemleri</CardTitle>
-            <CardDescription>
+        <Card className="shadow-lg border-0 bg-white mt-8">
+          <CardHeader className="bg-gradient-to-r from-gray-50 to-gray-100 rounded-t-lg">
+            <CardTitle className="text-gray-800">Hesap İşlemleri</CardTitle>
+            <CardDescription className="text-gray-600">
               Hesap ayarlarınızı yönetin
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-6">
             <Button 
               variant="outline" 
               onClick={handleSignOut}
-              className="flex items-center gap-2"
+              className="flex items-center gap-2 border-red-200 text-red-700 hover:bg-red-50"
             >
               <LogOut className="h-4 w-4" />
               Çıkış Yap
