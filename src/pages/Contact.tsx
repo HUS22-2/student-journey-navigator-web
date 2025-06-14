@@ -35,28 +35,28 @@ const Contact = () => {
 
   const offices = [
     {
-      country: 'Turkey',
+      country: t('turkey'),
       flag: '🇹🇷',
       address: 'Kadıköy, Istanbul, Turkey',
       email: 'turkey@educonsult.com',
       phone: '+90 212 XXX XXXX'
     },
     {
-      country: 'France',
+      country: t('france'),
       flag: '🇫🇷',
       address: '5th Arrondissement, Paris, France',
       email: 'france@educonsult.com',
       phone: '+33 1 XX XX XX XX'
     },
     {
-      country: 'Tunisia',
+      country: t('tunisia'),
       flag: '🇹🇳',
       address: 'Centre Ville, Tunis, Tunisia',
       email: 'tunisia@educonsult.com',
       phone: '+216 XX XXX XXX'
     },
     {
-      country: 'Canada',
+      country: t('canada'),
       flag: '🇨🇦',
       address: 'Downtown, Toronto, ON, Canada',
       email: 'canada@educonsult.com',
@@ -86,13 +86,13 @@ const Contact = () => {
           <div>
             <Card>
               <CardHeader>
-                <CardTitle className="text-2xl">Send us a Message</CardTitle>
+                <CardTitle className="text-2xl">{t('sendMessage')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <Label htmlFor="name">Full Name</Label>
+                      <Label htmlFor="name">{t('fullName')}</Label>
                       <Input
                         id="name"
                         value={formData.name}
@@ -113,7 +113,7 @@ const Contact = () => {
                   </div>
 
                   <div>
-                    <Label htmlFor="phone">Phone Number</Label>
+                    <Label htmlFor="phone">{t('phone')}</Label>
                     <Input
                       id="phone"
                       type="tel"
@@ -123,7 +123,7 @@ const Contact = () => {
                   </div>
 
                   <div>
-                    <Label htmlFor="subject">Subject</Label>
+                    <Label htmlFor="subject">{t('subject')}</Label>
                     <Input
                       id="subject"
                       value={formData.subject}
@@ -133,7 +133,7 @@ const Contact = () => {
                   </div>
 
                   <div>
-                    <Label htmlFor="message">Message</Label>
+                    <Label htmlFor="message">{t('message')}</Label>
                     <Textarea
                       id="message"
                       rows={5}
@@ -148,7 +148,7 @@ const Contact = () => {
                     className="w-full bg-gradient-to-r from-edu-blue-500 to-edu-purple-500 hover:from-edu-blue-600 hover:to-edu-purple-600"
                     size="lg"
                   >
-                    Send Message
+                    {t('sendMessageBtn')}
                   </Button>
                 </form>
               </CardContent>
@@ -160,7 +160,7 @@ const Contact = () => {
             {/* Quick Contact */}
             <Card>
               <CardHeader>
-                <CardTitle>Quick Contact</CardTitle>
+                <CardTitle>{t('quickContact')}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex items-center space-x-3">
@@ -169,11 +169,11 @@ const Contact = () => {
                 </div>
                 <div className="flex items-center space-x-3">
                   <Globe className="h-5 w-5 text-edu-blue-500" />
-                  <span>Available 24/7 via WhatsApp</span>
+                  <span>{t('available24Hours')}</span>
                 </div>
                 <div className="pt-4">
                   <Button className="w-full bg-green-500 hover:bg-green-600" size="lg">
-                    💬 Chat on WhatsApp
+                    {t('chatWhatsApp')}
                   </Button>
                 </div>
               </CardContent>
@@ -182,7 +182,7 @@ const Contact = () => {
             {/* Office Locations */}
             <Card>
               <CardHeader>
-                <CardTitle>Our Offices</CardTitle>
+                <CardTitle>{t('ourOffices')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-6">
@@ -209,24 +209,24 @@ const Contact = () => {
             {/* Business Hours */}
             <Card>
               <CardHeader>
-                <CardTitle>Business Hours</CardTitle>
+                <CardTitle>{t('businessHours')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
-                    <span>Monday - Friday</span>
+                    <span>{t('mondayFriday')}</span>
                     <span className="font-medium">9:00 AM - 6:00 PM</span>
                   </div>
                   <div className="flex justify-between">
-                    <span>Saturday</span>
+                    <span>{t('saturday')}</span>
                     <span className="font-medium">10:00 AM - 4:00 PM</span>
                   </div>
                   <div className="flex justify-between">
-                    <span>Sunday</span>
-                    <span className="font-medium">Closed</span>
+                    <span>{t('sunday')}</span>
+                    <span className="font-medium">{t('closed')}</span>
                   </div>
                   <div className="pt-2 text-xs text-gray-500 dark:text-gray-400">
-                    * Emergency consultations available 24/7
+                    {t('emergencyConsultations')}
                   </div>
                 </div>
               </CardContent>

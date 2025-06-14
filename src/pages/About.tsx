@@ -7,10 +7,10 @@ const About = () => {
   const { t } = useLanguage();
 
   const stats = [
-    { icon: Users, label: 'Students Helped', value: '10,000+', color: 'text-edu-blue-500' },
-    { icon: Award, label: 'Success Rate', value: '95%', color: 'text-edu-purple-500' },
-    { icon: Globe, label: 'Countries', value: '25+', color: 'text-edu-teal-500' },
-    { icon: Heart, label: 'Years Experience', value: '10+', color: 'text-orange-500' }
+    { icon: Users, label: t('studentsHelped'), value: '10,000+', color: 'text-edu-blue-500' },
+    { icon: Award, label: t('successRate'), value: '95%', color: 'text-edu-purple-500' },
+    { icon: Globe, label: t('countries'), value: '25+', color: 'text-edu-teal-500' },
+    { icon: Heart, label: t('yearsExperience'), value: '10+', color: 'text-orange-500' }
   ];
 
   const team = [
@@ -83,22 +83,22 @@ const About = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
-                Our Mission
+                {t('ourMission')}
               </h2>
               <p className="text-lg text-gray-600 dark:text-gray-300 mb-6">
-                We believe that education should be accessible to everyone, regardless of their background or location. Our mission is to bridge the gap between talented students and world-class educational opportunities.
+                {t('missionDescription1')}
               </p>
               <p className="text-lg text-gray-600 dark:text-gray-300">
-                Through personalized guidance, expert advice, and comprehensive support, we help students navigate the complex process of international education and achieve their academic dreams.
+                {t('missionDescription2')}
               </p>
             </div>
             <div className="bg-gradient-to-br from-edu-blue-100 to-edu-purple-100 dark:from-edu-blue-900/20 dark:to-edu-purple-900/20 rounded-2xl p-8 text-center">
               <div className="text-6xl mb-4">🎯</div>
               <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-                Our Vision
+                {t('ourVision')}
               </h3>
               <p className="text-gray-600 dark:text-gray-300">
-                To become the leading global platform connecting students with their dream universities worldwide.
+                {t('visionDescription')}
               </p>
             </div>
           </div>
@@ -110,10 +110,10 @@ const About = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
-              Meet Our Expert Team
+              {t('meetOurTeam')}
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-300">
-              Experienced professionals dedicated to your educational success
+              {t('teamDescription')}
             </p>
           </div>
 
@@ -143,7 +143,7 @@ const About = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
-              Our Core Values
+              {t('ourCoreValues')}
             </h2>
           </div>
 
@@ -151,18 +151,18 @@ const About = () => {
             {[
               {
                 icon: '🤝',
-                title: 'Trust & Integrity',
-                description: 'We build lasting relationships based on honesty and transparency.'
+                title: t('trustIntegrity'),
+                description: t('trustDescription')
               },
               {
                 icon: '🌟',
-                title: 'Excellence',
-                description: 'We strive for the highest standards in everything we do.'
+                title: t('excellence'),
+                description: t('excellenceDescription')
               },
               {
                 icon: '🎯',
-                title: 'Student-Centered',
-                description: 'Every decision we make is focused on student success and satisfaction.'
+                title: t('studentCentered'),
+                description: t('studentCenteredDescription')
               }
             ].map((value, index) => (
               <Card key={index} className="text-center hover:shadow-lg transition-shadow">
