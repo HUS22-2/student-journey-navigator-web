@@ -70,10 +70,10 @@ const Testimonials = () => {
   ];
 
   const stats = [
-    { label: 'Success Rate', value: '95%', description: 'of our students get accepted' },
-    { label: 'Scholarships', value: '$2M+', description: 'secured for our students' },
-    { label: 'Universities', value: '500+', description: 'partner institutions worldwide' },
-    { label: 'Countries', value: '25+', description: 'study destinations' }
+    { label: t('successRate'), value: '95%', description: t('ofStudentsAccepted') },
+    { label: t('scholarships'), value: '$2M+', description: t('scholarshipsSecured') },
+    { label: 'Universities', value: '500+', description: t('partnerUniversities') },
+    { label: 'Countries', value: '25+', description: t('studyDestinations') }
   ];
 
   return (
@@ -83,10 +83,10 @@ const Testimonials = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-              Student Success Stories
+              {t('studentSuccessStories')}
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              Hear from our students who are now studying at top universities around the world
+              {t('hearFromStudents')}
             </p>
           </div>
         </div>
@@ -163,10 +163,10 @@ const Testimonials = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
-              Video Testimonials
+              {t('videoTestimonials')}
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-300">
-              Watch our students share their experiences
+              {t('watchStudentExperiences')}
             </p>
           </div>
 
@@ -177,10 +177,10 @@ const Testimonials = () => {
                   <div>
                     <div className="text-6xl mb-4">🎥</div>
                     <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
-                      Student Success Story #{video}
+                      {t('studentSuccessStory')} #{video}
                     </h3>
                     <p className="text-gray-600 dark:text-gray-300">
-                      Watch how we helped students achieve their dreams
+                      {t('watchHowWeHelped')}
                     </p>
                   </div>
                 </div>
@@ -194,18 +194,18 @@ const Testimonials = () => {
       <section className="py-16 bg-gradient-to-r from-edu-blue-500 to-edu-purple-500">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold text-white mb-4">
-            Ready to Write Your Success Story?
+            {t('readyToWriteStory')}
           </h2>
           <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-            Join thousands of students who have achieved their international education dreams with our help.
+            {t('joinThousandsOfStudents')}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Card className="bg-white/10 backdrop-blur-md border-white/20 text-white p-6 max-w-md">
               <CardContent className="text-center pt-0">
                 <div className="text-4xl mb-2">📞</div>
-                <h3 className="font-bold mb-2">Free Consultation</h3>
+                <h3 className="font-bold mb-2">{t('freeConsultation')}</h3>
                 <p className="text-blue-100 text-sm">
-                  Book a 30-minute call to discuss your goals
+                  {t('bookThirtyMinuteCall')}
                 </p>
               </CardContent>
             </Card>

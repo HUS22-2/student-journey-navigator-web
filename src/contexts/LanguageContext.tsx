@@ -1,3 +1,4 @@
+
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 export type Language = 'en' | 'ar' | 'fr';
@@ -62,6 +63,23 @@ const translations = {
     // Theme
     lightMode: "Light Mode",
     darkMode: "Dark Mode",
+    
+    // Additional Testimonials Page Translations
+    studentSuccessStories: "Student Success Stories",
+    hearFromStudents: "Hear from our students who are now studying at top universities around the world",
+    successRate: "Success Rate",
+    ofStudentsAccepted: "of our students get accepted",
+    scholarshipsSecured: "secured for our students",
+    partnerUniversities: "partner institutions worldwide",
+    studyDestinations: "study destinations",
+    videoTestimonials: "Video Testimonials",
+    watchStudentExperiences: "Watch our students share their experiences",
+    studentSuccessStory: "Student Success Story",
+    watchHowWeHelped: "Watch how we helped students achieve their dreams",
+    readyToWriteStory: "Ready to Write Your Success Story?",
+    joinThousandsOfStudents: "Join thousands of students who have achieved their international education dreams with our help.",
+    freeConsultation: "Free Consultation",
+    bookThirtyMinuteCall: "Book a 30-minute call to discuss your goals"
   },
   ar: {
     // Navigation
@@ -114,6 +132,23 @@ const translations = {
     // Theme
     lightMode: "الوضع الفاتح",
     darkMode: "الوضع المظلم",
+    
+    // Additional Testimonials Page Translations
+    studentSuccessStories: "قصص نجاح الطلاب",
+    hearFromStudents: "استمع من طلابنا الذين يدرسون الآن في أفضل الجامعات حول العالم",
+    successRate: "معدل النجاح",
+    ofStudentsAccepted: "من طلابنا يتم قبولهم",
+    scholarshipsSecured: "تم تأمينها لطلابنا",
+    partnerUniversities: "مؤسسة شريكة حول العالم",
+    studyDestinations: "وجهات الدراسة",
+    videoTestimonials: "شهادات فيديو",
+    watchStudentExperiences: "شاهد طلابنا يشاركون تجاربهم",
+    studentSuccessStory: "قصة نجاح طالب",
+    watchHowWeHelped: "شاهد كيف ساعدنا الطلاب على تحقيق أحلامهم",
+    readyToWriteStory: "هل أنت مستعد لكتابة قصة نجاحك؟",
+    joinThousandsOfStudents: "انضم إلى آلاف الطلاب الذين حققوا أحلامهم في التعليم الدولي بمساعدتنا.",
+    freeConsultation: "استشارة مجانية",
+    bookThirtyMinuteCall: "احجز مكالمة لمدة 30 دقيقة لمناقشة أهدافك"
   },
   fr: {
     // Navigation
@@ -166,6 +201,23 @@ const translations = {
     // Theme
     lightMode: "Mode Clair",
     darkMode: "Mode Sombre",
+    
+    // Additional Testimonials Page Translations
+    studentSuccessStories: "Histoires de Réussite d'Étudiants",
+    hearFromStudents: "Écoutez nos étudiants qui étudient maintenant dans les meilleures universités du monde",
+    successRate: "Taux de Réussite",
+    ofStudentsAccepted: "de nos étudiants sont acceptés",
+    scholarshipsSecured: "sécurisées pour nos étudiants",
+    partnerUniversities: "institutions partenaires dans le monde",
+    studyDestinations: "destinations d'études",
+    videoTestimonials: "Témoignages Vidéo",
+    watchStudentExperiences: "Regardez nos étudiants partager leurs expériences",
+    studentSuccessStory: "Histoire de Réussite d'Étudiant",
+    watchHowWeHelped: "Regardez comment nous avons aidé les étudiants à réaliser leurs rêves",
+    readyToWriteStory: "Prêt à Écrire Votre Histoire de Réussite ?",
+    joinThousandsOfStudents: "Rejoignez des milliers d'étudiants qui ont réalisé leurs rêves d'éducation internationale avec notre aide.",
+    freeConsultation: "Consultation Gratuite",
+    bookThirtyMinuteCall: "Réservez un appel de 30 minutes pour discuter de vos objectifs"
   }
 };
 
@@ -178,10 +230,24 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     if (['en', 'ar', 'fr'].includes(browserLang)) {
       setLanguage(browserLang);
     }
-  }, []);
+    
+    // Apply proper RTL styles to document
+    if (language === 'ar') {
+      document.documentElement.setAttribute('dir', 'rtl');
+      document.documentElement.lang = 'ar';
+    } else {
+      document.documentElement.setAttribute('dir', 'ltr');
+      document.documentElement.lang = language;
+    }
+  }, [language]);
 
   const t = (key: string): string => {
-    return translations[language][key as keyof typeof translations[typeof language]] || key;
+    const translation = translations[language][key as keyof typeof translations[typeof language]];
+    if (!translation) {
+      console.warn(`Missing translation for key: ${key} in language: ${language}`);
+      return key;
+    }
+    return translation;
   };
 
   return (
