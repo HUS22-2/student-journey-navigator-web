@@ -1,4 +1,3 @@
-
 import { Link } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Button } from '@/components/ui/button';
@@ -77,7 +76,7 @@ const Index = () => {
           </div>
           
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6 animate-fade-in">
-            <span className="text-gradient">Türkiye'de Eğitim</span>
+            <span className="text-gradient">EDUPASS</span>
           </h1>
           
           <p className="text-xl sm:text-2xl text-gray-600 dark:text-gray-300 mb-12 animate-fade-in max-w-4xl mx-auto" style={{ animationDelay: '0.2s' }}>
