@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 export type Language = 'en' | 'ar';
@@ -179,7 +178,82 @@ const translations = {
     readyToWriteStory: "Ready to Write Your Success Story?",
     joinThousandsOfStudents: "Join thousands of students who have achieved their international education dreams with our help.",
     freeConsultation: "Free Consultation",
-    bookThirtyMinuteCall: "Book a 30-minute call to discuss your goals"
+    bookThirtyMinuteCall: "Book a 30-minute call to discuss your goals",
+    
+    // Country Page specific translations
+    backToCountries: "Back to Countries",
+    studyIn: "Study in",
+    openUniversities: "Open Universities for Application",
+    currentApplicationDeadlines: "Current application deadlines and status for universities",
+    loadingUniversities: "Loading universities...",
+    noUniversitiesFound: "No universities found for",
+    checkBackLater: "Please check back later or contact support.",
+    university: "University",
+    ranking: "Ranking",
+    tuition: "Tuition",
+    deadline: "Deadline",
+    status: "Status",
+    action: "Action",
+    apply: "Apply",
+    closed: "Closed",
+    availableScholarships: "Available Scholarships",
+    fundingOpportunities: "Funding opportunities for international students in",
+    coverage: "Coverage",
+    requirements: "Requirements",
+    applyForScholarship: "Apply for Scholarship",
+    admissionRequirements: "Admission Requirements",
+    frequentlyAskedQuestions: "Frequently Asked Questions",
+    costOfLiving: "What is the cost of living?",
+    needLocalLanguage: "Do I need to speak the local language?",
+    manyProgramsEnglish: "Many programs are offered in English, but learning",
+    beneficialForLife: "is beneficial for daily life and integration.",
+    whenToApply: "When should I apply?",
+    deadlinesVary: "Application deadlines vary by university and program. Check the universities table for specific deadlines.",
+    fillFormBelow: "Fill out the form below to begin your application process",
+    countryNotFound: "Country not found",
+    returnToHome: "Return to Home",
+    
+    // Form validation
+    missingInformation: "Missing Information",
+    fillAllRequired: "Please fill in all required fields.",
+    submissionFailed: "Submission Failed",
+    errorSubmittingApplication: "There was an error submitting your application. Please try again.",
+    applicationSubmitted: "Application Submitted!",
+    contactWithin24Hours: "We'll contact you within 24 hours via WhatsApp.",
+    unexpectedError: "An unexpected error occurred. Please try again.",
+    submitting: "Submitting...",
+    
+    // Countries data
+    highSchoolDiploma: "High school diploma with minimum 70% average",
+    englishProficiency: "English proficiency test (TOEFL/IELTS)",
+    passportCopy: "Passport copy",
+    motivationLetter: "Motivation letter",
+    academicTranscripts: "Academic transcripts",
+    healthInsurance: "Health insurance",
+    proofFinancialSupport: "Proof of financial support",
+    
+    // Turkish scholarships
+    turkishGovernmentScholarship: "Turkish Government Scholarship (Türkiye Bursları)",
+    fullScholarshipCovering: "Full scholarship covering tuition, accommodation, and monthly stipend",
+    ytbScholarship: "YTB Scholarship",
+    partialScholarshipUndergrad: "Partial scholarship for undergraduate and graduate students",
+    universityMeritScholarships: "University Merit Scholarships",
+    institutionSpecificScholarships: "Institution-specific scholarships based on academic merit",
+    ibnKhaldunScholarship: "Ibn Khaldun Scholarship",
+    specialScholarshipDeveloping: "Special scholarship for students from developing countries",
+    
+    // Coverage and requirements
+    fullTuitionStipend: "100% tuition + $400/month stipend",
+    tuitionAccommodation: "Tuition + accommodation",
+    tuitionReduction: "25%-75% tuition reduction",
+    fullTuitionLiving: "Full tuition + living expenses",
+    variesByUniversity: "Varies by university",
+    gpaRequirement: "GPA ≥ 70%, TOEFL ≥ 79",
+    academicExcellenceLeadership: "Academic excellence, leadership skills",
+    highAcademicPerformance: "High academic performance",
+    financialNeedMerit: "Financial need, academic merit",
+    excellenceUnder30: "Excellence in academics, under 30 years old",
+    academicExcellenceUnder35: "Academic excellence, age under 35"
   },
   ar: {
     // Navigation
@@ -348,7 +422,82 @@ const translations = {
     readyToWriteStory: "مستعد لكتابة قصة نجاحك؟",
     joinThousandsOfStudents: "انضم لآلاف الطلاب الذين حققوا أحلامهم التعليمية الدولية بمساعدتنا.",
     freeConsultation: "استشارة مجانية",
-    bookThirtyMinuteCall: "احجز مكالمة مدتها 30 دقيقة لمناقشة أهدافك"
+    bookThirtyMinuteCall: "احجز مكالمة مدتها 30 دقيقة لمناقشة أهدافك",
+    
+    // Country Page specific translations
+    backToCountries: "العودة للدول",
+    studyIn: "الدراسة في",
+    openUniversities: "الجامعات المفتوحة للتقديم",
+    currentApplicationDeadlines: "مواعيد التقديم الحالية وحالة الجامعات",
+    loadingUniversities: "تحميل الجامعات...",
+    noUniversitiesFound: "لم يتم العثور على جامعات في",
+    checkBackLater: "يرجى المراجعة لاحقاً أو الاتصال بالدعم.",
+    university: "الجامعة",
+    ranking: "الترتيب",
+    tuition: "الرسوم الدراسية",
+    deadline: "الموعد النهائي",
+    status: "الحالة",
+    action: "الإجراء",
+    apply: "قدم طلب",
+    closed: "مغلق",
+    availableScholarships: "المنح الدراسية المتاحة",
+    fundingOpportunities: "فرص التمويل للطلاب الدوليين في",
+    coverage: "التغطية",
+    requirements: "المتطلبات",
+    applyForScholarship: "تقدم للمنحة",
+    admissionRequirements: "متطلبات القبول",
+    frequentlyAskedQuestions: "الأسئلة الشائعة",
+    costOfLiving: "ما هي تكلفة المعيشة؟",
+    needLocalLanguage: "هل أحتاج للتحدث باللغة المحلية؟",
+    manyProgramsEnglish: "العديد من البرامج تُدرس باللغة الإنجليزية، لكن تعلم",
+    beneficialForLife: "مفيد للحياة اليومية والاندماج.",
+    whenToApply: "متى يجب أن أقدم؟",
+    deadlinesVary: "تختلف مواعيد التقديم حسب الجامعة والبرنامج. راجع جدول الجامعات للمواعيد المحددة.",
+    fillFormBelow: "املأ النموذج أدناه لبدء عملية التقديم",
+    countryNotFound: "الدولة غير موجودة",
+    returnToHome: "العودة للرئيسية",
+    
+    // Form validation
+    missingInformation: "معلومات مفقودة",
+    fillAllRequired: "يرجى ملء جميع الحقول المطلوبة.",
+    submissionFailed: "فشل التقديم",
+    errorSubmittingApplication: "حدث خطأ في إرسال طلبك. يرجى المحاولة مرة أخرى.",
+    applicationSubmitted: "تم إرسال الطلب!",
+    contactWithin24Hours: "سنتواصل معك خلال 24 ساعة عبر الواتساب.",
+    unexpectedError: "حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.",
+    submitting: "جاري الإرسال...",
+    
+    // Countries data
+    highSchoolDiploma: "شهادة الثانوية العامة بمعدل 70% كحد أدنى",
+    englishProficiency: "اختبار إجادة اللغة الإنجليزية (TOEFL/IELTS)",
+    passportCopy: "نسخة من جواز السفر",
+    motivationLetter: "خطاب الدافع",
+    academicTranscripts: "كشوف الدرجات الأكاديمية",
+    healthInsurance: "التأمين الصحي",
+    proofFinancialSupport: "إثبات الدعم المالي",
+    
+    // Turkish scholarships
+    turkishGovernmentScholarship: "منحة الحكومة التركية (تركيا بورسلاري)",
+    fullScholarshipCovering: "منحة كاملة تغطي الرسوم الدراسية والسكن والراتب الشهري",
+    ytbScholarship: "منحة YTB",
+    partialScholarshipUndergrad: "منحة جزئية لطلاب البكالوريوس والدراسات العليا",
+    universityMeritScholarships: "منح الجامعات للتفوق",
+    institutionSpecificScholarships: "منح خاصة بالمؤسسات حسب التفوق الأكاديمي",
+    ibnKhaldunScholarship: "منحة ابن خلدون",
+    specialScholarshipDeveloping: "منحة خاصة للطلاب من البلدان النامية",
+    
+    // Coverage and requirements
+    fullTuitionStipend: "رسوم دراسية كاملة + راتب شهري 400 دولار",
+    tuitionAccommodation: "الرسوم الدراسية + السكن",
+    tuitionReduction: "تخفيض 25%-75% من الرسوم الدراسية",
+    fullTuitionLiving: "الرسوم الدراسية الكاملة + نفقات المعيشة",
+    variesByUniversity: "يختلف حسب الجامعة",
+    gpaRequirement: "معدل ≥ 70%، TOEFL ≥ 79",
+    academicExcellenceLeadership: "التفوق الأكاديمي، مهارات القيادة",
+    highAcademicPerformance: "الأداء الأكاديمي المرتفع",
+    financialNeedMerit: "الحاجة المالية، الجدارة الأكاديمية",
+    excellenceUnder30: "التفوق الأكاديمي، العمر أقل من 30 سنة",
+    academicExcellenceUnder35: "التفوق الأكاديمي، العمر أقل من 35 سنة"
   }
 };
 

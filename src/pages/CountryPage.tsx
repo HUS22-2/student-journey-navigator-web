@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -41,54 +42,54 @@ const CountryPage = () => {
 
   const countryData = {
     turkey: {
-      name: 'Turkey',
+      name: t('turkey'),
       flag: '🇹🇷',
       capital: 'Ankara',
       language: 'Turkish',
       currency: 'Turkish Lira',
       requirements: [
-        'High school diploma with minimum 70% average',
-        'English proficiency test (TOEFL/IELTS)',
-        'Passport copy',
-        'Motivation letter',
-        'Academic transcripts',
-        'Health insurance',
-        'Proof of financial support'
+        t('highSchoolDiploma'),
+        t('englishProficiency'),
+        t('passportCopy'),
+        t('motivationLetter'),
+        t('academicTranscripts'),
+        t('healthInsurance'),
+        t('proofFinancialSupport')
       ],
       scholarships: [
         {
-          name: 'Turkish Government Scholarship (Türkiye Bursları)',
-          description: 'Full scholarship covering tuition, accommodation, and monthly stipend',
-          coverage: '100% tuition + $400/month stipend',
+          name: t('turkishGovernmentScholarship'),
+          description: t('fullScholarshipCovering'),
+          coverage: t('fullTuitionStipend'),
           deadline: '2024-02-20',
-          requirements: 'GPA ≥ 70%, TOEFL ≥ 79'
+          requirements: t('gpaRequirement')
         },
         {
-          name: 'YTB Scholarship',
-          description: 'Partial scholarship for undergraduate and graduate students',
-          coverage: 'Tuition + accommodation',
+          name: t('ytbScholarship'),
+          description: t('partialScholarshipUndergrad'),
+          coverage: t('tuitionAccommodation'),
           deadline: '2024-03-15',
-          requirements: 'Academic excellence, leadership skills'
+          requirements: t('academicExcellenceLeadership')
         },
         {
-          name: 'University Merit Scholarships',
-          description: 'Institution-specific scholarships based on academic merit',
-          coverage: '25%-75% tuition reduction',
-          deadline: 'Varies by university',
-          requirements: 'High academic performance'
+          name: t('universityMeritScholarships'),
+          description: t('institutionSpecificScholarships'),
+          coverage: t('tuitionReduction'),
+          deadline: t('variesByUniversity'),
+          requirements: t('highAcademicPerformance')
         },
         {
-          name: 'Ibn Khaldun Scholarship',
-          description: 'Special scholarship for students from developing countries',
-          coverage: 'Full tuition + living expenses',
+          name: t('ibnKhaldunScholarship'),
+          description: t('specialScholarshipDeveloping'),
+          coverage: t('fullTuitionLiving'),
           deadline: '2024-04-01',
-          requirements: 'Financial need, academic merit'
+          requirements: t('financialNeedMerit')
         }
       ],
       cost: '$8,000-$12,000 per year (including accommodation)'
     },
     france: {
-      name: 'France',
+      name: t('france'),
       flag: '🇫🇷',
       capital: 'Paris',
       language: 'French',
@@ -96,9 +97,9 @@ const CountryPage = () => {
       requirements: [
         'Baccalauréat or equivalent',
         'French proficiency (DELF/DALF) or English (TOEFL/IELTS)',
-        'Passport copy',
+        t('passportCopy'),
         'Motivation letter in French',
-        'Academic transcripts'
+        t('academicTranscripts')
       ],
       scholarships: [
         {
@@ -106,13 +107,13 @@ const CountryPage = () => {
           description: 'Prestigious scholarship for international students',
           coverage: '€1,181/month + tuition',
           deadline: '2024-01-09',
-          requirements: 'Excellence in academics, under 30 years old'
+          requirements: t('excellenceUnder30')
         }
       ],
       cost: '€15,000-€25,000 per year (including accommodation)'
     },
     russia: {
-      name: 'Russia',
+      name: t('russia'),
       flag: '🇷🇺',
       capital: 'Moscow',
       language: 'Russian',
@@ -130,7 +131,7 @@ const CountryPage = () => {
           description: 'Full scholarship for international students',
           coverage: 'Full tuition + monthly stipend',
           deadline: '2024-02-15',
-          requirements: 'Academic excellence, age under 35'
+          requirements: t('academicExcellenceUnder35')
         }
       ],
       cost: '$4,000-$8,000 per year (including accommodation)'
@@ -211,9 +212,9 @@ const CountryPage = () => {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-2xl font-bold mb-4">Country not found</h1>
+          <h1 className="text-2xl font-bold mb-4">{t('countryNotFound')}</h1>
           <Link to="/">
-            <Button>Return to Home</Button>
+            <Button>{t('returnToHome')}</Button>
           </Link>
         </div>
       </div>
@@ -227,8 +228,8 @@ const CountryPage = () => {
     if (!formData.fullName || !formData.nationality || !formData.whatsapp || 
         !formData.educationLevel || !formData.studyField || !formData.languageOfInstruction) {
       toast({
-        title: "Missing Information",
-        description: "Please fill in all required fields.",
+        title: t('missingInformation'),
+        description: t('fillAllRequired'),
         variant: "destructive"
       });
       return;
@@ -255,15 +256,15 @@ const CountryPage = () => {
       if (error) {
         console.error('Error submitting application:', error);
         toast({
-          title: "Submission Failed",
-          description: "There was an error submitting your application. Please try again.",
+          title: t('submissionFailed'),
+          description: t('errorSubmittingApplication'),
           variant: "destructive"
         });
       } else {
         console.log('Application submitted successfully:', data);
         toast({
-          title: "Application Submitted!",
-          description: "We'll contact you within 24 hours via WhatsApp.",
+          title: t('applicationSubmitted'),
+          description: t('contactWithin24Hours'),
         });
         
         // Reset the form
@@ -279,8 +280,8 @@ const CountryPage = () => {
     } catch (error) {
       console.error('Unexpected error:', error);
       toast({
-        title: "Submission Failed",
-        description: "An unexpected error occurred. Please try again.",
+        title: t('submissionFailed'),
+        description: t('unexpectedError'),
         variant: "destructive"
       });
     } finally {
@@ -314,12 +315,12 @@ const CountryPage = () => {
           <div className="flex items-center justify-between">
             <Link to="/" className="flex items-center space-x-2 text-edu-blue-600 hover:text-edu-blue-700">
               <ArrowLeft className="h-5 w-5" />
-              <span>Back to Countries</span>
+              <span>{t('backToCountries')}</span>
             </Link>
             <div className="flex items-center space-x-3">
               <span className="text-4xl">{currentCountry.flag}</span>
               <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-                Study in {currentCountry.name}
+                {t('studyIn')} {currentCountry.name}
               </h1>
             </div>
           </div>
@@ -332,9 +333,9 @@ const CountryPage = () => {
           <div className="lg:col-span-2">
             <Tabs defaultValue="universities" className="w-full">
               <TabsList className="grid w-full grid-cols-4 mb-8">
-                <TabsTrigger value="universities">Universities</TabsTrigger>
-                <TabsTrigger value="scholarships">Scholarships</TabsTrigger>
-                <TabsTrigger value="requirements">Requirements</TabsTrigger>
+                <TabsTrigger value="universities">{t('universities')}</TabsTrigger>
+                <TabsTrigger value="scholarships">{t('scholarships')}</TabsTrigger>
+                <TabsTrigger value="requirements">{t('requirements')}</TabsTrigger>
                 <TabsTrigger value="faq">FAQ</TabsTrigger>
               </TabsList>
 
@@ -343,10 +344,10 @@ const CountryPage = () => {
                   <CardHeader>
                     <CardTitle className="flex items-center space-x-2">
                       <GraduationCap className="h-5 w-5" />
-                      <span>Open Universities for Application</span>
+                      <span>{t('openUniversities')}</span>
                     </CardTitle>
                     <CardDescription>
-                      Current application deadlines and status for {currentCountry.name} universities
+                      {t('currentApplicationDeadlines')} {currentCountry.name}
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
@@ -354,17 +355,17 @@ const CountryPage = () => {
                       <div className="flex items-center justify-center py-12">
                         <div className="text-center">
                           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-edu-blue-600 mx-auto mb-4"></div>
-                          <p className="text-gray-600 dark:text-gray-400">Loading universities...</p>
+                          <p className="text-gray-600 dark:text-gray-400">{t('loadingUniversities')}</p>
                         </div>
                       </div>
                     ) : universities.length === 0 ? (
                       <div className="text-center py-12">
                         <GraduationCap className="h-12 w-12 text-gray-400 mx-auto mb-4" />
                         <p className="text-gray-500 dark:text-gray-400 text-lg">
-                          No universities found for {currentCountry.name}
+                          {t('noUniversitiesFound')} {currentCountry.name}
                         </p>
                         <p className="text-gray-400 dark:text-gray-500 text-sm mt-2">
-                          Please check back later or contact support.
+                          {t('checkBackLater')}
                         </p>
                       </div>
                     ) : (
@@ -372,12 +373,12 @@ const CountryPage = () => {
                         <Table>
                           <TableHeader>
                             <TableRow>
-                              <TableHead className="min-w-[200px]">University</TableHead>
-                              <TableHead className="min-w-[100px]">Ranking</TableHead>
-                              <TableHead className="min-w-[120px]">Tuition</TableHead>
-                              <TableHead className="min-w-[120px]">Deadline</TableHead>
-                              <TableHead className="min-w-[80px]">Status</TableHead>
-                              <TableHead className="min-w-[100px]">Action</TableHead>
+                              <TableHead className="min-w-[200px]">{t('university')}</TableHead>
+                              <TableHead className="min-w-[100px]">{t('ranking')}</TableHead>
+                              <TableHead className="min-w-[120px]">{t('tuition')}</TableHead>
+                              <TableHead className="min-w-[120px]">{t('deadline')}</TableHead>
+                              <TableHead className="min-w-[80px]">{t('status')}</TableHead>
+                              <TableHead className="min-w-[100px]">{t('action')}</TableHead>
                             </TableRow>
                           </TableHeader>
                           <TableBody>
@@ -410,7 +411,7 @@ const CountryPage = () => {
                                       ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100'
                                       : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-100'
                                   }`}>
-                                    {university.status}
+                                    {university.status === 'Open' ? t('apply') : t('closed')}
                                   </span>
                                 </TableCell>
                                 <TableCell>
@@ -422,7 +423,7 @@ const CountryPage = () => {
                                       className="flex items-center space-x-1 w-full"
                                     >
                                       <ExternalLink className="h-3 w-3" />
-                                      <span>{university.status === 'Open' ? 'Apply' : 'Closed'}</span>
+                                      <span>{university.status === 'Open' ? t('apply') : t('closed')}</span>
                                     </Button>
                                   </Link>
                                 </TableCell>
@@ -441,10 +442,10 @@ const CountryPage = () => {
                   <CardHeader>
                     <CardTitle className="flex items-center space-x-2">
                       <DollarSign className="h-5 w-5" />
-                      <span>Available Scholarships</span>
+                      <span>{t('availableScholarships')}</span>
                     </CardTitle>
                     <CardDescription>
-                      Funding opportunities for international students in {currentCountry.name}
+                      {t('fundingOpportunities')} {currentCountry.name}
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
@@ -465,16 +466,16 @@ const CountryPage = () => {
                           </p>
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                              <span className="font-medium text-green-600 dark:text-green-400">Coverage: </span>
+                              <span className="font-medium text-green-600 dark:text-green-400">{t('coverage')}: </span>
                               <span className="text-gray-700 dark:text-gray-300">{scholarship.coverage}</span>
                             </div>
                             <div>
-                              <span className="font-medium text-blue-600 dark:text-blue-400">Requirements: </span>
+                              <span className="font-medium text-blue-600 dark:text-blue-400">{t('requirements')}: </span>
                               <span className="text-gray-700 dark:text-gray-300">{scholarship.requirements}</span>
                             </div>
                           </div>
                           <Button className="mt-4 w-full md:w-auto">
-                            Apply for Scholarship
+                            {t('applyForScholarship')}
                           </Button>
                         </div>
                       ))}
@@ -486,7 +487,7 @@ const CountryPage = () => {
               <TabsContent value="requirements" className="space-y-6">
                 <Card>
                   <CardHeader>
-                    <CardTitle>Admission Requirements</CardTitle>
+                    <CardTitle>{t('admissionRequirements')}</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <ul className="space-y-3">
@@ -504,26 +505,26 @@ const CountryPage = () => {
               <TabsContent value="faq" className="space-y-6">
                 <Card>
                   <CardHeader>
-                    <CardTitle>Frequently Asked Questions</CardTitle>
+                    <CardTitle>{t('frequentlyAskedQuestions')}</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-6">
                       <div>
-                        <h4 className="font-semibold mb-2">What is the cost of living?</h4>
+                        <h4 className="font-semibold mb-2">{t('costOfLiving')}</h4>
                         <p className="text-gray-600 dark:text-gray-300">
                           {currentCountry.cost}
                         </p>
                       </div>
                       <div>
-                        <h4 className="font-semibold mb-2">Do I need to speak the local language?</h4>
+                        <h4 className="font-semibold mb-2">{t('needLocalLanguage')}</h4>
                         <p className="text-gray-600 dark:text-gray-300">
-                          Many programs are offered in English, but learning {currentCountry.language} is beneficial for daily life and integration.
+                          {t('manyProgramsEnglish')} {currentCountry.language} {t('beneficialForLife')}
                         </p>
                       </div>
                       <div>
-                        <h4 className="font-semibold mb-2">When should I apply?</h4>
+                        <h4 className="font-semibold mb-2">{t('whenToApply')}</h4>
                         <p className="text-gray-600 dark:text-gray-300">
-                          Application deadlines vary by university and program. Check the universities table for specific deadlines.
+                          {t('deadlinesVary')}
                         </p>
                       </div>
                     </div>
@@ -539,7 +540,7 @@ const CountryPage = () => {
               <CardHeader>
                 <CardTitle className="text-center">{t('startApplication')}</CardTitle>
                 <CardDescription className="text-center">
-                  Fill out the form below to begin your application process
+                  {t('fillFormBelow')}
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -620,7 +621,7 @@ const CountryPage = () => {
                     className="w-full bg-gradient-to-r from-edu-blue-500 to-edu-purple-500 hover:from-edu-blue-600 hover:to-edu-purple-600"
                     disabled={isSubmitting}
                   >
-                    {isSubmitting ? 'Submitting...' : t('submit')}
+                    {isSubmitting ? t('submitting') : t('submit')}
                   </Button>
                 </form>
               </CardContent>
