@@ -11,52 +11,52 @@ const Services = () => {
     {
       icon: GraduationCap,
       title: t('universityAdmission'),
-      description: 'Complete guidance through the university application process',
+      description: t('universityAdmissionDesc'),
       features: [
-        'University selection based on your profile',
-        'Application document preparation',
-        'Personal statement writing assistance',
-        'Interview preparation',
-        'Application submission and tracking'
+        t('universitySelection'),
+        t('applicationDocuments'),
+        t('personalStatement'),
+        t('interviewPrep'),
+        t('applicationSubmission')
       ],
       color: 'from-edu-blue-500 to-edu-blue-600'
     },
     {
       icon: DollarSign,
       title: t('scholarships'),
-      description: 'Find and secure funding for your education',
+      description: t('scholarshipsDesc'),
       features: [
-        'Scholarship database access',
-        'Eligibility assessment',
-        'Application assistance',
-        'Essay writing support',
-        'Financial aid counseling'
+        t('scholarshipDatabase'),
+        t('eligibilityAssessment'),
+        t('applicationAssistance'),
+        t('essayWriting'),
+        t('financialAid')
       ],
       color: 'from-edu-purple-500 to-edu-purple-600'
     },
     {
       icon: FileText,
       title: t('visaGuidance'),
-      description: 'Expert support for visa and immigration processes',
+      description: t('visaGuidanceDesc'),
       features: [
-        'Visa type consultation',
-        'Document checklist and preparation',
-        'Embassy appointment booking',
-        'Interview preparation',
-        'Post-arrival support'
+        t('visaConsultation'),
+        t('documentChecklist'),
+        t('embassyAppointment'),
+        t('interviewPrep'),
+        t('postArrival')
       ],
       color: 'from-edu-teal-500 to-edu-teal-600'
     },
     {
       icon: Home,
       title: t('accommodation'),
-      description: 'Help finding suitable housing options',
+      description: t('accommodationDesc'),
       features: [
-        'University dormitory applications',
-        'Private housing search',
-        'Rental agreement assistance',
-        'Area recommendations',
-        'Move-in support'
+        t('universityDorms'),
+        t('privateHousing'),
+        t('rentalAgreement'),
+        t('areaRecommendations'),
+        t('moveInSupport')
       ],
       color: 'from-orange-500 to-orange-600'
     }
@@ -65,23 +65,23 @@ const Services = () => {
   const process = [
     {
       step: '01',
-      title: 'Initial Consultation',
-      description: 'Free 30-minute consultation to understand your goals and assess your profile.'
+      title: t('initialConsultation'),
+      description: t('initialConsultationDesc')
     },
     {
       step: '02',
-      title: 'Personalized Plan',
-      description: 'Receive a customized roadmap with timelines and required documents.'
+      title: t('personalizedPlan'),
+      description: t('personalizedPlanDesc')
     },
     {
       step: '03',
-      title: 'Application Support',
-      description: 'Expert guidance throughout the application and visa process.'
+      title: t('applicationSupport'),
+      description: t('applicationSupportDesc')
     },
     {
       step: '04',
-      title: 'Success & Beyond',
-      description: 'Continued support until you successfully start your studies abroad.'
+      title: t('successBeyond'),
+      description: t('successBeyondDesc')
     }
   ];
 
@@ -92,10 +92,10 @@ const Services = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-              Our {t('services')}
+              {t('ourServices')}
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              Comprehensive support for your international education journey
+              {t('comprehensiveSupport')}
             </p>
           </div>
         </div>
@@ -129,7 +129,7 @@ const Services = () => {
                   </ul>
                   <div className="mt-6">
                     <Button className={`w-full bg-gradient-to-r ${service.color} hover:shadow-lg transition-all duration-300`}>
-                      Learn More
+                      {t('learnMore')}
                     </Button>
                   </div>
                 </CardContent>
@@ -144,10 +144,10 @@ const Services = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
-              Our Process
+              {t('ourProcess')}
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-300">
-              A simple, step-by-step approach to achieve your goals
+              {t('simpleStepByStep')}
             </p>
           </div>
 
@@ -178,17 +178,17 @@ const Services = () => {
       <section className="py-16 bg-gradient-to-r from-edu-blue-500 to-edu-purple-500">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold text-white mb-4">
-            Ready to Start Your Journey?
+            {t('readyToStart')}
           </h2>
           <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-            Contact us today for a free consultation and take the first step towards your international education goals.
+            {t('contactToday')}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" variant="secondary" className="bg-white text-edu-blue-600 hover:bg-gray-50">
-              Schedule Consultation
+              {t('scheduleConsultation')}
             </Button>
             <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-edu-blue-600">
-              View Success Stories
+              {t('viewSuccessStories')}
             </Button>
           </div>
         </div>
