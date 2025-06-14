@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -40,6 +39,16 @@ const CountryPage = () => {
   const [universities, setUniversities] = useState<University[]>([]);
   const [isLoadingUniversities, setIsLoadingUniversities] = useState(true);
 
+  // Map URL country names to database country names
+  const getDbCountryName = (urlCountryName: string) => {
+    const countryMapping: { [key: string]: string } = {
+      'turkey': 'Turkey',
+      'france': 'France',
+      'russia': 'Russia'
+    };
+    return countryMapping[urlCountryName] || 'Turkey';
+  };
+
   const countryData = {
     turkey: {
       name: t('turkey'),
@@ -47,6 +56,7 @@ const CountryPage = () => {
       capital: 'Ankara',
       language: 'Turkish',
       currency: 'Turkish Lira',
+      dbName: 'Turkey', // Database country name
       requirements: [
         t('highSchoolDiploma'),
         t('englishProficiency'),
@@ -94,6 +104,7 @@ const CountryPage = () => {
       capital: 'Paris',
       language: 'French',
       currency: 'Euro',
+      dbName: 'France',
       requirements: [
         'Baccalauréat or equivalent',
         'French proficiency (DELF/DALF) or English (TOEFL/IELTS)',
@@ -118,6 +129,7 @@ const CountryPage = () => {
       capital: 'Moscow',
       language: 'Russian',
       currency: 'Russian Ruble',
+      dbName: 'Russia',
       requirements: [
         'Secondary education certificate',
         'Russian language proficiency or English for English programs',
@@ -145,13 +157,16 @@ const CountryPage = () => {
       if (!currentCountry) return;
       
       setIsLoadingUniversities(true);
-      console.log('Fetching universities for:', currentCountry.name);
+      
+      // Use the database country name instead of the translated name
+      const dbCountryName = currentCountry.dbName;
+      console.log('Fetching universities for database country:', dbCountryName);
       
       try {
         const { data, error } = await supabase
           .from('universities')
           .select('*')
-          .eq('country', currentCountry.name)
+          .eq('country', dbCountryName)
           .order('name');
 
         if (error) {
@@ -171,6 +186,13 @@ const CountryPage = () => {
             ranking: university.ranking?.replace(/\n/g, '').trim() || university.ranking
           })) || [];
           setUniversities(cleanedData);
+          
+          if (cleanedData.length > 0) {
+            toast({
+              title: t('success'),
+              description: `${cleanedData.length} ${t('universitiesLoaded')}`,
+            });
+          }
         }
       } catch (error) {
         console.error('Unexpected error fetching universities:', error);
@@ -186,7 +208,7 @@ const CountryPage = () => {
     };
 
     fetchUniversities();
-  }, [currentCountry?.name]);
+  }, [currentCountry?.dbName, t]); // Use dbName instead of name
 
   const scrollToApplicationForm = () => {
     if (applicationFormRef.current) {
@@ -236,7 +258,7 @@ const CountryPage = () => {
     }
 
     setIsSubmitting(true);
-    console.log('Submitting application:', { ...formData, country: currentCountry.name });
+    console.log('Submitting application:', { ...formData, country: currentCountry.dbName });
 
     try {
       const { data, error } = await supabase
@@ -249,7 +271,7 @@ const CountryPage = () => {
             education_level: formData.educationLevel,
             study_field: formData.studyField,
             language_of_instruction: formData.languageOfInstruction,
-            country: currentCountry.name
+            country: currentCountry.dbName // Use dbName for consistency
           }
         ]);
 
