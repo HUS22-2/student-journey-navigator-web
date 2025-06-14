@@ -1,3 +1,4 @@
+
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 type Language = 'en' | 'tr' | 'fr' | 'ar';
@@ -59,6 +60,7 @@ const translations = {
     available24Hours: 'Available 24/7',
     
     // About
+    aboutTitle: 'About Us',
     aboutDescription: 'Your trusted partner in international education, helping students achieve their dreams of studying abroad.',
     
     // Homepage content
@@ -140,11 +142,30 @@ const translations = {
     scheduleConsultation: 'Schedule Consultation',
     viewSuccessStories: 'View Success Stories',
     
+    // About page specific
+    studentsHelped: 'Students Helped',
+    successRate: 'Success Rate',
+    countries: 'Countries',
+    yearsExperience: 'Years Experience',
+    ourMission: 'Our Mission',
+    missionDescription1: 'We believe that every student deserves access to quality international education. Our mission is to break down barriers and make studying abroad accessible, affordable, and achievable for students from all backgrounds.',
+    missionDescription2: 'With our comprehensive support system, expert guidance, and personalized approach, we ensure that each student receives the attention and resources they need to succeed in their educational journey.',
+    ourVision: 'Our Vision',
+    visionDescription: 'To be the leading platform that empowers students worldwide to access international education opportunities and build successful global careers.',
+    meetOurTeam: 'Meet Our Team',
+    teamDescription: 'Our dedicated team of education experts, visa specialists, and student advisors are here to support you every step of the way.',
+    ourCoreValues: 'Our Core Values',
+    trustIntegrity: 'Trust & Integrity',
+    trustDescription: 'We build lasting relationships based on honesty, transparency, and reliable service.',
+    excellence: 'Excellence',
+    excellenceDescription: 'We strive for excellence in everything we do, ensuring the highest quality of service.',
+    studentCentered: 'Student-Centered',
+    studentCenteredDescription: 'Every decision we make is focused on what\'s best for our students and their success.',
+    
     // Application Form
     completeApplication: 'Complete Your Application',
     fillOutAllRequired: 'Please fill out all the required information to submit your application',
     personalInformation: 'Personal Information',
-    fullName: 'Full Name',
     nationality: 'Nationality',
     whatsappNumber: 'WhatsApp Number',
     preferredStartDate: 'Preferred Start Date',
@@ -251,6 +272,7 @@ const translations = {
     available24Hours: '7/24 Müsait',
     
     // About
+    aboutTitle: 'Hakkımızda',
     aboutDescription: 'Uluslararası eğitimde güvenilir ortağınız, öğrencilerin yurtdışında eğitim alma hayallerini gerçekleştirmelerine yardımcı oluyoruz.',
     
     // Homepage content
@@ -283,14 +305,10 @@ const translations = {
     startEducationalJourney: 'Eğitim Yolculuğunuza Bugün Başlayın',
     guideFromApplication: 'Başvurudan mezuniyete kadar size rehberlik ediyoruz - başarınız bizim misyonumuz',
     applyNow: 'Şimdi Başvur',
-    
-    // Services descriptions
     universityAdmissionDesc: 'Üniversite başvuruları ve kabul süreci için tam destek.',
     scholarshipsDesc: 'Yurtdışı eğitiminizi finanse etmek için burs bulun ve başvurun.',
     visaGuidanceDesc: 'Vize başvuruları ve belgelendirme konusunda uzman yardımı.',
     accommodationDesc: 'Uygun barınma ve konaklama seçenekleri bulma konusunda yardım.',
-    
-    // Service features
     universitySelection: 'Üniversite Seçimi',
     applicationDocuments: 'Başvuru Belgeleri',
     personalStatement: 'Kişisel Beyan',
@@ -310,8 +328,6 @@ const translations = {
     rentalAgreement: 'Kira Sözleşmesi',
     areaRecommendations: 'Bölge Önerileri',
     moveInSupport: 'Taşınma Desteği',
-    
-    // Process
     ourProcess: 'Sürecimiz',
     simpleStepByStep: 'Başlamanız için basit adım adım süreç',
     initialConsultation: 'İlk Danışmanlık',
@@ -322,8 +338,6 @@ const translations = {
     applicationSupportDesc: 'Başvurular ve belgelendirme için uçtan uca yardım',
     successBeyond: 'Başarı ve Ötesi',
     successBeyondDesc: 'Yurtdışında eğitiminize başladıktan sonra bile devam eden destek',
-    
-    // General
     ourServices: 'Hizmetlerimiz',
     comprehensiveSupport: 'Uluslararası eğitim yolculuğunuz için kapsamlı destek',
     learnMore: 'Daha Fazla Bilgi',
@@ -331,12 +345,27 @@ const translations = {
     contactToday: 'Ücretsiz danışmanlık için bugün bizimle iletişime geçin',
     scheduleConsultation: 'Danışmanlık Planla',
     viewSuccessStories: 'Başarı Hikayelerini Görüntüle',
-    
-    // Application Form
+    studentsHelped: 'Yardım Edilen Öğrenciler',
+    successRate: 'Başarı Oranı',
+    countries: 'Ülkeler',
+    yearsExperience: 'Yıl Deneyim',
+    ourMission: 'Misyonumuz',
+    missionDescription1: 'Her öğrencinin kaliteli uluslararası eğitime erişim hakkı olduğuna inanıyoruz. Misyonumuz engelleri kaldırmak ve her geçmişten öğrenci için yurtdışında eğitimi erişilebilir, uygun fiyatlı ve ulaşılabilir hale getirmektir.',
+    missionDescription2: 'Kapsamlı destek sistemimiz, uzman rehberliğimiz ve kişiselleştirilmiş yaklaşımımızla, her öğrencinin eğitim yolculuğunda başarılı olmak için ihtiyaç duyduğu ilgi ve kaynakları aldığından emin oluyoruz.',
+    ourVision: 'Vizyonumuz',
+    visionDescription: 'Dünya çapında öğrencileri uluslararası eğitim fırsatlarına erişim konusunda güçlendiren ve başarılı küresel kariyerler inşa etmelerini sağlayan önde gelen platform olmak.',
+    meetOurTeam: 'Ekibimizle Tanışın',
+    teamDescription: 'Eğitim uzmanları, vize uzmanları ve öğrenci danışmanlarından oluşan özveli ekibimiz, yolculuğunuzun her adımında size destek olmak için burada.',
+    ourCoreValues: 'Temel Değerlerimiz',
+    trustIntegrity: 'Güven ve Dürüstlük',
+    trustDescription: 'Dürüstlük, şeffaflık ve güvenilir hizmet temelinde kalıcı ilişkiler kuruyoruz.',
+    excellence: 'Mükemmellik',
+    excellenceDescription: 'Yaptığımız her şeyde mükemmellik için çaba gösteriyor, en yüksek kalitede hizmet sağlıyoruz.',
+    studentCentered: 'Öğrenci Merkezli',
+    studentCenteredDescription: 'Aldığımız her karar öğrencilerimiz ve onların başarısı için en iyi olanı odaklıdır.',
     completeApplication: 'Başvurunuzu Tamamlayın',
     fillOutAllRequired: 'Başvurunuzu göndermek için gerekli tüm bilgileri doldurun',
     personalInformation: 'Kişisel Bilgiler',
-    fullName: 'Ad Soyad',
     nationality: 'Uyruk',
     whatsappNumber: 'WhatsApp Numarası',
     preferredStartDate: 'Tercih Edilen Başlangıç Tarihi',
@@ -443,6 +472,7 @@ const translations = {
     available24Hours: 'Disponible 24h/24 et 7j/7',
     
     // About
+    aboutTitle: 'À propos de nous',
     aboutDescription: 'Votre partenaire de confiance en éducation internationale, aidant les étudiants à réaliser leurs rêves d\'études à l\'étranger.',
     
     // Homepage content
@@ -475,14 +505,10 @@ const translations = {
     startEducationalJourney: 'Commencez Votre Parcours Éducatif Aujourd\'hui',
     guideFromApplication: 'Nous vous guidons de la candidature à la graduation - votre succès est notre mission',
     applyNow: 'Postuler Maintenant',
-    
-    // Services descriptions
     universityAdmissionDesc: 'Support complet pour les candidatures universitaires et le processus d\'admission.',
     scholarshipsDesc: 'Trouvez et postulez pour des bourses pour financer vos études à l\'étranger.',
     visaGuidanceDesc: 'Assistance experte pour les demandes de visa et la documentation.',
     accommodationDesc: 'Aide pour trouver des options de logement et d\'hébergement appropriées.',
-    
-    // Service features
     universitySelection: 'Sélection d\'université',
     applicationDocuments: 'Documents de candidature',
     personalStatement: 'Déclaration personnelle',
@@ -502,8 +528,6 @@ const translations = {
     rentalAgreement: 'Contrat de location',
     areaRecommendations: 'Recommandations de zone',
     moveInSupport: 'Support d\'emménagement',
-    
-    // Process
     ourProcess: 'Notre processus',
     simpleStepByStep: 'Processus simple étape par étape pour commencer',
     initialConsultation: 'Consultation initiale',
@@ -514,8 +538,6 @@ const translations = {
     applicationSupportDesc: 'Assistance de bout en bout avec les candidatures et la documentation',
     successBeyond: 'Succès et au-delà',
     successBeyondDesc: 'Support continu même après avoir commencé vos études à l\'étranger',
-    
-    // General
     ourServices: 'Nos services',
     comprehensiveSupport: 'Support complet pour votre parcours d\'éducation internationale',
     learnMore: 'En savoir plus',
@@ -523,12 +545,27 @@ const translations = {
     contactToday: 'Contactez-nous aujourd\'hui pour une consultation gratuite',
     scheduleConsultation: 'Planifier une consultation',
     viewSuccessStories: 'Voir les histoires de succès',
-    
-    // Application Form
+    studentsHelped: 'Étudiants Aidés',
+    successRate: 'Taux de Réussite',
+    countries: 'Pays',
+    yearsExperience: 'Années d\'Expérience',
+    ourMission: 'Notre Mission',
+    missionDescription1: 'Nous croyons que chaque étudiant mérite un accès à une éducation internationale de qualité. Notre mission est de briser les barrières et de rendre les études à l\'étranger accessibles, abordables et réalisables pour les étudiants de tous horizons.',
+    missionDescription2: 'Avec notre système de support complet, nos conseils d\'experts et notre approche personnalisée, nous nous assurons que chaque étudiant reçoit l\'attention et les ressources nécessaires pour réussir dans son parcours éducatif.',
+    ourVision: 'Notre Vision',
+    visionDescription: 'Être la plateforme leader qui permet aux étudiants du monde entier d\'accéder aux opportunités d\'éducation internationale et de construire des carrières mondiales réussies.',
+    meetOurTeam: 'Rencontrez Notre Équipe',
+    teamDescription: 'Notre équipe dévouée d\'experts en éducation, de spécialistes des visas et de conseillers étudiants est là pour vous soutenir à chaque étape.',
+    ourCoreValues: 'Nos Valeurs Fondamentales',
+    trustIntegrity: 'Confiance et Intégrité',
+    trustDescription: 'Nous construisons des relations durables basées sur l\'honnêteté, la transparence et un service fiable.',
+    excellence: 'Excellence',
+    excellenceDescription: 'Nous nous efforçons d\'atteindre l\'excellence dans tout ce que nous faisons, garantissant la plus haute qualité de service.',
+    studentCentered: 'Centré sur l\'Étudiant',
+    studentCenteredDescription: 'Chaque décision que nous prenons se concentre sur ce qui est le mieux pour nos étudiants et leur succès.',
     completeApplication: 'Complétez Votre Candidature',
     fillOutAllRequired: 'Veuillez remplir toutes les informations requises pour soumettre votre candidature',
     personalInformation: 'Informations Personnelles',
-    fullName: 'Nom Complet',
     nationality: 'Nationalité',
     whatsappNumber: 'Numéro WhatsApp',
     preferredStartDate: 'Date de Début Préférée',
@@ -635,6 +672,7 @@ const translations = {
     available24Hours: 'متاح على مدار الساعة',
     
     // About
+    aboutTitle: 'حولنا',
     aboutDescription: 'شريكك الموثوق في التعليم الدولي، نساعد الطلاب على تحقيق أحلامهم في الدراسة بالخارج.',
     
     // Homepage content
@@ -667,14 +705,10 @@ const translations = {
     startEducationalJourney: 'ابدأ رحلتك التعليمية اليوم',
     guideFromApplication: 'نحن نرشدك من التطبيق إلى التخرج - نجاحك هو مهمتنا',
     applyNow: 'تقدم الآن',
-    
-    // Services descriptions
     universityAdmissionDesc: 'دعم كامل لطلبات الجامعة وعملية القبول.',
     scholarshipsDesc: 'ابحث وتقدم للحصول على منح دراسية لتمويل تعليمك في الخارج.',
     visaGuidanceDesc: 'مساعدة خبراء في طلبات التأشيرة والوثائق.',
     accommodationDesc: 'مساعدة في العثور على خيارات السكن والإقامة المناسبة.',
-    
-    // Service features
     universitySelection: 'اختيار الجامعة',
     applicationDocuments: 'وثائق التطبيق',
     personalStatement: 'البيان الشخصي',
@@ -694,8 +728,6 @@ const translations = {
     rentalAgreement: 'اتفاقية الإيجار',
     areaRecommendations: 'توصيات المنطقة',
     moveInSupport: 'دعم الانتقال',
-    
-    // Process
     ourProcess: 'عمليتنا',
     simpleStepByStep: 'عملية بسيطة خطوة بخطوة للبدء',
     initialConsultation: 'الاستشارة الأولية',
@@ -706,8 +738,6 @@ const translations = {
     applicationSupportDesc: 'مساعدة شاملة مع التطبيقات والوثائق',
     successBeyond: 'النجاح وما بعده',
     successBeyondDesc: 'دعم مستمر حتى بعد بدء دراستك في الخارج',
-    
-    // General
     ourServices: 'خدماتنا',
     comprehensiveSupport: 'دعم شامل لرحلة تعليمك الدولي',
     learnMore: 'اعرف أكثر',
@@ -715,12 +745,27 @@ const translations = {
     contactToday: 'اتصل بنا اليوم للحصول على استشارة مجانية',
     scheduleConsultation: 'جدولة استشارة',
     viewSuccessStories: 'عرض قصص النجاح',
-    
-    // Application Form
+    studentsHelped: 'الطلاب المساعدون',
+    successRate: 'معدل النجاح',
+    countries: 'البلدان',
+    yearsExperience: 'سنوات الخبرة',
+    ourMission: 'مهمتنا',
+    missionDescription1: 'نحن نؤمن بأن كل طالب يستحق الوصول إلى التعليم الدولي عالي الجودة. مهمتنا هي كسر الحواجز وجعل الدراسة في الخارج متاحة وميسورة التكلفة وقابلة للتحقيق للطلاب من جميع الخلفيات.',
+    missionDescription2: 'مع نظام الدعم الشامل لدينا، والتوجيه المتخصص، والنهج الشخصي، نضمن أن كل طالب يحصل على الاهتمام والموارد التي يحتاجها للنجاح في رحلته التعليمية.',
+    ourVision: 'رؤيتنا',
+    visionDescription: 'أن نكون المنصة الرائدة التي تمكن الطلاب في جميع أنحاء العالم من الوصول إلى فرص التعليم الدولي وبناء مهن عالمية ناجحة.',
+    meetOurTeam: 'تعرف على فريقنا',
+    teamDescription: 'فريقنا المتفاني من خبراء التعليم ومتخصصي التأشيرات ومستشاري الطلاب هنا لدعمك في كل خطوة على الطريق.',
+    ourCoreValues: 'قيمنا الأساسية',
+    trustIntegrity: 'الثقة والنزاهة',
+    trustDescription: 'نبني علاقات دائمة تقوم على الصدق والشفافية والخدمة الموثوقة.',
+    excellence: 'التميز',
+    excellenceDescription: 'نسعى للتميز في كل ما نقوم به، مما يضمن أعلى جودة للخدمة.',
+    studentCentered: 'محور الطالب',
+    studentCenteredDescription: 'كل قرار نتخذه يركز على ما هو الأفضل لطلابنا ونجاحهم.',
     completeApplication: 'أكمل طلب التقديم الخاص بك',
     fillOutAllRequired: 'يرجى ملء جميع المعلومات المطلوبة لتقديم طلبك',
     personalInformation: 'المعلومات الشخصية',
-    fullName: 'الاسم الكامل',
     nationality: 'الجنسية',
     whatsappNumber: 'رقم الواتساب',
     preferredStartDate: 'تاريخ البدء المفضل',
