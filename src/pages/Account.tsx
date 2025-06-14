@@ -1,6 +1,6 @@
-
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { useNavigate, Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -45,6 +45,7 @@ interface Application {
 
 const Account = () => {
   const { user, signOut, loading } = useAuth();
+  const { t } = useLanguage();
   const navigate = useNavigate();
   const [profile, setProfile] = useState<Profile | null>(null);
   const [universities, setUniversities] = useState<University[]>([]);
@@ -54,6 +55,7 @@ const Account = () => {
   const [phone, setPhone] = useState('');
   const [updating, setUpdating] = useState(false);
   const [loadingData, setLoadingData] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!loading && !user) {
@@ -63,61 +65,80 @@ const Account = () => {
 
   useEffect(() => {
     if (user) {
-      fetchProfile();
-      fetchOpenUniversities();
-      fetchUserApplications();
+      Promise.all([
+        fetchProfile(),
+        fetchOpenUniversities(),
+        fetchUserApplications()
+      ]).finally(() => {
+        setLoadingData(false);
+      });
     }
   }, [user]);
 
   const fetchProfile = async () => {
     if (!user) return;
 
-    const { data, error } = await supabase
-      .from('profiles')
-      .select('*')
-      .eq('id', user.id)
-      .maybeSingle();
+    try {
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', user.id)
+        .maybeSingle();
 
-    if (error) {
-      toast.error('Profil bilgileri yüklenirken hata oluştu');
-      return;
-    }
+      if (error) {
+        console.error('Profile fetch error:', error);
+        setError('Profil bilgileri yüklenirken hata oluştu');
+        return;
+      }
 
-    if (data) {
-      setProfile(data);
-      setFullName(data.full_name || '');
-      setNationality(data.nationality || '');
-      setPhone(data.phone || '');
+      if (data) {
+        setProfile(data);
+        setFullName(data.full_name || '');
+        setNationality(data.nationality || '');
+        setPhone(data.phone || '');
+      }
+    } catch (err) {
+      console.error('Unexpected error fetching profile:', err);
+      setError('Beklenmeyen bir hata oluştu');
     }
   };
 
   const fetchOpenUniversities = async () => {
-    const { data, error } = await supabase
-      .from('universities')
-      .select('*')
-      .eq('status', 'Open')
-      .order('name');
+    try {
+      const { data, error } = await supabase
+        .from('universities')
+        .select('*')
+        .eq('status', 'Open')
+        .order('name');
 
-    if (error) {
-      console.error('Error fetching universities:', error);
-    } else {
-      setUniversities(data || []);
+      if (error) {
+        console.error('Error fetching universities:', error);
+        setError('Üniversiteler yüklenirken hata oluştu');
+      } else {
+        setUniversities(data || []);
+      }
+    } catch (err) {
+      console.error('Unexpected error fetching universities:', err);
     }
-    setLoadingData(false);
   };
 
   const fetchUserApplications = async () => {
     if (!user) return;
 
-    const { data, error } = await supabase
-      .from('applications')
-      .select('*')
-      .order('created_at', { ascending: false });
+    try {
+      const { data, error } = await supabase
+        .from('applications')
+        .select('*')
+        .order('created_at', { ascending: false });
 
-    if (error) {
-      console.error('Error fetching applications:', error);
-    } else {
-      setApplications(data || []);
+      if (error) {
+        console.error('Error fetching applications:', error);
+        setError('Başvurular yüklenirken hata oluştu');
+      } else {
+        setApplications(data || []);
+      }
+    } catch (err) {
+      console.error('Unexpected error fetching applications:', err);
     }
   };
 
@@ -127,30 +148,40 @@ const Account = () => {
 
     setUpdating(true);
 
-    const { error } = await supabase
-      .from('profiles')
-      .upsert({
-        id: user.id,
-        full_name: fullName,
-        nationality: nationality,
-        phone: phone,
-        updated_at: new Date().toISOString()
-      });
+    try {
+      const { error } = await supabase
+        .from('profiles')
+        .upsert({
+          id: user.id,
+          full_name: fullName,
+          nationality: nationality,
+          phone: phone,
+          updated_at: new Date().toISOString()
+        });
 
-    if (error) {
-      toast.error('Profil güncellenirken hata oluştu');
-    } else {
-      toast.success('Profil başarıyla güncellendi!');
-      fetchProfile();
+      if (error) {
+        toast.error('Profil güncellenirken hata oluştu');
+      } else {
+        toast.success('Profil başarıyla güncellendi!');
+        await fetchProfile();
+      }
+    } catch (err) {
+      console.error('Unexpected error updating profile:', err);
+      toast.error('Beklenmeyen bir hata oluştu');
     }
 
     setUpdating(false);
   };
 
   const handleSignOut = async () => {
-    await signOut();
-    navigate('/');
-    toast.success('Başarıyla çıkış yapıldı');
+    try {
+      await signOut();
+      navigate('/');
+      toast.success('Başarıyla çıkış yapıldı');
+    } catch (err) {
+      console.error('Sign out error:', err);
+      toast.error('Çıkış yapılırken hata oluştu');
+    }
   };
 
   const formatDate = (dateString: string) => {
@@ -174,7 +205,7 @@ const Account = () => {
     }
   };
 
-  if (loading) {
+  if (loading || loadingData) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-purple-50">
         <div className="text-center">
@@ -189,22 +220,38 @@ const Account = () => {
     return null;
   }
 
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-purple-50">
+        <Card className="max-w-md mx-auto">
+          <CardContent className="p-6 text-center">
+            <XCircle className="h-12 w-12 text-red-500 mx-auto mb-4" />
+            <p className="text-gray-600 mb-4">{error}</p>
+            <Button onClick={() => window.location.reload()}>
+              Tekrar Dene
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
       {/* Header Section */}
       <div className="bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="flex items-center space-x-6">
+          <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6">
             <Avatar className="h-20 w-20 ring-4 ring-edu-blue-100">
               <AvatarImage src={profile?.profile_picture_url || undefined} />
               <AvatarFallback className="text-xl bg-gradient-to-br from-edu-blue-500 to-edu-purple-500 text-white">
                 {fullName ? fullName.charAt(0).toUpperCase() : 'U'}
               </AvatarFallback>
             </Avatar>
-            <div>
+            <div className="text-center sm:text-left">
               <h1 className="text-3xl font-bold text-gray-900">{fullName || 'Kullanıcı'}</h1>
               <p className="text-gray-600 mt-1">{user.email}</p>
-              <div className="flex items-center mt-2 space-x-4">
+              <div className="flex items-center justify-center sm:justify-start mt-2">
                 <Badge variant="outline" className="bg-edu-blue-50 text-edu-blue-700 border-edu-blue-200">
                   {nationality || 'Uyruk belirtilmemiş'}
                 </Badge>
@@ -216,7 +263,7 @@ const Account = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Tabs defaultValue="dashboard" className="space-y-8">
-          <TabsList className="grid w-full grid-cols-4 bg-white shadow-sm border">
+          <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 bg-white shadow-sm border">
             <TabsTrigger value="dashboard" className="data-[state=active]:bg-edu-blue-50 data-[state=active]:text-edu-blue-700">
               <BarChart3 className="h-4 w-4 mr-2" />
               Dashboard
@@ -329,6 +376,12 @@ const Account = () => {
                         </Link>
                       </div>
                     ))}
+                    {universities.length === 0 && (
+                      <div className="text-center py-8">
+                        <GraduationCap className="h-12 w-12 text-gray-300 mx-auto mb-3" />
+                        <p className="text-gray-500">Henüz üniversite yok</p>
+                      </div>
+                    )}
                   </div>
                 </CardContent>
               </Card>
@@ -348,7 +401,7 @@ const Account = () => {
               </CardHeader>
               <CardContent className="p-8">
                 <form onSubmit={updateProfile} className="space-y-8">
-                  <div className="flex items-center space-x-6">
+                  <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6">
                     <Avatar className="h-24 w-24 ring-4 ring-edu-blue-100">
                       <AvatarImage src={profile?.profile_picture_url || undefined} />
                       <AvatarFallback className="text-lg bg-gradient-to-br from-edu-blue-500 to-edu-purple-500 text-white">
@@ -435,52 +488,51 @@ const Account = () => {
                 </CardDescription>
               </CardHeader>
               <CardContent className="p-8">
-                {loadingData ? (
-                  <div className="text-center py-12">
-                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-edu-blue-600 mx-auto mb-4"></div>
-                    <p className="text-gray-600">Üniversiteler yükleniyor...</p>
-                  </div>
-                ) : (
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {universities.map((university, index) => (
-                      <Card key={`${university.name}-${index}`} className="group hover:shadow-xl transition-all duration-300 border border-gray-200 hover:border-edu-blue-300">
-                        <CardContent className="p-6">
-                          <div className="flex items-start justify-between mb-4">
-                            <div className="w-12 h-12 bg-gradient-to-br from-edu-blue-500 to-edu-purple-500 rounded-lg flex items-center justify-center">
-                              <GraduationCap className="h-6 w-6 text-white" />
-                            </div>
-                            <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
-                              Açık
-                            </Badge>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {universities.map((university, index) => (
+                    <Card key={`${university.name}-${index}`} className="group hover:shadow-xl transition-all duration-300 border border-gray-200 hover:border-edu-blue-300">
+                      <CardContent className="p-6">
+                        <div className="flex items-start justify-between mb-4">
+                          <div className="w-12 h-12 bg-gradient-to-br from-edu-blue-500 to-edu-purple-500 rounded-lg flex items-center justify-center">
+                            <GraduationCap className="h-6 w-6 text-white" />
                           </div>
-                          <h3 className="font-bold text-lg mb-2 text-gray-900 group-hover:text-edu-blue-700 transition-colors">
-                            {university.name}
-                          </h3>
-                          <p className="text-sm text-gray-600 mb-1 flex items-center">
-                            <span className="mr-2">🇹🇷</span>
-                            {university.country}
+                          <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
+                            Açık
+                          </Badge>
+                        </div>
+                        <h3 className="font-bold text-lg mb-2 text-gray-900 group-hover:text-edu-blue-700 transition-colors">
+                          {university.name}
+                        </h3>
+                        <p className="text-sm text-gray-600 mb-1 flex items-center">
+                          <span className="mr-2">🇹🇷</span>
+                          {university.country}
+                        </p>
+                        {university.ranking && (
+                          <p className="text-sm text-gray-600 mb-2">
+                            <span className="font-medium">Sıralama:</span> {university.ranking}
                           </p>
-                          {university.ranking && (
-                            <p className="text-sm text-gray-600 mb-2">
-                              <span className="font-medium">Sıralama:</span> {university.ranking}
-                            </p>
-                          )}
-                          {university.tuition && (
-                            <p className="text-sm text-emerald-600 mb-4 font-medium">
-                              {university.tuition}
-                            </p>
-                          )}
-                          <Link to={`/apply/${university.country.toLowerCase()}`} className="block">
-                            <Button className="w-full bg-gradient-to-r from-edu-blue-600 to-edu-purple-600 hover:from-edu-blue-700 hover:to-edu-purple-700 text-white group-hover:shadow-lg transition-all duration-300">
-                              <ExternalLink className="h-4 w-4 mr-2" />
-                              Başvur
-                            </Button>
-                          </Link>
-                        </CardContent>
-                      </Card>
-                    ))}
-                  </div>
-                )}
+                        )}
+                        {university.tuition && (
+                          <p className="text-sm text-emerald-600 mb-4 font-medium">
+                            {university.tuition}
+                          </p>
+                        )}
+                        <Link to={`/apply/${university.country.toLowerCase()}`} className="block">
+                          <Button className="w-full bg-gradient-to-r from-edu-blue-600 to-edu-purple-600 hover:from-edu-blue-700 hover:to-edu-purple-700 text-white group-hover:shadow-lg transition-all duration-300">
+                            <ExternalLink className="h-4 w-4 mr-2" />
+                            Başvur
+                          </Button>
+                        </Link>
+                      </CardContent>
+                    </Card>
+                  ))}
+                  {universities.length === 0 && (
+                    <div className="col-span-full text-center py-12">
+                      <GraduationCap className="h-16 w-16 text-gray-300 mx-auto mb-4" />
+                      <p className="text-gray-500 text-lg">Henüz açık üniversite yok</p>
+                    </div>
+                  )}
+                </div>
               </CardContent>
             </Card>
           </TabsContent>
@@ -515,7 +567,7 @@ const Account = () => {
                     {applications.map((application) => (
                       <Card key={application.id} className="border-l-4 border-l-edu-blue-500 hover:shadow-lg transition-shadow">
                         <CardContent className="p-6">
-                          <div className="flex items-center justify-between mb-4">
+                          <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 space-y-2 sm:space-y-0">
                             <div className="flex items-center space-x-3">
                               <div className="w-10 h-10 bg-gradient-to-br from-edu-blue-500 to-edu-purple-500 rounded-lg flex items-center justify-center">
                                 <GraduationCap className="h-5 w-5 text-white" />
