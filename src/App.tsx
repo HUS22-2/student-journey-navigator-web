@@ -1,68 +1,65 @@
 
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { LanguageProvider } from "./contexts/LanguageContext";
-import { ThemeProvider } from "./contexts/ThemeContext";
-import { AuthProvider } from "./contexts/AuthContext";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import Index from "./pages/Index";
-import CountryPage from "./pages/CountryPage";
-import ApplicationForm from "./pages/ApplicationForm";
-import About from "./pages/About";
-import Services from "./pages/Services";
-import Contact from "./pages/Contact";
-import Testimonials from "./pages/Testimonials";
-import Universities from "./pages/Universities";
-import Scholarships from "./pages/Scholarships";
-import Cities from "./pages/Cities";
-import Economy from "./pages/Economy";
-import Auth from "./pages/Auth";
-import Account from "./pages/Account";
-import NotFound from "./pages/NotFound";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { Toaster } from '@/components/ui/toaster';
+import { ThemeProvider } from '@/contexts/ThemeContext';
+import { LanguageProvider } from '@/contexts/LanguageContext';
+import { AuthProvider } from '@/contexts/AuthContext';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+import Index from '@/pages/Index';
+import About from '@/pages/About';
+import Contact from '@/pages/Contact';
+import Services from '@/pages/Services';
+import Testimonials from '@/pages/Testimonials';
+import Auth from '@/pages/Auth';
+import Account from '@/pages/Account';
+import Universities from '@/pages/Universities';
+import Scholarships from '@/pages/Scholarships';
+import Cities from '@/pages/Cities';
+import Economy from '@/pages/Economy';
+import CountryPage from '@/pages/CountryPage';
+import ApplicationForm from '@/pages/ApplicationForm';
+import NotFound from '@/pages/NotFound';
 
 const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
+function App() {
+  return (
+    <QueryClientProvider client={queryClient}>
       <ThemeProvider>
         <LanguageProvider>
           <AuthProvider>
-            <Toaster />
-            <Sonner />
-            <BrowserRouter>
+            <Router>
               <div className="min-h-screen flex flex-col">
                 <Header />
                 <main className="flex-1">
                   <Routes>
                     <Route path="/" element={<Index />} />
+                    <Route path="/about" element={<About />} />
+                    <Route path="/contact" element={<Contact />} />
+                    <Route path="/services" element={<Services />} />
+                    <Route path="/testimonials" element={<Testimonials />} />
+                    <Route path="/auth" element={<Auth />} />
+                    <Route path="/account" element={<Account />} />
                     <Route path="/universities" element={<Universities />} />
                     <Route path="/scholarships" element={<Scholarships />} />
                     <Route path="/cities" element={<Cities />} />
                     <Route path="/economy" element={<Economy />} />
                     <Route path="/country/:countryName" element={<CountryPage />} />
                     <Route path="/apply/:countryName" element={<ApplicationForm />} />
-                    <Route path="/about" element={<About />} />
-                    <Route path="/services" element={<Services />} />
-                    <Route path="/contact" element={<Contact />} />
-                    <Route path="/testimonials" element={<Testimonials />} />
-                    <Route path="/auth" element={<Auth />} />
-                    <Route path="/account" element={<Account />} />
                     <Route path="*" element={<NotFound />} />
                   </Routes>
                 </main>
                 <Footer />
               </div>
-            </BrowserRouter>
+            </Router>
           </AuthProvider>
         </LanguageProvider>
       </ThemeProvider>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+      <Toaster />
+    </QueryClientProvider>
+  );
+}
 
 export default App;
