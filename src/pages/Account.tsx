@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -87,7 +88,7 @@ const Account = () => {
 
       if (error) {
         console.error('Profile fetch error:', error);
-        setError('Profil bilgileri yüklenirken hata oluştu');
+        setError(t('errorUpdatingProfile'));
         return;
       }
 
@@ -99,7 +100,7 @@ const Account = () => {
       }
     } catch (err) {
       console.error('Unexpected error fetching profile:', err);
-      setError('Beklenmeyen bir hata oluştu');
+      setError(t('unexpectedErrorOccurred'));
     }
   };
 
@@ -113,7 +114,7 @@ const Account = () => {
 
       if (error) {
         console.error('Error fetching universities:', error);
-        setError('Üniversiteler yüklenirken hata oluştu');
+        setError(t('loadingUniversities'));
       } else {
         setUniversities(data || []);
       }
@@ -133,7 +134,7 @@ const Account = () => {
 
       if (error) {
         console.error('Error fetching applications:', error);
-        setError('Başvurular yüklenirken hata oluştu');
+        setError(t('errorSubmittingApplication'));
       } else {
         setApplications(data || []);
       }
@@ -160,14 +161,14 @@ const Account = () => {
         });
 
       if (error) {
-        toast.error('Profil güncellenirken hata oluştu');
+        toast.error(t('errorUpdatingProfile'));
       } else {
-        toast.success('Profil başarıyla güncellendi!');
+        toast.success(t('profileUpdatedSuccessfully'));
         await fetchProfile();
       }
     } catch (err) {
       console.error('Unexpected error updating profile:', err);
-      toast.error('Beklenmeyen bir hata oluştu');
+      toast.error(t('unexpectedErrorOccurred'));
     }
 
     setUpdating(false);
@@ -177,10 +178,10 @@ const Account = () => {
     try {
       await signOut();
       navigate('/');
-      toast.success('Başarıyla çıkış yapıldı');
+      toast.success(t('signOutSuccessfully'));
     } catch (err) {
       console.error('Sign out error:', err);
-      toast.error('Çıkış yapılırken hata oluştu');
+      toast.error(t('errorSigningOut'));
     }
   };
 
@@ -195,11 +196,11 @@ const Account = () => {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'pending':
-        return <Badge variant="secondary" className="bg-amber-50 text-amber-700 border-amber-200 hover:bg-amber-100"><Clock className="h-3 w-3 mr-1" />Beklemede</Badge>;
+        return <Badge variant="secondary" className="bg-amber-50 text-amber-700 border-amber-200 hover:bg-amber-100"><Clock className="h-3 w-3 mr-1" />{t('pending')}</Badge>;
       case 'approved':
-        return <Badge variant="default" className="bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100"><CheckCircle className="h-3 w-3 mr-1" />Onaylandı</Badge>;
+        return <Badge variant="default" className="bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100"><CheckCircle className="h-3 w-3 mr-1" />{t('approved')}</Badge>;
       case 'rejected':
-        return <Badge variant="destructive" className="bg-rose-50 text-rose-700 border-rose-200 hover:bg-rose-100"><XCircle className="h-3 w-3 mr-1" />Reddedildi</Badge>;
+        return <Badge variant="destructive" className="bg-rose-50 text-rose-700 border-rose-200 hover:bg-rose-100"><XCircle className="h-3 w-3 mr-1" />{t('rejected')}</Badge>;
       default:
         return <Badge variant="secondary">{status}</Badge>;
     }
@@ -210,7 +211,7 @@ const Account = () => {
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-purple-50">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-edu-blue-600 mx-auto mb-4"></div>
-          <div className="text-lg font-medium text-gray-700">Yükleniyor...</div>
+          <div className="text-lg font-medium text-gray-700">{t('loading')}</div>
         </div>
       </div>
     );
@@ -228,7 +229,7 @@ const Account = () => {
             <XCircle className="h-12 w-12 text-red-500 mx-auto mb-4" />
             <p className="text-gray-600 mb-4">{error}</p>
             <Button onClick={() => window.location.reload()}>
-              Tekrar Dene
+              {t('tryAgain')}
             </Button>
           </CardContent>
         </Card>
@@ -245,15 +246,15 @@ const Account = () => {
             <Avatar className="h-20 w-20 ring-4 ring-edu-blue-100">
               <AvatarImage src={profile?.profile_picture_url || undefined} />
               <AvatarFallback className="text-xl bg-gradient-to-br from-edu-blue-500 to-edu-purple-500 text-white">
-                {fullName ? fullName.charAt(0).toUpperCase() : 'U'}
+                {fullName ? fullName.charAt(0).toUpperCase() : t('user').charAt(0).toUpperCase()}
               </AvatarFallback>
             </Avatar>
             <div className="text-center sm:text-left">
-              <h1 className="text-3xl font-bold text-gray-900">{fullName || 'Kullanıcı'}</h1>
+              <h1 className="text-3xl font-bold text-gray-900">{fullName || t('user')}</h1>
               <p className="text-gray-600 mt-1">{user.email}</p>
               <div className="flex items-center justify-center sm:justify-start mt-2">
                 <Badge variant="outline" className="bg-edu-blue-50 text-edu-blue-700 border-edu-blue-200">
-                  {nationality || 'Uyruk belirtilmemiş'}
+                  {nationality || t('nationalityNotSpecified')}
                 </Badge>
               </div>
             </div>
@@ -266,19 +267,19 @@ const Account = () => {
           <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 bg-white shadow-sm border">
             <TabsTrigger value="dashboard" className="data-[state=active]:bg-edu-blue-50 data-[state=active]:text-edu-blue-700">
               <BarChart3 className="h-4 w-4 mr-2" />
-              Dashboard
+              {t('dashboard')}
             </TabsTrigger>
             <TabsTrigger value="profile" className="data-[state=active]:bg-edu-blue-50 data-[state=active]:text-edu-blue-700">
               <User className="h-4 w-4 mr-2" />
-              Profil
+              {t('profile')}
             </TabsTrigger>
             <TabsTrigger value="universities" className="data-[state=active]:bg-edu-blue-50 data-[state=active]:text-edu-blue-700">
               <GraduationCap className="h-4 w-4 mr-2" />
-              Üniversiteler
+              {t('universities')}
             </TabsTrigger>
             <TabsTrigger value="applications" className="data-[state=active]:bg-edu-blue-50 data-[state=active]:text-edu-blue-700">
               <Award className="h-4 w-4 mr-2" />
-              Başvurularım
+              {t('applications')}
             </TabsTrigger>
           </TabsList>
 
@@ -289,7 +290,7 @@ const Account = () => {
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-blue-100 text-sm font-medium">Açık Üniversite</p>
+                      <p className="text-blue-100 text-sm font-medium">{t('openUniversity')}</p>
                       <p className="text-3xl font-bold">{universities.length}</p>
                     </div>
                     <GraduationCap className="h-8 w-8 text-blue-200" />
@@ -301,7 +302,7 @@ const Account = () => {
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-emerald-100 text-sm font-medium">Toplam Başvuru</p>
+                      <p className="text-emerald-100 text-sm font-medium">{t('totalApplications')}</p>
                       <p className="text-3xl font-bold">{applications.length}</p>
                     </div>
                     <TrendingUp className="h-8 w-8 text-emerald-200" />
@@ -313,7 +314,7 @@ const Account = () => {
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-purple-100 text-sm font-medium">Onaylanan</p>
+                      <p className="text-purple-100 text-sm font-medium">{t('approved')}</p>
                       <p className="text-3xl font-bold">
                         {applications.filter(app => app.status === 'approved').length}
                       </p>
@@ -330,7 +331,7 @@ const Account = () => {
                 <CardHeader className="bg-gradient-to-r from-gray-50 to-gray-100 rounded-t-lg">
                   <CardTitle className="flex items-center gap-2 text-gray-800">
                     <Clock className="h-5 w-5 text-edu-blue-600" />
-                    Son Başvurular
+                    {t('recentApplications')}
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="p-6">
@@ -347,7 +348,7 @@ const Account = () => {
                     {applications.length === 0 && (
                       <div className="text-center py-8">
                         <GraduationCap className="h-12 w-12 text-gray-300 mx-auto mb-3" />
-                        <p className="text-gray-500">Henüz başvuru yok</p>
+                        <p className="text-gray-500">{t('noApplicationsYet')}</p>
                       </div>
                     )}
                   </div>
@@ -358,7 +359,7 @@ const Account = () => {
                 <CardHeader className="bg-gradient-to-r from-gray-50 to-gray-100 rounded-t-lg">
                   <CardTitle className="flex items-center gap-2 text-gray-800">
                     <GraduationCap className="h-5 w-5 text-edu-blue-600" />
-                    Öne Çıkan Üniversiteler
+                    {t('featuredUniversities')}
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="p-6">
@@ -371,7 +372,7 @@ const Account = () => {
                         </div>
                         <Link to={`/apply/${university.country.toLowerCase()}`}>
                           <Button size="sm" className="bg-edu-blue-600 hover:bg-edu-blue-700">
-                            Başvur
+                            {t('apply')}
                           </Button>
                         </Link>
                       </div>
@@ -379,7 +380,7 @@ const Account = () => {
                     {universities.length === 0 && (
                       <div className="text-center py-8">
                         <GraduationCap className="h-12 w-12 text-gray-300 mx-auto mb-3" />
-                        <p className="text-gray-500">Henüz üniversite yok</p>
+                        <p className="text-gray-500">{t('noUniversitiesYet')}</p>
                       </div>
                     )}
                   </div>
@@ -393,10 +394,10 @@ const Account = () => {
               <CardHeader className="bg-gradient-to-r from-gray-50 to-gray-100 rounded-t-lg">
                 <CardTitle className="flex items-center gap-2 text-gray-800">
                   <User className="h-5 w-5 text-edu-blue-600" />
-                  Profil Bilgileri
+                  {t('profileInformation')}
                 </CardTitle>
                 <CardDescription className="text-gray-600">
-                  Kişisel bilgilerinizi güncelleyin
+                  {t('updatePersonalInfo')}
                 </CardDescription>
               </CardHeader>
               <CardContent className="p-8">
@@ -405,18 +406,18 @@ const Account = () => {
                     <Avatar className="h-24 w-24 ring-4 ring-edu-blue-100">
                       <AvatarImage src={profile?.profile_picture_url || undefined} />
                       <AvatarFallback className="text-lg bg-gradient-to-br from-edu-blue-500 to-edu-purple-500 text-white">
-                        {fullName ? fullName.charAt(0).toUpperCase() : 'U'}
+                        {fullName ? fullName.charAt(0).toUpperCase() : t('user').charAt(0).toUpperCase()}
                       </AvatarFallback>
                     </Avatar>
                     <Button variant="outline" className="flex items-center gap-2 border-edu-blue-200 text-edu-blue-700 hover:bg-edu-blue-50">
                       <Camera className="h-4 w-4" />
-                      Fotoğraf Değiştir
+                      {t('photoChange')}
                     </Button>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <Label htmlFor="email" className="text-gray-700 font-medium">E-posta</Label>
+                      <Label htmlFor="email" className="text-gray-700 font-medium">{t('email')}</Label>
                       <Input
                         id="email"
                         type="email"
@@ -424,41 +425,41 @@ const Account = () => {
                         disabled
                         className="bg-gray-50 border-gray-200"
                       />
-                      <p className="text-sm text-gray-500">E-posta değiştirilemez</p>
+                      <p className="text-sm text-gray-500">{t('emailCannotChange')}</p>
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="fullName" className="text-gray-700 font-medium">Ad Soyad</Label>
+                      <Label htmlFor="fullName" className="text-gray-700 font-medium">{t('fullName')}</Label>
                       <Input
                         id="fullName"
                         type="text"
                         value={fullName}
                         onChange={(e) => setFullName(e.target.value)}
-                        placeholder="Adınızı ve soyadınızı girin"
+                        placeholder={t('fullName')}
                         className="border-gray-200 focus:border-edu-blue-500 focus:ring-edu-blue-500"
                       />
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="nationality" className="text-gray-700 font-medium">Uyruk</Label>
+                      <Label htmlFor="nationality" className="text-gray-700 font-medium">{t('nationality')}</Label>
                       <Input
                         id="nationality"
                         type="text"
                         value={nationality}
                         onChange={(e) => setNationality(e.target.value)}
-                        placeholder="Uyruğunuzu girin"
+                        placeholder={t('nationality')}
                         className="border-gray-200 focus:border-edu-blue-500 focus:ring-edu-blue-500"
                       />
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="phone" className="text-gray-700 font-medium">Telefon Numarası</Label>
+                      <Label htmlFor="phone" className="text-gray-700 font-medium">{t('phone')}</Label>
                       <Input
                         id="phone"
                         type="tel"
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
-                        placeholder="Telefon numaranızı girin"
+                        placeholder={t('phone')}
                         className="border-gray-200 focus:border-edu-blue-500 focus:ring-edu-blue-500"
                       />
                     </div>
@@ -469,7 +470,7 @@ const Account = () => {
                     className="bg-gradient-to-r from-edu-blue-600 to-edu-purple-600 hover:from-edu-blue-700 hover:to-edu-purple-700 text-white px-8"
                     disabled={updating}
                   >
-                    {updating ? 'Güncelleniyor...' : 'Profili Güncelle'}
+                    {updating ? t('updating') : t('updateProfile')}
                   </Button>
                 </form>
               </CardContent>
@@ -481,10 +482,10 @@ const Account = () => {
               <CardHeader className="bg-gradient-to-r from-gray-50 to-gray-100 rounded-t-lg">
                 <CardTitle className="flex items-center gap-2 text-gray-800">
                   <GraduationCap className="h-5 w-5 text-edu-blue-600" />
-                  Açık Üniversiteler
+                  {t('openUniversitiesForApplication')}
                 </CardTitle>
                 <CardDescription className="text-gray-600">
-                  Başvuru yapabileceğiniz üniversiteler
+                  {t('universitiesYouCanApply')}
                 </CardDescription>
               </CardHeader>
               <CardContent className="p-8">
@@ -497,7 +498,7 @@ const Account = () => {
                             <GraduationCap className="h-6 w-6 text-white" />
                           </div>
                           <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
-                            Açık
+                            {t('openUniversities')}
                           </Badge>
                         </div>
                         <h3 className="font-bold text-lg mb-2 text-gray-900 group-hover:text-edu-blue-700 transition-colors">
@@ -509,7 +510,7 @@ const Account = () => {
                         </p>
                         {university.ranking && (
                           <p className="text-sm text-gray-600 mb-2">
-                            <span className="font-medium">Sıralama:</span> {university.ranking}
+                            <span className="font-medium">{t('ranking')}:</span> {university.ranking}
                           </p>
                         )}
                         {university.tuition && (
@@ -520,7 +521,7 @@ const Account = () => {
                         <Link to={`/apply/${university.country.toLowerCase()}`} className="block">
                           <Button className="w-full bg-gradient-to-r from-edu-blue-600 to-edu-purple-600 hover:from-edu-blue-700 hover:to-edu-purple-700 text-white group-hover:shadow-lg transition-all duration-300">
                             <ExternalLink className="h-4 w-4 mr-2" />
-                            Başvur
+                            {t('apply')}
                           </Button>
                         </Link>
                       </CardContent>
@@ -529,7 +530,7 @@ const Account = () => {
                   {universities.length === 0 && (
                     <div className="col-span-full text-center py-12">
                       <GraduationCap className="h-16 w-16 text-gray-300 mx-auto mb-4" />
-                      <p className="text-gray-500 text-lg">Henüz açık üniversite yok</p>
+                      <p className="text-gray-500 text-lg">{t('noUniversitiesYet')}</p>
                     </div>
                   )}
                 </div>
@@ -542,10 +543,10 @@ const Account = () => {
               <CardHeader className="bg-gradient-to-r from-gray-50 to-gray-100 rounded-t-lg">
                 <CardTitle className="flex items-center gap-2 text-gray-800">
                   <Award className="h-5 w-5 text-edu-blue-600" />
-                  Başvurularım
+                  {t('myApplications')}
                 </CardTitle>
                 <CardDescription className="text-gray-600">
-                  Yaptığınız başvuruları takip edin
+                  {t('trackYourApplications')}
                 </CardDescription>
               </CardHeader>
               <CardContent className="p-8">
@@ -554,11 +555,11 @@ const Account = () => {
                     <div className="w-20 h-20 bg-gradient-to-br from-edu-blue-100 to-edu-purple-100 rounded-full flex items-center justify-center mx-auto mb-6">
                       <GraduationCap className="h-10 w-10 text-edu-blue-600" />
                     </div>
-                    <p className="text-gray-500 text-lg mb-4">Henüz başvuru yapmadınız</p>
-                    <p className="text-gray-400 mb-6">Üniversiteleri inceleyerek başvuru sürecinizi başlatabilirsiniz</p>
+                    <p className="text-gray-500 text-lg mb-4">{t('noApplicationsMade')}</p>
+                    <p className="text-gray-400 mb-6">{t('exploreUniversitiesStart')}</p>
                     <Link to="/universities">
                       <Button className="bg-gradient-to-r from-edu-blue-600 to-edu-purple-600 hover:from-edu-blue-700 hover:to-edu-purple-700 text-white px-8">
-                        Üniversiteleri İncele
+                        {t('exploreUniversities')}
                       </Button>
                     </Link>
                   </div>
@@ -572,28 +573,28 @@ const Account = () => {
                               <div className="w-10 h-10 bg-gradient-to-br from-edu-blue-500 to-edu-purple-500 rounded-lg flex items-center justify-center">
                                 <GraduationCap className="h-5 w-5 text-white" />
                               </div>
-                              <h3 className="font-bold text-lg text-gray-900">{application.country} Başvurusu</h3>
+                              <h3 className="font-bold text-lg text-gray-900">{application.country} {t('apply')}</h3>
                             </div>
                             {getStatusBadge(application.status)}
                           </div>
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
                             <div className="space-y-2">
                               <div className="flex items-center">
-                                <span className="font-semibold text-gray-700 w-32">Eğitim Seviyesi:</span>
+                                <span className="font-semibold text-gray-700 w-32">{t('educationLevel')}:</span>
                                 <span className="text-gray-600">{application.education_level}</span>
                               </div>
                               <div className="flex items-center">
-                                <span className="font-semibold text-gray-700 w-32">Çalışma Alanı:</span>
+                                <span className="font-semibold text-gray-700 w-32">{t('studyField')}:</span>
                                 <span className="text-gray-600">{application.study_field}</span>
                               </div>
                             </div>
                             <div className="space-y-2">
                               <div className="flex items-center">
-                                <span className="font-semibold text-gray-700 w-32">Öğretim Dili:</span>
+                                <span className="font-semibold text-gray-700 w-32">{t('languageOfInstruction')}:</span>
                                 <span className="text-gray-600">{application.language_of_instruction}</span>
                               </div>
                               <div className="flex items-center">
-                                <span className="font-semibold text-gray-700 w-32">Başvuru Tarihi:</span>
+                                <span className="font-semibold text-gray-700 w-32">{t('submit')}:</span>
                                 <span className="text-gray-600">{formatDate(application.created_at)}</span>
                               </div>
                             </div>
@@ -611,9 +612,9 @@ const Account = () => {
         {/* Account Actions */}
         <Card className="shadow-lg border-0 bg-white mt-8">
           <CardHeader className="bg-gradient-to-r from-gray-50 to-gray-100 rounded-t-lg">
-            <CardTitle className="text-gray-800">Hesap İşlemleri</CardTitle>
+            <CardTitle className="text-gray-800">{t('accountActions')}</CardTitle>
             <CardDescription className="text-gray-600">
-              Hesap ayarlarınızı yönetin
+              {t('manageAccountSettings')}
             </CardDescription>
           </CardHeader>
           <CardContent className="p-6">
@@ -623,7 +624,7 @@ const Account = () => {
               className="flex items-center gap-2 border-red-200 text-red-700 hover:bg-red-50"
             >
               <LogOut className="h-4 w-4" />
-              Çıkış Yap
+              {t('signOut')}
             </Button>
           </CardContent>
         </Card>
