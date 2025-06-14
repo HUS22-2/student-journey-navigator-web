@@ -225,20 +225,29 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const [language, setLanguage] = useState<Language>('en');
 
   useEffect(() => {
-    // Detect browser language
+    // Detect browser language on first load
     const browserLang = navigator.language.split('-')[0] as Language;
     if (['en', 'ar', 'fr'].includes(browserLang)) {
       setLanguage(browserLang);
     }
+  }, []);
+
+  useEffect(() => {
+    // Apply RTL/LTR direction and language to document
+    const isRTL = language === 'ar';
+    document.documentElement.setAttribute('dir', isRTL ? 'rtl' : 'ltr');
+    document.documentElement.lang = language;
     
-    // Apply proper RTL styles to document
-    if (language === 'ar') {
-      document.documentElement.setAttribute('dir', 'rtl');
-      document.documentElement.lang = 'ar';
+    // Add/remove RTL class for additional styling
+    if (isRTL) {
+      document.documentElement.classList.add('rtl');
+      document.body.classList.add('rtl');
     } else {
-      document.documentElement.setAttribute('dir', 'ltr');
-      document.documentElement.lang = language;
+      document.documentElement.classList.remove('rtl');
+      document.body.classList.remove('rtl');
     }
+    
+    console.log(`Language changed to: ${language}, RTL: ${isRTL}`);
   }, [language]);
 
   const t = (key: string): string => {
