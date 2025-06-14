@@ -38,29 +38,29 @@ const Contact = () => {
       country: t('turkey'),
       flag: '🇹🇷',
       address: 'Kadıköy, Istanbul, Turkey',
-      email: 'turkey@educonsult.com',
-      phone: '+90 212 XXX XXXX'
+      email: 'tredu.pass@gmail.com',
+      phone: '+905512740700'
     },
     {
       country: t('france'),
       flag: '🇫🇷',
       address: '5th Arrondissement, Paris, France',
-      email: 'france@educonsult.com',
-      phone: '+33 1 XX XX XX XX'
+      email: 'tredu.pass@gmail.com',
+      phone: '+905512740700'
     },
     {
       country: t('tunisia'),
       flag: '🇹🇳',
       address: 'Centre Ville, Tunis, Tunisia',
-      email: 'tunisia@educonsult.com',
-      phone: '+216 XX XXX XXX'
+      email: 'tredu.pass@gmail.com',
+      phone: '+905512740700'
     },
     {
       country: t('canada'),
       flag: '🇨🇦',
       address: 'Downtown, Toronto, ON, Canada',
-      email: 'canada@educonsult.com',
-      phone: '+1 416 XXX XXXX'
+      email: 'tredu.pass@gmail.com',
+      phone: '+905512740700'
     }
   ];
 
@@ -165,7 +165,7 @@ const Contact = () => {
               <CardContent className="space-y-4">
                 <div className="flex items-center space-x-3">
                   <Mail className="h-5 w-5 text-edu-blue-500" />
-                  <span>info@educonsult.com</span>
+                  <span>tredu.pass@gmail.com</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <Globe className="h-5 w-5 text-edu-blue-500" />

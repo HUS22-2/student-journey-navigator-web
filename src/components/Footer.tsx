@@ -26,11 +26,11 @@ const Footer = () => {
             <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-2">
                 <Mail className="h-4 w-4 text-edu-blue-400" />
-                <span className="text-sm">info@edupass.com</span>
+                <span className="text-sm">tredu.pass@gmail.com</span>
               </div>
               <div className="flex items-center space-x-2">
                 <MapPin className="h-4 w-4 text-edu-blue-400" />
-                <span className="text-sm">Global Offices</span>
+                <span className="text-sm">+905512740700</span>
               </div>
             </div>
           </div>
