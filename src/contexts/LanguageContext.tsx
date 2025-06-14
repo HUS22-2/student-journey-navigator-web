@@ -497,7 +497,7 @@ const translations = {
     highAcademicPerformance: "الأداء الأكاديمي المرتفع",
     financialNeedMerit: "الحاجة المالية، الجدارة الأكاديمية",
     excellenceUnder30: "التفوق الأكاديمي، العمر أقل من 30 سنة",
-    academicExcellenceUnder35: "التفوق الأكاديمي، العمر أقل من 35 سنة"
+    academicExcellenceUnder35: "التفوق الأكاديمي،年龄 أقل من 35 سنة"
   }
 };
 
