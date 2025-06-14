@@ -6,6 +6,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { useTheme } from '@/contexts/ThemeContext';
 import { Menu, X, Moon, Sun } from 'lucide-react';
 import UserMenu from './UserMenu';
+import LanguageSwitcher from './LanguageSwitcher';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -56,6 +57,9 @@ const Header = () => {
           <div className="flex items-center space-x-4">
             {/* User Menu */}
             <UserMenu />
+
+            {/* Language Switcher */}
+            <LanguageSwitcher />
 
             {/* Theme Toggle */}
             <Button
