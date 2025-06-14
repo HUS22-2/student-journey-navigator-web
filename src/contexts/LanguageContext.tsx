@@ -1,3 +1,4 @@
+
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 type Language = 'en' | 'tr' | 'fr' | 'ar';
@@ -38,7 +39,6 @@ const translations = {
     // Hero Section
     heroTitle: 'Your Gateway to Global Education',
     heroSubtitle: 'We help students from the Middle East and North Africa achieve their dreams of studying abroad with personalized guidance and expert support.',
-    welcomeSubtitle: 'Your complete guide to studying in Turkey - from universities to scholarships, cities to living costs.',
     
     // About Section
     aboutTitle: 'About EduConsult',
@@ -112,7 +112,6 @@ const translations = {
     // Hero Section
     heroTitle: 'Küresel Eğitime Açılan Kapınız',
     heroSubtitle: 'Orta Doğu ve Kuzey Afrika öğrencilerinin yurtdışında eğitim görme hayallerini kişiselleştirilmiş rehberlik ve uzman desteği ile gerçekleştirmelerine yardımcı oluyoruz.',
-    welcomeSubtitle: 'Türkiye\'de eğitim için eksiksiz rehberiniz - üniversitelerden burslara, şehirlerden yaşam maliyetlerine.',
     
     // About Section
     aboutTitle: 'EduConsult Hakkında',
@@ -186,7 +185,6 @@ const translations = {
     // Hero Section
     heroTitle: 'Votre Passerelle vers l\'Éducation Mondiale',
     heroSubtitle: 'Nous aidons les étudiants du Moyen-Orient et d\'Afrique du Nord à réaliser leurs rêves d\'étudier à l\'étranger avec des conseils personnalisés et un soutien expert.',
-    welcomeSubtitle: 'Votre guide complet pour étudier en Turquie - des universités aux bourses, des villes aux coûts de la vie.',
     
     // About Section
     aboutTitle: 'À Propos d\'EduConsult',
@@ -260,7 +258,6 @@ const translations = {
     // Hero Section
     heroTitle: 'بوابتك إلى التعليم العالمي',
     heroSubtitle: 'نساعد الطلاب من الشرق الأوسط وشمال أفريقيا على تحقيق أحلامهم في الدراسة بالخارج من خلال التوجيه الشخصي والدعم المتخصص.',
-    welcomeSubtitle: 'دليلك الشامل للدراسة في تركيا - من الجامعات إلى المنح الدراسية، من المدن إلى تكاليف المعيشة.',
     
     // About Section
     aboutTitle: 'حول EduConsult',
