@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 export type Language = 'en' | 'ar' | 'fr';
@@ -235,16 +234,16 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   useEffect(() => {
     // Apply RTL/LTR direction and language to document
     const isRTL = language === 'ar';
+    
+    // Set document attributes
     document.documentElement.setAttribute('dir', isRTL ? 'rtl' : 'ltr');
     document.documentElement.lang = language;
     
-    // Add/remove RTL class for additional styling
+    // Handle RTL class on documentElement only
     if (isRTL) {
       document.documentElement.classList.add('rtl');
-      document.body.classList.add('rtl');
     } else {
       document.documentElement.classList.remove('rtl');
-      document.body.classList.remove('rtl');
     }
     
     console.log(`Language changed to: ${language}, RTL: ${isRTL}`);
@@ -261,9 +260,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   return (
     <LanguageContext.Provider value={{ language, setLanguage, t }}>
-      <div className={language === 'ar' ? 'rtl' : 'ltr'} dir={language === 'ar' ? 'rtl' : 'ltr'}>
-        {children}
-      </div>
+      {children}
     </LanguageContext.Provider>
   );
 };
