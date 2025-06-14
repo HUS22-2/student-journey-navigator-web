@@ -12,29 +12,29 @@ const Index = () => {
 
   const features = [
     {
-      title: 'Universities & Programs',
-      description: 'Explore 200+ world-class universities and programs',
+      title: t('universitiesAndPrograms'),
+      description: t('exploreUniversities'),
       icon: GraduationCap,
       color: 'from-blue-500 to-blue-600',
       link: '/universities'
     },
     {
-      title: 'Scholarships & Funding',
-      description: 'Turkish Scholarships and other funding opportunities',
+      title: t('scholarshipsAndFunding'),
+      description: t('turkishScholarships'),
       icon: DollarSign,
       color: 'from-green-500 to-green-600',
       link: '/scholarships'
     },
     {
-      title: 'Cities & Lifestyle',
-      description: 'Discover Turkey\'s student-friendly cities',
+      title: t('citiesAndLifestyle'),
+      description: t('discoverCities'),
       icon: MapPin,
       color: 'from-purple-500 to-purple-600',
       link: '/cities'
     },
     {
-      title: 'Economy & Living Costs',
-      description: 'Current economic situation and living expenses',
+      title: t('economyAndLivingCosts'),
+      description: t('currentEconomicSituation'),
       icon: Building,
       color: 'from-orange-500 to-orange-600',
       link: '/economy'
@@ -44,23 +44,23 @@ const Index = () => {
   const whyTurkey = [
     {
       icon: Globe,
-      title: 'Strategic Location',
-      description: 'Bridge between Europe and Asia with strategic positioning'
+      title: t('strategicLocation'),
+      description: t('strategicLocationDesc')
     },
     {
       icon: Users,
-      title: 'Cultural Richness',
-      description: 'Thousands of years of history and multicultural environment'
+      title: t('culturalRichness'),
+      description: t('culturalRichnessDesc')
     },
     {
       icon: Heart,
-      title: 'Hospitality',
-      description: 'World-famous Turkish hospitality and warmth'
+      title: t('hospitality'),
+      description: t('hospitalityDesc')
     },
     {
       icon: Plane,
-      title: 'Easy Access',
-      description: 'Gateway to the world with excellent transportation links'
+      title: t('easyAccess'),
+      description: t('easyAccessDesc')
     }
   ];
 
@@ -97,7 +97,7 @@ const Index = () => {
             {!user && (
               <Link to="/auth">
                 <Button size="lg" variant="outline" className="border-red-500 text-red-600 hover:bg-red-50 dark:hover:bg-red-950 px-8 py-4 text-lg">
-                  Get Started
+                  {t('getStarted')}
                 </Button>
               </Link>
             )}
@@ -111,19 +111,19 @@ const Index = () => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             <div className="text-center">
               <div className="text-3xl font-bold text-red-600 mb-2">200+</div>
-              <div className="text-gray-600 dark:text-gray-300">Universities</div>
+              <div className="text-gray-600 dark:text-gray-300">{t('universities')}</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold text-red-600 mb-2">250K+</div>
-              <div className="text-gray-600 dark:text-gray-300">International Students</div>
+              <div className="text-gray-600 dark:text-gray-300">{t('internationalStudents')}</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold text-red-600 mb-2">81</div>
-              <div className="text-gray-600 dark:text-gray-300">Provinces</div>
+              <div className="text-gray-600 dark:text-gray-300">{t('provinces')}</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold text-red-600 mb-2">4</div>
-              <div className="text-gray-600 dark:text-gray-300">Seasons</div>
+              <div className="text-gray-600 dark:text-gray-300">{t('seasons')}</div>
             </div>
           </div>
         </div>
@@ -134,10 +134,10 @@ const Index = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              Everything About Turkey
+              {t('everythingAboutTurkey')}
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              All the information you need from planning your education to graduation
+              {t('allInformationNeeded')}
             </p>
           </div>
 
@@ -170,7 +170,7 @@ const Index = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              Why Turkey?
+              {t('whyTurkey')}
             </h2>
           </div>
 
@@ -198,20 +198,20 @@ const Index = () => {
       <section className="py-20 bg-gradient-to-r from-red-500 to-red-600">
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6">
-            Start Your Educational Journey in Turkey Today
+            {t('startEducationalJourney')}
           </h2>
           <p className="text-xl text-red-100 mb-8">
-            We guide you from application process to graduation
+            {t('guideFromApplication')}
           </p>
           <div className="space-x-4">
             <Link to="/country/turkey">
               <Button size="lg" variant="secondary" className="bg-white text-red-600 hover:bg-gray-100">
-                Apply Now
+                {t('applyNow')}
               </Button>
             </Link>
             <Link to="/about">
               <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-red-600">
-                Learn More
+                {t('learnMore')}
               </Button>
             </Link>
           </div>
