@@ -88,8 +88,8 @@ const ApplicationForm = () => {
     if (!formData.fullName || !formData.nationality || !formData.whatsapp || 
         !formData.educationLevel || !formData.studyField || !formData.languageOfInstruction) {
       toast({
-        title: "Missing Information",
-        description: "Please fill in all required fields.",
+        title: t('missingInformation'),
+        description: t('fillAllRequired'),
         variant: "destructive"
       });
       return;
@@ -105,8 +105,8 @@ const ApplicationForm = () => {
         profilePictureUrl = await handleFileUpload(files.profilePicture, 'profile-pictures');
         if (!profilePictureUrl) {
           toast({
-            title: "Upload Failed",
-            description: "Failed to upload profile picture. Please try again.",
+            title: t('uploadFailed'),
+            description: t('failedToUpload'),
             variant: "destructive"
           });
           setIsSubmitting(false);
@@ -156,14 +156,14 @@ const ApplicationForm = () => {
       if (error) {
         console.error('Error submitting application:', error);
         toast({
-          title: "Submission Failed",
-          description: "There was an error submitting your application. Please try again.",
+          title: t('submissionFailed'),
+          description: t('errorSubmittingApplication'),
           variant: "destructive"
         });
       } else {
         toast({
-          title: "Application Submitted Successfully!",
-          description: "We'll review your application and contact you within 48 hours via WhatsApp.",
+          title: t('applicationSubmittedSuccessfully'),
+          description: t('reviewAndContact'),
         });
         
         // Navigate back to country page
@@ -172,8 +172,8 @@ const ApplicationForm = () => {
     } catch (error) {
       console.error('Unexpected error:', error);
       toast({
-        title: "Submission Failed",
-        description: "An unexpected error occurred. Please try again.",
+        title: t('submissionFailed'),
+        description: t('unexpectedError'),
         variant: "destructive"
       });
     } finally {
@@ -186,9 +186,9 @@ const ApplicationForm = () => {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-2xl font-bold mb-4">Country not found</h1>
+          <h1 className="text-2xl font-bold mb-4">{t('countryNotFound')}</h1>
           <Link to="/">
-            <Button>Return to Home</Button>
+            <Button>{t('returnToHome')}</Button>
           </Link>
         </div>
       </div>
@@ -206,12 +206,12 @@ const ApplicationForm = () => {
               className="flex items-center space-x-2 text-edu-blue-600 hover:text-edu-blue-700"
             >
               <ArrowLeft className="h-5 w-5" />
-              <span>Back to {currentCountry.name}</span>
+              <span>{t('backTo')} {currentCountry.name}</span>
             </Link>
             <div className="flex items-center space-x-3">
               <span className="text-4xl">{currentCountry.flag}</span>
               <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-                Application Form
+                {t('applicationForm')}
               </h1>
             </div>
           </div>
@@ -222,10 +222,10 @@ const ApplicationForm = () => {
         <Card>
           <CardHeader>
             <CardTitle className="text-2xl text-center">
-              Complete Your Application for {currentCountry.name}
+              {t('completeApplication')} {currentCountry.name}
             </CardTitle>
             <CardDescription className="text-center">
-              Please fill out all the required information to submit your application
+              {t('fillOutAllRequired')}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -234,12 +234,12 @@ const ApplicationForm = () => {
               <div className="space-y-6">
                 <div className="flex items-center space-x-2 border-b pb-2">
                   <User className="h-5 w-5 text-edu-blue-600" />
-                  <h3 className="text-lg font-semibold">Personal Information</h3>
+                  <h3 className="text-lg font-semibold">{t('personalInformation')}</h3>
                 </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <Label htmlFor="fullName">Full Name *</Label>
+                    <Label htmlFor="fullName">{t('fullName')} *</Label>
                     <Input
                       id="fullName"
                       value={formData.fullName}
@@ -249,7 +249,7 @@ const ApplicationForm = () => {
                   </div>
                   
                   <div>
-                    <Label htmlFor="nationality">Nationality *</Label>
+                    <Label htmlFor="nationality">{t('nationality')} *</Label>
                     <Input
                       id="nationality"
                       value={formData.nationality}
@@ -259,7 +259,7 @@ const ApplicationForm = () => {
                   </div>
 
                   <div>
-                    <Label htmlFor="whatsapp">WhatsApp Number *</Label>
+                    <Label htmlFor="whatsapp">{t('whatsappNumber')} *</Label>
                     <Input
                       id="whatsapp"
                       type="tel"
@@ -271,7 +271,7 @@ const ApplicationForm = () => {
                   </div>
 
                   <div>
-                    <Label htmlFor="preferredStartDate">Preferred Start Date</Label>
+                    <Label htmlFor="preferredStartDate">{t('preferredStartDate')}</Label>
                     <Input
                       id="preferredStartDate"
                       type="date"
@@ -282,7 +282,7 @@ const ApplicationForm = () => {
                 </div>
 
                 <div>
-                  <Label htmlFor="profilePicture">Profile Picture</Label>
+                  <Label htmlFor="profilePicture">{t('profilePicture')}</Label>
                   <Input
                     id="profilePicture"
                     type="file"
@@ -297,38 +297,38 @@ const ApplicationForm = () => {
               <div className="space-y-6">
                 <div className="flex items-center space-x-2 border-b pb-2">
                   <GraduationCap className="h-5 w-5 text-edu-blue-600" />
-                  <h3 className="text-lg font-semibold">Academic Information</h3>
+                  <h3 className="text-lg font-semibold">{t('academicInformation')}</h3>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <Label htmlFor="educationLevel">Current Education Level *</Label>
+                    <Label htmlFor="educationLevel">{t('currentEducationLevel')} *</Label>
                     <Select value={formData.educationLevel} onValueChange={(value) => handleInputChange('educationLevel', value)}>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select education level" />
+                        <SelectValue placeholder={t('selectEducationLevel')} />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="high-school">High School</SelectItem>
-                        <SelectItem value="bachelor">Bachelor's Degree</SelectItem>
-                        <SelectItem value="master">Master's Degree</SelectItem>
-                        <SelectItem value="phd">PhD</SelectItem>
+                        <SelectItem value="high-school">{t('highSchool')}</SelectItem>
+                        <SelectItem value="bachelor">{t('bachelorDegree')}</SelectItem>
+                        <SelectItem value="master">{t('masterDegree')}</SelectItem>
+                        <SelectItem value="phd">{t('phd')}</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
 
                   <div>
-                    <Label htmlFor="studyField">Field of Study *</Label>
+                    <Label htmlFor="studyField">{t('fieldOfStudy')} *</Label>
                     <Input
                       id="studyField"
                       value={formData.studyField}
                       onChange={(e) => handleInputChange('studyField', e.target.value)}
-                      placeholder="e.g., Computer Science, Medicine, Engineering"
+                      placeholder={t('fieldOfStudyPlaceholder')}
                       required
                     />
                   </div>
 
                   <div>
-                    <Label htmlFor="academicGpa">Academic GPA</Label>
+                    <Label htmlFor="academicGpa">{t('academicGpa')}</Label>
                     <Input
                       id="academicGpa"
                       type="number"
@@ -337,61 +337,61 @@ const ApplicationForm = () => {
                       max="4"
                       value={formData.academicGpa}
                       onChange={(e) => handleInputChange('academicGpa', e.target.value)}
-                      placeholder="e.g., 3.75"
+                      placeholder={t('gpaPlaceholder')}
                     />
                   </div>
 
                   <div>
-                    <Label htmlFor="previousDegree">Previous Degree</Label>
+                    <Label htmlFor="previousDegree">{t('previousDegree')}</Label>
                     <Input
                       id="previousDegree"
                       value={formData.previousDegree}
                       onChange={(e) => handleInputChange('previousDegree', e.target.value)}
-                      placeholder="e.g., Bachelor of Science in Physics"
+                      placeholder={t('previousDegreePlaceholder')}
                     />
                   </div>
 
                   <div>
-                    <Label htmlFor="languageOfInstruction">Language of Instruction *</Label>
+                    <Label htmlFor="languageOfInstruction">{t('languageOfInstruction')} *</Label>
                     <Select value={formData.languageOfInstruction} onValueChange={(value) => handleInputChange('languageOfInstruction', value)}>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select language" />
+                        <SelectValue placeholder={t('selectLanguage')} />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="english">English</SelectItem>
-                        <SelectItem value="french">Français</SelectItem>
-                        <SelectItem value="arabic">العربية</SelectItem>
-                        <SelectItem value="local">Local Language</SelectItem>
+                        <SelectItem value="english">{t('english')}</SelectItem>
+                        <SelectItem value="french">{t('french')}</SelectItem>
+                        <SelectItem value="arabic">{t('arabic')}</SelectItem>
+                        <SelectItem value="local">{t('localLanguage')}</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
 
                   <div>
-                    <Label htmlFor="englishProficiency">English Proficiency</Label>
+                    <Label htmlFor="englishProficiency">{t('englishProficiency')}</Label>
                     <Select value={formData.englishProficiency} onValueChange={(value) => handleInputChange('englishProficiency', value)}>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select proficiency level" />
+                        <SelectValue placeholder={t('selectProficiencyLevel')} />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="native">Native Speaker</SelectItem>
-                        <SelectItem value="fluent">Fluent</SelectItem>
-                        <SelectItem value="advanced">Advanced</SelectItem>
-                        <SelectItem value="intermediate">Intermediate</SelectItem>
-                        <SelectItem value="beginner">Beginner</SelectItem>
-                        <SelectItem value="toefl">TOEFL Certified</SelectItem>
-                        <SelectItem value="ielts">IELTS Certified</SelectItem>
+                        <SelectItem value="native">{t('nativeSpeaker')}</SelectItem>
+                        <SelectItem value="fluent">{t('fluent')}</SelectItem>
+                        <SelectItem value="advanced">{t('advanced')}</SelectItem>
+                        <SelectItem value="intermediate">{t('intermediate')}</SelectItem>
+                        <SelectItem value="beginner">{t('beginner')}</SelectItem>
+                        <SelectItem value="toefl">{t('toeflCertified')}</SelectItem>
+                        <SelectItem value="ielts">{t('ieltsCertified')}</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
                 </div>
 
                 <div>
-                  <Label htmlFor="motivationLetter">Motivation Letter</Label>
+                  <Label htmlFor="motivationLetter">{t('motivationLetter')}</Label>
                   <Textarea
                     id="motivationLetter"
                     value={formData.motivationLetter}
                     onChange={(e) => handleInputChange('motivationLetter', e.target.value)}
-                    placeholder="Tell us why you want to study in this country and how it aligns with your goals..."
+                    placeholder={t('motivationLetterPlaceholder')}
                     rows={6}
                   />
                 </div>
@@ -401,22 +401,22 @@ const ApplicationForm = () => {
               <div className="space-y-6">
                 <div className="flex items-center space-x-2 border-b pb-2">
                   <Phone className="h-5 w-5 text-edu-blue-600" />
-                  <h3 className="text-lg font-semibold">Emergency Contact & Support</h3>
+                  <h3 className="text-lg font-semibold">{t('emergencyContactSupport')}</h3>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <Label htmlFor="emergencyContactName">Emergency Contact Name</Label>
+                    <Label htmlFor="emergencyContactName">{t('emergencyContactName')}</Label>
                     <Input
                       id="emergencyContactName"
                       value={formData.emergencyContactName}
                       onChange={(e) => handleInputChange('emergencyContactName', e.target.value)}
-                      placeholder="Full name of emergency contact"
+                      placeholder={t('emergencyContactNamePlaceholder')}
                     />
                   </div>
 
                   <div>
-                    <Label htmlFor="emergencyContactPhone">Emergency Contact Phone</Label>
+                    <Label htmlFor="emergencyContactPhone">{t('emergencyContactPhone')}</Label>
                     <Input
                       id="emergencyContactPhone"
                       type="tel"
@@ -434,7 +434,7 @@ const ApplicationForm = () => {
                       checked={formData.financialSupportNeeded}
                       onCheckedChange={(checked) => handleInputChange('financialSupportNeeded', checked)}
                     />
-                    <Label htmlFor="financialSupport">I need financial support for my studies</Label>
+                    <Label htmlFor="financialSupport">{t('financialSupportNeeded')}</Label>
                   </div>
 
                   <div className="flex items-center space-x-2">
@@ -443,7 +443,7 @@ const ApplicationForm = () => {
                       checked={formData.scholarshipInterest}
                       onCheckedChange={(checked) => handleInputChange('scholarshipInterest', checked)}
                     />
-                    <Label htmlFor="scholarshipInterest">I am interested in scholarship opportunities</Label>
+                    <Label htmlFor="scholarshipInterest">{t('scholarshipInterest')}</Label>
                   </div>
                 </div>
               </div>
@@ -452,11 +452,11 @@ const ApplicationForm = () => {
               <div className="space-y-6">
                 <div className="flex items-center space-x-2 border-b pb-2">
                   <FileText className="h-5 w-5 text-edu-blue-600" />
-                  <h3 className="text-lg font-semibold">Documents Upload</h3>
+                  <h3 className="text-lg font-semibold">{t('documentsUpload')}</h3>
                 </div>
 
                 <div>
-                  <Label htmlFor="documents">Supporting Documents</Label>
+                  <Label htmlFor="documents">{t('supportingDocuments')}</Label>
                   <Input
                     id="documents"
                     type="file"
@@ -466,7 +466,7 @@ const ApplicationForm = () => {
                     className="cursor-pointer"
                   />
                   <p className="text-sm text-gray-500 mt-1">
-                    Upload academic transcripts, certificates, passport copy, etc. (PDF, DOC, or Image files)
+                    {t('documentsDescription')}
                   </p>
                 </div>
               </div>
@@ -479,12 +479,12 @@ const ApplicationForm = () => {
                 {uploadingFiles ? (
                   <>
                     <Upload className="mr-2 h-5 w-5 animate-spin" />
-                    Uploading Files...
+                    {t('uploadingFiles')}
                   </>
                 ) : isSubmitting ? (
-                  'Submitting Application...'
+                  t('submittingApplication')
                 ) : (
-                  'Submit Application'
+                  t('submitApplication')
                 )}
               </Button>
             </form>

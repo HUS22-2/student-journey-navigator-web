@@ -14,6 +14,8 @@ const LanguageSwitcher = () => {
 
   const languages = [
     { code: 'en', name: 'English', flag: '🇺🇸' },
+    { code: 'tr', name: 'Türkçe', flag: '🇹🇷' },
+    { code: 'fr', name: 'Français', flag: '🇫🇷' },
     { code: 'ar', name: 'العربية', flag: '🇸🇦' }
   ];
 
@@ -28,7 +30,7 @@ const LanguageSwitcher = () => {
         {languages.map((lang) => (
           <DropdownMenuItem
             key={lang.code}
-            onClick={() => setLanguage(lang.code as 'en' | 'ar')}
+            onClick={() => setLanguage(lang.code as 'en' | 'tr' | 'fr' | 'ar')}
             className={`cursor-pointer ${language === lang.code ? 'bg-accent' : ''}`}
           >
             <span className="mr-2">{lang.flag}</span>
