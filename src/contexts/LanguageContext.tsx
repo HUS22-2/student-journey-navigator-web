@@ -50,6 +50,9 @@ const translations = {
     applicationSupport: 'Application Support',
     visaAssistance: 'Visa Assistance',
     scholarshipGuidance: 'Scholarship Guidance',
+    universityAdmission: 'University Admission',
+    visaGuidance: 'Visa Guidance',
+    accommodation: 'Accommodation',
     
     // Countries
     studyDestinations: 'Study Destinations',
@@ -60,7 +63,6 @@ const translations = {
     hearFromStudents: 'Hear from students who achieved their dreams with our guidance',
     successRate: 'Success Rate',
     ofStudentsAccepted: 'of students accepted',
-    scholarships: 'Scholarships',
     scholarshipsSecured: 'in scholarships secured',
     partnerUniversities: 'partner universities',
     videoTestimonials: 'Video Testimonials',
@@ -121,6 +123,9 @@ const translations = {
     applicationSupport: 'Başvuru Desteği',
     visaAssistance: 'Vize Yardımı',
     scholarshipGuidance: 'Burs Rehberliği',
+    universityAdmission: 'Üniversite Kabul',
+    visaGuidance: 'Vize Rehberliği',
+    accommodation: 'Konaklama',
     
     // Countries
     studyDestinations: 'Eğitim Destinasyonları',
@@ -131,7 +136,6 @@ const translations = {
     hearFromStudents: 'Rehberliğimizle hayallerine kavuşan öğrencilerden dinleyin',
     successRate: 'Başarı Oranı',
     ofStudentsAccepted: 'öğrenci kabul edildi',
-    scholarships: 'Burslar',
     scholarshipsSecured: 'burs güvence altına alındı',
     partnerUniversities: 'partner üniversite',
     videoTestimonials: 'Video Referanslar',
@@ -192,6 +196,9 @@ const translations = {
     applicationSupport: 'Support de Candidature',
     visaAssistance: 'Assistance Visa',
     scholarshipGuidance: 'Orientation Bourses',
+    universityAdmission: 'Admission Universitaire',
+    visaGuidance: 'Orientation Visa',
+    accommodation: 'Hébergement',
     
     // Countries
     studyDestinations: 'Destinations d\'Études',
@@ -202,7 +209,6 @@ const translations = {
     hearFromStudents: 'Écoutez les étudiants qui ont réalisé leurs rêves grâce à nos conseils',
     successRate: 'Taux de Réussite',
     ofStudentsAccepted: 'des étudiants acceptés',
-    scholarships: 'Bourses',
     scholarshipsSecured: 'de bourses sécurisées',
     partnerUniversities: 'universités partenaires',
     videoTestimonials: 'Témoignages Vidéo',
@@ -263,6 +269,9 @@ const translations = {
     applicationSupport: 'دعم التطبيق',
     visaAssistance: 'مساعدة التأشيرة',
     scholarshipGuidance: 'إرشاد المنح الدراسية',
+    universityAdmission: 'قبول الجامعة',
+    visaGuidance: 'إرشاد التأشيرة',
+    accommodation: 'السكن',
     
     // Countries
     studyDestinations: 'وجهات الدراسة',
@@ -273,7 +282,6 @@ const translations = {
     hearFromStudents: 'استمع إلى الطلاب الذين حققوا أحلامهم بتوجيهنا',
     successRate: 'معدل النجاح',
     ofStudentsAccepted: 'من الطلاب المقبولين',
-    scholarships: 'المنح الدراسية',
     scholarshipsSecured: 'من المنح الدراسية المضمونة',
     partnerUniversities: 'الجامعات الشريكة',
     videoTestimonials: 'شهادات فيديو',
