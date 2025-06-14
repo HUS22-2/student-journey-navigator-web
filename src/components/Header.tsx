@@ -2,20 +2,14 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { useLanguage, Language } from '@/contexts/LanguageContext';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { useTheme } from '@/contexts/ThemeContext';
-import { Menu, X, Moon, Sun, Globe } from 'lucide-react';
+import { Menu, X, Moon, Sun } from 'lucide-react';
 import UserMenu from './UserMenu';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { language, setLanguage, t } = useLanguage();
+  const { t } = useLanguage();
   const { isDark, toggleTheme } = useTheme();
   const location = useLocation();
 
@@ -25,12 +19,6 @@ const Header = () => {
     { name: t('services'), href: '/services' },
     { name: t('testimonials'), href: '/testimonials' },
     { name: t('contact'), href: '/contact' },
-  ];
-
-  const languages = [
-    { code: 'en' as Language, name: 'English', flag: '🇺🇸' },
-    { code: 'ar' as Language, name: 'العربية', flag: '🇸🇦' },
-    { code: 'fr' as Language, name: 'Français', flag: '🇫🇷' },
   ];
 
   return (
@@ -68,29 +56,6 @@ const Header = () => {
           <div className="flex items-center space-x-4">
             {/* User Menu */}
             <UserMenu />
-
-            {/* Language Selector */}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
-                  <Globe className="h-4 w-4" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
-                {languages.map((lang) => (
-                  <DropdownMenuItem
-                    key={lang.code}
-                    onClick={() => setLanguage(lang.code)}
-                    className={`cursor-pointer ${
-                      language === lang.code ? 'bg-edu-blue-50 dark:bg-edu-blue-900/20' : ''
-                    }`}
-                  >
-                    <span className="mr-2">{lang.flag}</span>
-                    {lang.name}
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
 
             {/* Theme Toggle */}
             <Button
