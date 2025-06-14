@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 type Language = 'en' | 'tr' | 'fr' | 'ar';
@@ -61,6 +60,37 @@ const translations = {
     
     // About
     aboutDescription: 'Your trusted partner in international education, helping students achieve their dreams of studying abroad.',
+    
+    // Homepage content
+    welcomeSubtitle: 'Your gateway to world-class education and unforgettable experiences. Discover opportunities, connect with universities, and start your international journey today.',
+    startJourney: 'Start Your Journey',
+    getStarted: 'Get Started',
+    universities: 'Universities',
+    internationalStudents: 'International Students',
+    provinces: 'Provinces',
+    seasons: 'Seasons',
+    everythingAboutTurkey: 'Everything About Turkey',
+    allInformationNeeded: 'All the information you need to make informed decisions about your education abroad',
+    universitiesAndPrograms: 'Universities & Programs',
+    exploreUniversities: 'Explore top universities and academic programs',
+    scholarshipsAndFunding: 'Scholarships & Funding',
+    turkishScholarships: 'Discover Turkish government and university scholarships',
+    citiesAndLifestyle: 'Cities & Lifestyle',
+    discoverCities: 'Discover Turkish cities and student life',
+    economyAndLivingCosts: 'Economy & Living Costs',
+    currentEconomicSituation: 'Current economic situation and cost of living',
+    whyTurkey: 'Why Turkey?',
+    strategicLocation: 'Strategic Location',
+    strategicLocationDesc: 'Bridge between Europe and Asia with rich cultural heritage',
+    culturalRichness: 'Cultural Richness',
+    culturalRichnessDesc: 'Experience diverse cultures and historical significance',
+    hospitality: 'Turkish Hospitality',
+    hospitalityDesc: 'Warm welcome and friendly environment for international students',
+    easyAccess: 'Easy Access',
+    easyAccessDesc: 'Convenient travel connections to Europe, Asia, and Africa',
+    startEducationalJourney: 'Start Your Educational Journey Today',
+    guideFromApplication: 'We guide you from application to graduation - your success is our mission',
+    applyNow: 'Apply Now',
     
     // Services descriptions
     universityAdmissionDesc: 'Complete support for university applications and admissions process.',
@@ -160,6 +190,37 @@ const translations = {
     // About
     aboutDescription: 'Uluslararası eğitimde güvenilir ortağınız, öğrencilerin yurtdışında eğitim alma hayallerini gerçekleştirmelerine yardımcı oluyoruz.',
     
+    // Homepage content
+    welcomeSubtitle: 'Dünya standartlarında eğitim ve unutulmaz deneyimlerin kapısı. Fırsatları keşfedin, üniversitelerle bağlantı kurun ve uluslararası yolculuğunuza bugün başlayın.',
+    startJourney: 'Yolculuğunuza Başlayın',
+    getStarted: 'Başlayın',
+    universities: 'Üniversiteler',
+    internationalStudents: 'Uluslararası Öğrenciler',
+    provinces: 'İller',
+    seasons: 'Mevsimler',
+    everythingAboutTurkey: 'Türkiye Hakkında Her Şey',
+    allInformationNeeded: 'Yurtdışı eğitim konusunda bilinçli kararlar vermeniz için ihtiyacınız olan tüm bilgiler',
+    universitiesAndPrograms: 'Üniversiteler ve Programlar',
+    exploreUniversities: 'En iyi üniversiteleri ve akademik programları keşfedin',
+    scholarshipsAndFunding: 'Burslar ve Finansman',
+    turkishScholarships: 'Türk hükümeti ve üniversite burslarını keşfedin',
+    citiesAndLifestyle: 'Şehirler ve Yaşam Tarzı',
+    discoverCities: 'Türk şehirlerini ve öğrenci yaşamını keşfedin',
+    economyAndLivingCosts: 'Ekonomi ve Yaşam Maliyetleri',
+    currentEconomicSituation: 'Mevcut ekonomik durum ve yaşam maliyeti',
+    whyTurkey: 'Neden Türkiye?',
+    strategicLocation: 'Stratejik Konum',
+    strategicLocationDesc: 'Zengin kültürel miras ile Avrupa ve Asya arasında köprü',
+    culturalRichness: 'Kültürel Zenginlik',
+    culturalRichnessDesc: 'Çeşitli kültürleri ve tarihi önemi deneyimleyin',
+    hospitality: 'Türk Misafirperverliği',
+    hospitalityDesc: 'Uluslararası öğrenciler için sıcak karşılama ve dostane ortam',
+    easyAccess: 'Kolay Erişim',
+    easyAccessDesc: 'Avrupa, Asya ve Afrika\'ya uygun seyahat bağlantıları',
+    startEducationalJourney: 'Eğitim Yolculuğunuza Bugün Başlayın',
+    guideFromApplication: 'Başvurudan mezuniyete kadar size rehberlik ediyoruz - başarınız bizim misyonumuz',
+    applyNow: 'Şimdi Başvur',
+    
     // Services descriptions
     universityAdmissionDesc: 'Üniversite başvuruları ve kabul süreci için tam destek.',
     scholarshipsDesc: 'Yurtdışı eğitiminizi finanse etmek için burs bulun ve başvurun.',
@@ -258,6 +319,37 @@ const translations = {
     // About
     aboutDescription: 'Votre partenaire de confiance en éducation internationale, aidant les étudiants à réaliser leurs rêves d\'études à l\'étranger.',
     
+    // Homepage content
+    welcomeSubtitle: 'Votre passerelle vers une éducation de classe mondiale et des expériences inoubliables. Découvrez les opportunités, connectez-vous avec les universités et commencez votre parcours international aujourd\'hui.',
+    startJourney: 'Commencez Votre Parcours',
+    getStarted: 'Commencer',
+    universities: 'Universités',
+    internationalStudents: 'Étudiants Internationaux',
+    provinces: 'Provinces',
+    seasons: 'Saisons',
+    everythingAboutTurkey: 'Tout sur la Turquie',
+    allInformationNeeded: 'Toutes les informations dont vous avez besoin pour prendre des décisions éclairées sur vos études à l\'étranger',
+    universitiesAndPrograms: 'Universités et Programmes',
+    exploreUniversities: 'Explorez les meilleures universités et programmes académiques',
+    scholarshipsAndFunding: 'Bourses et Financement',
+    turkishScholarships: 'Découvrez les bourses du gouvernement turc et des universités',
+    citiesAndLifestyle: 'Villes et Mode de Vie',
+    discoverCities: 'Découvrez les villes turques et la vie étudiante',
+    economyAndLivingCosts: 'Économie et Coûts de la Vie',
+    currentEconomicSituation: 'Situation économique actuelle et coût de la vie',
+    whyTurkey: 'Pourquoi la Turquie?',
+    strategicLocation: 'Emplacement Stratégique',
+    strategicLocationDesc: 'Pont entre l\'Europe et l\'Asie avec un riche patrimoine culturel',
+    culturalRichness: 'Richesse Culturelle',
+    culturalRichnessDesc: 'Découvrez des cultures diverses et une signification historique',
+    hospitality: 'Hospitalité Turque',
+    hospitalityDesc: 'Accueil chaleureux et environnement convivial pour les étudiants internationaux',
+    easyAccess: 'Accès Facile',
+    easyAccessDesc: 'Connexions de voyage pratiques vers l\'Europe, l\'Asie et l\'Afrique',
+    startEducationalJourney: 'Commencez Votre Parcours Éducatif Aujourd\'hui',
+    guideFromApplication: 'Nous vous guidons de la candidature à la graduation - votre succès est notre mission',
+    applyNow: 'Postuler Maintenant',
+    
     // Services descriptions
     universityAdmissionDesc: 'Support complet pour les candidatures universitaires et le processus d\'admission.',
     scholarshipsDesc: 'Trouvez et postulez pour des bourses pour financer vos études à l\'étranger.',
@@ -355,6 +447,37 @@ const translations = {
     
     // About
     aboutDescription: 'شريكك الموثوق في التعليم الدولي، نساعد الطلاب على تحقيق أحلامهم في الدراسة بالخارج.',
+    
+    // Homepage content
+    welcomeSubtitle: 'بوابتك إلى التعليم العالمي والتجارب التي لا تُنسى. اكتشف الفرص، تواصل مع الجامعات، وابدأ رحلتك الدولية اليوم.',
+    startJourney: 'ابدأ رحلتك',
+    getStarted: 'البدء',
+    universities: 'الجامعات',
+    internationalStudents: 'الطلاب الدوليون',
+    provinces: 'المحافظات',
+    seasons: 'الفصول',
+    everythingAboutTurkey: 'كل شيء عن تركيا',
+    allInformationNeeded: 'جميع المعلومات التي تحتاجها لاتخاذ قرارات مدروسة حول تعليمك في الخارج',
+    universitiesAndPrograms: 'الجامعات والبرامج',
+    exploreUniversities: 'استكشف أفضل الجامعات والبرامج الأكاديمية',
+    scholarshipsAndFunding: 'المنح الدراسية والتمويل',
+    turkishScholarships: 'اكتشف منح الحكومة التركية والجامعات',
+    citiesAndLifestyle: 'المدن ونمط الحياة',
+    discoverCities: 'اكتشف المدن التركية وحياة الطلاب',
+    economyAndLivingCosts: 'الاقتصاد وتكاليف المعيشة',
+    currentEconomicSituation: 'الوضع الاقتصادي الحالي وتكلفة المعيشة',
+    whyTurkey: 'لماذا تركيا؟',
+    strategicLocation: 'الموقع الاستراتيجي',
+    strategicLocationDesc: 'جسر بين أوروبا وآسيا مع تراث ثقافي غني',
+    culturalRichness: 'الثراء الثقافي',
+    culturalRichnessDesc: 'اختبر الثقافات المتنوعة والأهمية التاريخية',
+    hospitality: 'الضيافة التركية',
+    hospitalityDesc: 'ترحيب حار وبيئة ودية للطلاب الدوليين',
+    easyAccess: 'سهولة الوصول',
+    easyAccessDesc: 'اتصالات سفر مريحة إلى أوروبا وآسيا وأفريقيا',
+    startEducationalJourney: 'ابدأ رحلتك التعليمية اليوم',
+    guideFromApplication: 'نحن نرشدك من التطبيق إلى التخرج - نجاحك هو مهمتنا',
+    applyNow: 'تقدم الآن',
     
     // Services descriptions
     universityAdmissionDesc: 'دعم كامل لطلبات الجامعة وعملية القبول.',
