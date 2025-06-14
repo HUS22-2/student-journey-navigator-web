@@ -195,7 +195,6 @@ const translations = {
     status: "Status",
     action: "Action",
     apply: "Apply",
-    closed: "Closed",
     availableScholarships: "Available Scholarships",
     fundingOpportunities: "Funding opportunities for international students in",
     coverage: "Coverage",
@@ -439,7 +438,6 @@ const translations = {
     status: "الحالة",
     action: "الإجراء",
     apply: "قدم طلب",
-    closed: "مغلق",
     availableScholarships: "المنح الدراسية المتاحة",
     fundingOpportunities: "فرص التمويل للطلاب الدوليين في",
     coverage: "التغطية",
@@ -497,7 +495,7 @@ const translations = {
     highAcademicPerformance: "الأداء الأكاديمي المرتفع",
     financialNeedMerit: "الحاجة المالية، الجدارة الأكاديمية",
     excellenceUnder30: "التفوق الأكاديمي، العمر أقل من 30 سنة",
-    academicExcellenceUnder35: "التفوق الأكاديمي،年龄 أقل من 35 سنة"
+    academicExcellenceUnder35: "التفوق الأكاديمي، العمر أقل من 35 سنة"
   }
 };
 
