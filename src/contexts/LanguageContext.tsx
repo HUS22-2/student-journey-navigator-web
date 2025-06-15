@@ -1,3 +1,4 @@
+
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 type Language = 'en' | 'tr' | 'fr' | 'ar';
@@ -44,6 +45,32 @@ const translations = {
     aboutTitle: 'About EduConsult',
     aboutDescription: 'EduConsult is a leading educational consultancy specializing in helping MENA students navigate their journey to international education.',
     
+    // About Page Stats
+    studentsHelped: 'Students Helped',
+    successRate: 'Success Rate',
+    countries: 'Countries',
+    yearsExperience: 'Years Experience',
+    
+    // About Page Mission
+    ourMission: 'Our Mission',
+    missionDescription1: 'To bridge the gap between talented students from the MENA region and world-class educational opportunities abroad. We believe that every student deserves access to quality education, regardless of their geographical location or financial circumstances.',
+    missionDescription2: 'Our team of experienced consultants works tirelessly to match students with programs that align with their academic goals, career aspirations, and personal values. We provide comprehensive support throughout the entire journey, from initial consultation to graduation.',
+    ourVision: 'Our Vision',
+    visionDescription: 'To become the most trusted educational consultancy in the MENA region, known for our commitment to student success and ethical practices.',
+    
+    // About Page Team
+    meetOurTeam: 'Meet Our Team',
+    teamDescription: 'Our diverse team of education experts, visa specialists, and student advisors are here to guide you every step of the way.',
+    
+    // About Page Values
+    ourCoreValues: 'Our Core Values',
+    trustIntegrity: 'Trust & Integrity',
+    trustDescription: 'We maintain the highest standards of honesty and transparency in all our interactions with students and partner institutions.',
+    excellence: 'Excellence',
+    excellenceDescription: 'We strive for excellence in everything we do, from our consultation services to our ongoing support for students abroad.',
+    studentCentered: 'Student-Centered',
+    studentCenteredDescription: 'Every decision we make is guided by what is best for our students. Their success is our success.',
+    
     // Services
     servicesTitle: 'Our Services',
     universitySelection: 'University Selection',
@@ -61,7 +88,6 @@ const translations = {
     // Testimonials
     studentSuccessStories: 'Student Success Stories',
     hearFromStudents: 'Hear from students who achieved their dreams with our guidance',
-    successRate: 'Success Rate',
     ofStudentsAccepted: 'of students accepted',
     scholarshipsSecured: 'in scholarships secured',
     partnerUniversities: 'partner universities',
@@ -118,6 +144,32 @@ const translations = {
     aboutTitle: 'EduConsult Hakkında',
     aboutDescription: 'EduConsult, MENA öğrencilerinin uluslararası eğitim yolculuklarında rehberlik etme konusunda uzmanlaşmış önde gelen bir eğitim danışmanlığıdır.',
     
+    // About Page Stats
+    studentsHelped: 'Yardım Edilen Öğrenciler',
+    successRate: 'Başarı Oranı',
+    countries: 'Ülkeler',
+    yearsExperience: 'Yıllık Deneyim',
+    
+    // About Page Mission
+    ourMission: 'Misyonumuz',
+    missionDescription1: 'MENA bölgesindeki yetenekli öğrenciler ile yurtdışındaki dünya standartlarındaki eğitim fırsatları arasındaki köprüyü kurmak. Her öğrencinin coğrafi konumu veya mali durumu ne olursa olsun kaliteli eğitime erişim hakkı olduğuna inanıyoruz.',
+    missionDescription2: 'Deneyimli danışmanlardan oluşan ekibimiz, öğrencileri akademik hedefleri, kariyer aspirasyonları ve kişisel değerleri ile uyumlu programlarla eşleştirmek için yorulmadan çalışmaktadır. İlk danışmanlıktan mezuniyete kadar tüm yolculuk boyunca kapsamlı destek sağlıyoruz.',
+    ourVision: 'Vizyonumuz',
+    visionDescription: 'MENA bölgesindeki en güvenilir eğitim danışmanlığı olmak, öğrenci başarısına olan bağlılığımız ve etik uygulamalarımızla tanınmak.',
+    
+    // About Page Team
+    meetOurTeam: 'Ekibimizle Tanışın',
+    teamDescription: 'Eğitim uzmanları, vize uzmanları ve öğrenci danışmanlarından oluşan çeşitli ekibimiz her adımda size rehberlik etmek için burada.',
+    
+    // About Page Values
+    ourCoreValues: 'Temel Değerlerimiz',
+    trustIntegrity: 'Güven ve Dürüstlük',
+    trustDescription: 'Öğrenciler ve partner kurumlarla olan tüm etkileşimlerimizde en yüksek dürüstlük ve şeffaflık standartlarını koruyoruz.',
+    excellence: 'Mükemmellik',
+    excellenceDescription: 'Danışmanlık hizmetlerimizden yurtdışındaki öğrencilere sürekli desteğimize kadar yaptığımız her şeyde mükemmellik için çaba gösteriyoruz.',
+    studentCentered: 'Öğrenci Odaklı',
+    studentCenteredDescription: 'Aldığımız her karar öğrencilerimiz için en iyi olanla yönlendirilir. Onların başarısı bizim başarımızdır.',
+    
     // Services
     servicesTitle: 'Hizmetlerimiz',
     universitySelection: 'Üniversite Seçimi',
@@ -135,7 +187,6 @@ const translations = {
     // Testimonials
     studentSuccessStories: 'Öğrenci Başarı Hikayeleri',
     hearFromStudents: 'Rehberliğimizle hayallerine kavuşan öğrencilerden dinleyin',
-    successRate: 'Başarı Oranı',
     ofStudentsAccepted: 'öğrenci kabul edildi',
     scholarshipsSecured: 'burs güvence altına alındı',
     partnerUniversities: 'partner üniversite',
@@ -192,6 +243,32 @@ const translations = {
     aboutTitle: 'À Propos d\'EduConsult',
     aboutDescription: 'EduConsult est un cabinet de conseil éducatif de premier plan spécialisé dans l\'aide aux étudiants MENA pour naviguer dans leur parcours vers l\'éducation internationale.',
     
+    // About Page Stats
+    studentsHelped: 'Étudiants Aidés',
+    successRate: 'Taux de Réussite',
+    countries: 'Pays',
+    yearsExperience: 'Années d\'Expérience',
+    
+    // About Page Mission
+    ourMission: 'Notre Mission',
+    missionDescription1: 'Combler le fossé entre les étudiants talentueux de la région MENA et les opportunités éducatives de classe mondiale à l\'étranger. Nous croyons que chaque étudiant mérite l\'accès à une éducation de qualité, indépendamment de sa localisation géographique ou de sa situation financière.',
+    missionDescription2: 'Notre équipe de consultants expérimentés travaille sans relâche pour faire correspondre les étudiants avec des programmes qui s\'alignent sur leurs objectifs académiques, leurs aspirations professionnelles et leurs valeurs personnelles. Nous fournissons un soutien complet tout au long du parcours, de la consultation initiale à la diplomation.',
+    ourVision: 'Notre Vision',
+    visionDescription: 'Devenir le cabinet de conseil éducatif le plus fiable de la région MENA, connu pour notre engagement envers le succès des étudiants et nos pratiques éthiques.',
+    
+    // About Page Team
+    meetOurTeam: 'Rencontrez Notre Équipe',
+    teamDescription: 'Notre équipe diversifiée d\'experts en éducation, de spécialistes des visas et de conseillers étudiants sont là pour vous guider à chaque étape.',
+    
+    // About Page Values
+    ourCoreValues: 'Nos Valeurs Fondamentales',
+    trustIntegrity: 'Confiance et Intégrité',
+    trustDescription: 'Nous maintenons les plus hauts standards d\'honnêteté et de transparence dans toutes nos interactions avec les étudiants et les institutions partenaires.',
+    excellence: 'Excellence',
+    excellenceDescription: 'Nous nous efforçons d\'atteindre l\'excellence dans tout ce que nous faisons, de nos services de consultation à notre soutien continu pour les étudiants à l\'étranger.',
+    studentCentered: 'Centré sur l\'Étudiant',
+    studentCenteredDescription: 'Chaque décision que nous prenons est guidée par ce qui est le mieux pour nos étudiants. Leur succès est notre succès.',
+    
     // Services
     servicesTitle: 'Nos Services',
     universitySelection: 'Sélection d\'Université',
@@ -209,7 +286,6 @@ const translations = {
     // Testimonials
     studentSuccessStories: 'Histoires de Réussite des Étudiants',
     hearFromStudents: 'Écoutez les étudiants qui ont réalisé leurs rêves grâce à nos conseils',
-    successRate: 'Taux de Réussite',
     ofStudentsAccepted: 'des étudiants acceptés',
     scholarshipsSecured: 'de bourses sécurisées',
     partnerUniversities: 'universités partenaires',
@@ -266,6 +342,32 @@ const translations = {
     aboutTitle: 'حول EduConsult',
     aboutDescription: 'EduConsult هي شركة استشارات تعليمية رائدة متخصصة في مساعدة طلاب منطقة الشرق الأوسط وشمال أفريقيا في رحلتهم نحو التعليم الدولي.',
     
+    // About Page Stats
+    studentsHelped: 'الطلاب الذين تم مساعدتهم',
+    successRate: 'معدل النجاح',
+    countries: 'البلدان',
+    yearsExperience: 'سنوات الخبرة',
+    
+    // About Page Mission
+    ourMission: 'مهمتنا',
+    missionDescription1: 'سد الفجوة بين الطلاب الموهوبين من منطقة الشرق الأوسط وشمال أفريقيا والفرص التعليمية ذات المستوى العالمي في الخارج. نؤمن بأن كل طالب يستحق الوصول إلى تعليم عالي الجودة، بغض النظر عن موقعه الجغرافي أو ظروفه المالية.',
+    missionDescription2: 'فريقنا من الاستشاريين ذوي الخبرة يعمل بلا كلل لمطابقة الطلاب مع البرامج التي تتماشى مع أهدافهم الأكاديمية وطموحاتهم المهنية وقيمهم الشخصية. نحن نقدم الدعم الشامل طوال الرحلة بأكملها، من الاستشارة الأولى حتى التخرج.',
+    ourVision: 'رؤيتنا',
+    visionDescription: 'أن نصبح شركة الاستشارات التعليمية الأكثر ثقة في منطقة الشرق الأوسط وشمال أفريقيا، والمعروفة بالتزامنا بنجاح الطلاب وممارساتنا الأخلاقية.',
+    
+    // About Page Team
+    meetOurTeam: 'تعرف على فريقنا',
+    teamDescription: 'فريقنا المتنوع من خبراء التعليم ومتخصصي التأشيرات ومستشاري الطلاب موجودون هنا لإرشادك في كل خطوة.',
+    
+    // About Page Values
+    ourCoreValues: 'قيمنا الأساسية',
+    trustIntegrity: 'الثقة والنزاهة',
+    trustDescription: 'نحافظ على أعلى معايير الصدق والشفافية في جميع تفاعلاتنا مع الطلاب والمؤسسات الشريكة.',
+    excellence: 'التميز',
+    excellenceDescription: 'نسعى للتميز في كل ما نفعله، من خدمات الاستشارة إلى دعمنا المستمر للطلاب في الخارج.',
+    studentCentered: 'محوره الطالب',
+    studentCenteredDescription: 'كل قرار نتخذه يُوجه بما هو الأفضل لطلابنا. نجاحهم هو نجاحنا.',
+    
     // Services
     servicesTitle: 'خدماتنا',
     universitySelection: 'اختيار الجامعة',
@@ -283,7 +385,6 @@ const translations = {
     // Testimonials
     studentSuccessStories: 'قصص نجاح الطلاب',
     hearFromStudents: 'استمع إلى الطلاب الذين حققوا أحلامهم بتوجيهنا',
-    successRate: 'معدل النجاح',
     ofStudentsAccepted: 'من الطلاب المقبولين',
     scholarshipsSecured: 'من المنح الدراسية المضمونة',
     partnerUniversities: 'الجامعات الشريكة',
